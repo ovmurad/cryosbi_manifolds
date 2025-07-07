@@ -1,0 +1,10 @@
+# .gitignore
+.idea
+__pycache__
+.pytest_cache
+*.pyc
+*.pyo
+*.pyd
+*.pdf
+/data/*
+!/data/.gitkeep

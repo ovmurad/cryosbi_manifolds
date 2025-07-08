@@ -9,5 +9,5 @@
 - You should be all set!
 
 The main analysis from the manuscript [``Cryo-em images are intrinsically low dimensional''](https://arxiv.org/abs/2504.11249) is carried out in:
-- `src/analysis_hem.py` for the simulated and experimental hemagglutinin data
-- `src/analysis_igg.py` for the simulated igg data
+- `scripts/analysis_hem.py` for the simulated and experimental hemagglutinin data
+- `scripts/analysis_igg.py` for the simulated igg data

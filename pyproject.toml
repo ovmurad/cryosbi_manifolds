@@ -3,7 +3,8 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
-name = "cryo_experiments"
+name = "cryo-experiments"
+package-mode = false
 version = "1.0.0"
 description = ""
 authors = ["Octavian-Vlad Murad <muradoctavian@gmail.com>"]

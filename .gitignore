@@ -6,7 +6,6 @@ __pycache__
 *.pyo
 *.pyd
 *.pdf
-/data/hemagglutinin_data
-/data/igg_data
+.data/hemagglutinin_data
 poetry.lock
 .DS_STORE

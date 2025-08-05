@@ -2,12 +2,12 @@
 
 ## Installation Guide.
 - The project requires python3.12 or newer, so please install such a version.
-- We recommend installing the project in a virtual environment, such as a python `venv`. An example script for creating a venv `cryosbi_manifolds` in a parent directory `VENVS_DIR', and then activating the environment, is
+- We recommend installing the project in a virtual environment, such as a python `venv`. An example script for creating a venv `cryosbi_manifolds` in a parent directory `VENVS_DIR`, and then activating the environment, is
 ```
 python -m venv VENVS_DIR/cryosbi_manifolds
 source VENVS_DIR/cryosbi_manifolds/bin/activate
 ```
-- After activating a virtual environment, installation requires: cloning the directory, installing the package with pip, and installing megaman from lib. This can be all be done via:
+- After activating a virtual environment, installation requires: cloning the directory, installing the package with pip, and installing megaman from lib. This can be be done via:
 ```
 git clone https://github.com/ovmurad/cryosbi_manifolds.git
 cd ensemble_sim

@@ -6,6 +6,7 @@ __pycache__
 *.pyo
 *.pyd
 *.pdf
-/data/*
-!/data/.gitkeep
+/data/hemagglutinin_data
+/data/igg_data
 poetry.lock
+.DS_STORE

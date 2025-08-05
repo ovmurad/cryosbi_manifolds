@@ -1,4 +1,1 @@
-from pathlib import Path
-
-PROJECT_DIR = Path("../")
-DATA_DIR = PROJECT_DIR / "data"
+Script started on Tue Aug  5 17:04:32 2025

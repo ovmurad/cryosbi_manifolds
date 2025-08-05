@@ -42,13 +42,20 @@ class Database:
         raise ValueError(f"Invalid dir type {dir_name}!")
 
     def __init__(
-        self, database_name: str, dir_names: Optional[Sequence[str]] = None
-    ) -> None:
+        self, 
+        database_name: str, 
+        dir_names: Optional[Sequence[str]] = None,
+        mode='safe') -> None:
 
         self.path: Path = DATA_DIR / database_name
 
         if not self.path.exists():
-            raise NotADirectoryError(f"Dir {self.path} does not exist!")
+            if mode == "safe":
+                raise NotADirectoryError(f"Dir {self.path} does not exist!")
+            else:
+                if not self.path.exists():
+                    print(f"Created dir '{self.path}'.")
+                    self.path.mkdir()
 
         self.db_dirs: Dict[str, DatabaseDir] = {}
 

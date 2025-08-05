@@ -54,7 +54,9 @@ EXP_SUBSAMPLE_KEY_PAIRS = (("points", "exp"),) + tuple(
     ("params", f"exp_{p}") for p in NET_PARAMS
 )
 
-DATASET_NAME = "hem_latent_vecs_256"
+# This needs to be the name of the folder in data/ with all latent data from cryosbi
+DATASET_NAME = "hemagglutinin_data"
+
 SIM_NAME = "sim"
 EXP_NAME = "exp"
 DATA_NAMES = (EXP_NAME, SIM_NAME)
@@ -70,8 +72,8 @@ VALID_NAME = "valid"
 CLEAN_NAME = "clean"
 UNIFORM_NAME = "unif"
 
-all_dataset = Database(database_name=f"{DATASET_NAME}_all")
-final_dataset = Database(database_name=f"{DATASET_NAME}_final")
+all_dataset = Database(database_name=f"{DATASET_NAME}")
+final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode="append")
 
 # ------------------ ANALYSIS PARAMETERS ------------------
 

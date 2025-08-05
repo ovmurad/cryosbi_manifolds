@@ -19,7 +19,7 @@ from .utils import get_file_paths_in_dir, is_empty_dir
 # Dir Manager Modes
 
 # safe: file_path must exist during init, cannot overwrite at save.
-# append: if file_path doesn't exist at init make dir, cannot overwrite at save.
+# open: if file_path doesn't exist at init make dir, cannot overwrite at save.
 # append: if file_path doesn't exist at init make dir, if file exists at save, skip.
 # overwrite: if file_path doesn't exist at init make dir, overwrite at save.
 # new: if file_path doesn't exist at init make dir, if it does exist, empty it.

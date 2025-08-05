@@ -1,6 +1,6 @@
 import pytest
 
-from src.geometry_analysis.io.utils import (
+from geometry_analysis.io.utils import (
     find_unique_path_in_dir,
     get_dir_paths_in_dir,
     get_file_paths_in_dir,

@@ -5,9 +5,9 @@ import numpy as np
 import seaborn as sns
 from matplotlib.axes import Axes
 
-from src.geometry_analysis.arr import IntDeArr, DeArr, RealArr, NT, BoolDeArr
-from src.geometry_analysis.arr import reduce_arr_with_func
-from src.geometry_analysis.geometry import (
+from geometry_analysis.arr import IntDeArr, DeArr, RealArr, NT, BoolDeArr
+from geometry_analysis.arr import reduce_arr_with_func
+from geometry_analysis.geometry import (
     count_x,
     dist,
     doubling_dimension,
@@ -17,9 +17,9 @@ from src.geometry_analysis.geometry import (
     score_from_mult_knn_dist,
     density_from_mult_n_count,
 )
-from src.geometry_analysis.io import Database
-from src.geometry_analysis.sampling import RANDOM_STATE
-from src.geometry_analysis.utils import create_grid_1d
+from geometry_analysis.io import Database
+from geometry_analysis.sampling import RANDOM_STATE
+from geometry_analysis.utils import create_grid_1d
 
 
 def _format_single_key(dn: str, mn: str) -> str:

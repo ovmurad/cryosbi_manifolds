@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from data import EPS, Arr
-from src.geometry_analysis.geometry.affinity import affinity
+from geometry_analysis.geometry.affinity import affinity
 from utils import assert_arr_equal, assert_arr_in_place
 
 

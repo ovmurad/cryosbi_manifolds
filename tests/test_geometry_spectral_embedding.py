@@ -6,8 +6,8 @@ from megaman.embedding.spectral_embedding import (
     spectral_embedding as megaman_spectral_embedding,
 )
 from megaman.geometry import Geometry
-from src.geometry_analysis.geometry.spectral_embedding import spectral_embedding
-from src.geometry_analysis.sampling.constants import RANDOM_STATE
+from geometry_analysis.geometry.spectral_embedding import spectral_embedding
+from geometry_analysis.sampling.constants import RANDOM_STATE
 
 from data import EPS, Arr
 from utils import assert_arr_changed, assert_eig_equal

@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from data import NROWS, Arr
-from src.geometry_analysis.linalg.covariance import covariance, local_covariance
+from geometry_analysis.linalg.covariance import covariance, local_covariance
 from utils import assert_arr_changed, assert_arr_equal
 
 

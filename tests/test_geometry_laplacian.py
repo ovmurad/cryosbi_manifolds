@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from data import EPS, Arr
-from src.geometry_analysis.geometry.laplacian import laplacian
+from geometry_analysis.geometry.laplacian import laplacian
 from utils import assert_arr_equal, assert_arr_in_place
 
 

@@ -4,14 +4,14 @@ import numpy as np
 import pytest
 
 from data import NROWS, SHAPE, Index
-from src.geometry_analysis.arr.index.transforms import (
+from geometry_analysis.arr.index.transforms import (
     ax_idx_to_ax_mask,
     ax_loc_to_csr_idx,
     ax_mask_to_csr_idx,
     coo_loc_to_csr_idx,
     coo_mask_to_csr_idx,
 )
-from src.geometry_analysis.arr.index.type_guards import (
+from geometry_analysis.arr.index.type_guards import (
     is_ax_loc,
     is_ax_mask,
     is_ax_slice,

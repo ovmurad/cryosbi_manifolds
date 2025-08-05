@@ -3,8 +3,8 @@ import pytest
 from scipy.sparse import csr_matrix
 
 from data import Arr
-from src.geometry_analysis.arr.cast import cast_sp_to_de
-from src.geometry_analysis.arr.normalize import normalize_arr
+from geometry_analysis.arr.cast import cast_sp_to_de
+from geometry_analysis.arr.normalize import normalize_arr
 from utils import assert_arr_equal, assert_arr_in_place, mask_de
 
 

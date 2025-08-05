@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from scipy.sparse import csr_matrix
 
-from src.geometry_analysis.utils.dilation import graph_dilation
+from geometry_analysis.utils.dilation import graph_dilation
 
 
 class TestDilation:

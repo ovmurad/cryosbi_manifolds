@@ -2,8 +2,8 @@ import numpy as np
 import pytest
 from scipy.sparse import csr_matrix
 
-from src.geometry_analysis.arr.index import is_ax_loc
-from src.geometry_analysis.linalg.tan_space_proj import (
+from geometry_analysis.arr.index import is_ax_loc
+from geometry_analysis.linalg.tan_space_proj import (
     local_tan_space_proj,
     tan_space_proj,
 )

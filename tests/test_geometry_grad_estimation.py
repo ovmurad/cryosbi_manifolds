@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from data import NROWS, SUBSPACE_DIM, Arr
-from src.geometry_analysis.geometry.grad_estimation import (
+from geometry_analysis.geometry.grad_estimation import (
     grad_estimation,
     local_grad_estimation,
 )

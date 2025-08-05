@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from src.geometry_analysis.io import Database
+from geometry_analysis.io import Database
 
 igg_dataset = Database(database_name="hem_latent_vecs_256_final")
 hem_dataset = Database(database_name="hem_latent_vecs_256_final")

@@ -6,13 +6,13 @@ from megaman.utils.estimate_radius import compute_nbr_wts
 from megaman.utils.estimate_radius import distortion as megaman_distortion
 
 from data import NROWS, Arr
-from src.geometry_analysis.geometry.distortion import (
+from geometry_analysis.geometry.distortion import (
     distortion,
     local_distortion,
     radii_distortions,
 )
-from src.geometry_analysis.geometry.func_of_dist import dist
-from src.geometry_analysis.sampling.sampling import sample_array
+from geometry_analysis.geometry.func_of_dist import dist
+from geometry_analysis.sampling.sampling import sample_array
 from utils import assert_arr_changed, assert_arr_equal
 
 

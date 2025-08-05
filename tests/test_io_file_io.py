@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 from scipy.sparse import csr_matrix
 
-from src.geometry_analysis.io.file_io import (
+from geometry_analysis.io.file_io import (
     delete_any,
     io_handler_factory,
     load_any,

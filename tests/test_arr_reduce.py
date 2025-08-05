@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from data import Arr
-from src.geometry_analysis.arr.reduce import (
+from geometry_analysis.arr.reduce import (
     reduce_arr_to_degrees,
     reduce_arr_to_nnz,
     reduce_arr_with_func,

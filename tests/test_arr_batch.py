@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from data import NROWS, Arr
-from src.geometry_analysis.arr.batch import iter_arr_batches
+from geometry_analysis.arr.batch import iter_arr_batches
 from utils import assert_arr_equal, assert_arr_in_place
 
 

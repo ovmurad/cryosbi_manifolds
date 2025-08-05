@@ -2,11 +2,11 @@ import numpy as np
 import pytest
 
 from data import SUBSPACE_DIM, Arr
-from src.geometry_analysis.geometry.affinity import affinity
-from src.geometry_analysis.geometry.func_of_dist import dist
-from src.geometry_analysis.geometry.laplacian import laplacian
-from src.geometry_analysis.geometry.riemannian_relaxation import riemannian_relaxation
-from src.geometry_analysis.geometry.rmetric import local_rmetric
+from geometry_analysis.geometry.affinity import affinity
+from geometry_analysis.geometry.func_of_dist import dist
+from geometry_analysis.geometry.laplacian import laplacian
+from geometry_analysis.geometry.riemannian_relaxation import riemannian_relaxation
+from geometry_analysis.geometry.rmetric import local_rmetric
 
 
 class TestRiemannianRelaxation:

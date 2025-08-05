@@ -4,12 +4,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 
-from src.geometry_analysis.utils import create_grid_1d
-from src.geometry_analysis.io import Database
-from src.geometry_analysis.sampling import RANDOM_STATE, sample_array
-from src.geometry_analysis.arr import reduce_arr_to_degrees, reduce_arr_with_func
-from src.geometry_analysis.linalg import local_weighted_pca_iter
-from src.geometry_analysis.geometry import (
+from geometry_analysis.utils import create_grid_1d
+from geometry_analysis.io import Database
+from geometry_analysis.sampling import RANDOM_STATE, sample_array
+from geometry_analysis.arr import reduce_arr_to_degrees, reduce_arr_with_func
+from geometry_analysis.linalg import local_weighted_pca_iter
+from geometry_analysis.geometry import (
     dist,
     count_x,
     affinity,
@@ -27,7 +27,7 @@ from src.geometry_analysis.geometry import (
     density_from_mult_n_count,
     ies,
 )
-from scripts.utils import (
+from geometry_analysis.utils.script_utils import (
     compute_split_masks,
     compute_distance_statistics,
     detect_outliers,

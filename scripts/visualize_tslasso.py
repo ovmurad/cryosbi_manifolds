@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
-from src.geometry_analysis.io import Database
-from src.geometry_analysis.utils import create_grid_1d
+from geometry_analysis.io import Database
+from geometry_analysis.utils import create_grid_1d
 
 sns.set_style("darkgrid")
 

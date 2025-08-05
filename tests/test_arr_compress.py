@@ -3,8 +3,8 @@ import pytest
 from scipy.sparse import csr_matrix
 
 from data import SHAPE, Arr, Index
-from src.geometry_analysis.arr.cast import cast_sp_to_de
-from src.geometry_analysis.arr.compress import (
+from geometry_analysis.arr.cast import cast_sp_to_de
+from geometry_analysis.arr.compress import (
     compress_de_axes,
     compress_de_axis,
     compress_de_axis_to_sp,
@@ -13,7 +13,7 @@ from src.geometry_analysis.arr.compress import (
     compress_sp_axes,
     compress_sp_axis,
 )
-from src.geometry_analysis.arr.index.type_guards import is_box_slice, is_coo_loc
+from geometry_analysis.arr.index.type_guards import is_box_slice, is_coo_loc
 from utils import assert_arr_equal, assert_arr_in_place
 
 

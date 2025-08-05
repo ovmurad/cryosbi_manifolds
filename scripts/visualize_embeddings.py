@@ -7,9 +7,9 @@ import pandas as pd
 import seaborn as sns
 from mpl_toolkits.mplot3d import Axes3D
 
-from src.geometry_analysis.arr import AxIdx
-from src.geometry_analysis.io import Database
-from src.geometry_analysis.visualization import COLORS, normalize_color
+from geometry_analysis.arr import AxIdx
+from geometry_analysis.io import Database
+from geometry_analysis.visualization import COLORS, normalize_color
 
 
 DATASET = Database(database_name="hem_latent_vecs_256_final")

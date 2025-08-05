@@ -4,7 +4,7 @@ from scipy.sparse import csr_matrix
 
 from data import NON_TRIVIAL_THRESHOLDS, THRESHOLDS, Arr
 from geometry_analysis.geometry import count_x, count_xy, count_y, dist, neigh
-from src.geometry_analysis.arr.cast import cast_sp_to_de
+from geometry_analysis.arr.cast import cast_sp_to_de
 from utils import assert_arr_changed, assert_arr_equal
 
 

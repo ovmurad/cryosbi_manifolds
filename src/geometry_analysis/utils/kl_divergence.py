@@ -1,9 +1,9 @@
 import numpy as np
 import scipy as sp
-from src.geometry_analysis.geometry import dist
-from src.geometry_analysis.io import Database
-from src.geometry_analysis.sampling import sample_array, train_val_test_split
-from src.geometry_analysis.utils import create_grid_1d
+from geometry_analysis.geometry import dist
+from geometry_analysis.io import Database
+from geometry_analysis.sampling import sample_array, train_val_test_split
+from geometry_analysis.utils import create_grid_1d
 
 KDE_BANDWIDTHS = create_grid_1d(start=0.1, stop=0.6, step_size=0.01, scale="linear")
 medium_dataset = Database(database_name="hem_latent_vecs_256_all")

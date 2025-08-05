@@ -3,8 +3,8 @@ from typing import Union, Dict, Optional
 import numpy as np
 from scipy.special import gamma
 
-from src.geometry_analysis.arr import RealArr, RealDeArr, IntDeArr
-from src.geometry_analysis.arr import reduce_arr_with_func
+from geometry_analysis.arr import RealArr, RealDeArr, IntDeArr
+from geometry_analysis.arr import reduce_arr_with_func
 
 
 def score_from_knn_dist(knn_dist_train: RealArr, knn_dist_test: RealArr) -> RealDeArr:

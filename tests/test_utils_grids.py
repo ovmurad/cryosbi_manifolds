@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from src.geometry_analysis.utils.grids import create_grid_1d
+from geometry_analysis.utils.grids import create_grid_1d
 
 
 class TestCreate1dGrid:

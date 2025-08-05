@@ -1,8 +1,8 @@
 import numpy as np
 from scipy.sparse import csr_matrix
 
-from src.geometry_analysis.arr.cast import cast_sp_to_de
-from src.geometry_analysis.arr.utils import get_fill_value
+from geometry_analysis.arr.cast import cast_sp_to_de
+from geometry_analysis.arr.utils import get_fill_value
 
 
 def _get_keep_mask_for_de(arr, mask, thresh, rm_value):

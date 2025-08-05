@@ -1,7 +1,7 @@
 import pytest
 
 from data import Arr
-from src.geometry_analysis.arr.threshold import threshold_arr
+from geometry_analysis.arr.threshold import threshold_arr
 from utils import assert_arr_equal, assert_arr_in_place, mask_de, mask_sp
 
 

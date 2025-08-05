@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 from megaman.geometry import RiemannMetric
-from src.geometry_analysis.geometry.rmetric import local_rmetric, rmetric
+from geometry_analysis.geometry.rmetric import local_rmetric, rmetric
 
 from data import NROWS, Arr
 from utils import assert_arr_changed, assert_arr_equal, assert_eig_equal

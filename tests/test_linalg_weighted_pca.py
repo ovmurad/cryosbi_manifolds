@@ -2,7 +2,7 @@ import numpy as np
 import pytest
 
 from data import NROWS, Arr
-from src.geometry_analysis.linalg.weighted_pca import local_weighted_pca, weighted_pca
+from geometry_analysis.linalg.weighted_pca import local_weighted_pca, weighted_pca
 from utils import assert_arr_changed, assert_arr_equal, assert_eig_equal
 
 

@@ -2,8 +2,8 @@ import numpy as np
 from scipy.sparse import csr_matrix
 from scipy.stats import ortho_group
 from sklearn.metrics import pairwise_distances
-from src.geometry_analysis.arr.index.transforms import ax_idx_to_ax_mask
-from src.geometry_analysis.sampling.constants import RANDOM_STATE
+from geometry_analysis.arr.index.transforms import ax_idx_to_ax_mask
+from geometry_analysis.sampling.constants import RANDOM_STATE
 
 from utils import cast_to_de, mask_de
 

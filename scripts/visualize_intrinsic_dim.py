@@ -3,14 +3,14 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 
-from src.geometry_analysis.geometry.intrinsic_dim_estimation import (
+from geometry_analysis.geometry.intrinsic_dim_estimation import (
     slope_estimation,
     log_ratio_estimation,
     eigen_gap_estimation,
     levina_bickel,
 )
-from src.geometry_analysis.io import Database
-from src.geometry_analysis.visualization import make_radius_dict_df
+from geometry_analysis.io import Database
+from geometry_analysis.visualization import make_radius_dict_df
 
 sns.set_style("whitegrid")
 palette = {"hem_exp": "red", "hem_sim": "blue", "igg_sim": "green"}

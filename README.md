@@ -10,7 +10,7 @@ source VENVS_DIR/cryosbi_manifolds/bin/activate
 - After activating a virtual environment, installation requires: cloning the directory, installing the package with pip, and installing megaman from lib. This can be be done via:
 ```
 git clone https://github.com/ovmurad/cryosbi_manifolds.git
-cd ensemble_sim
+cd cryosbi_manifolds
 python -m pip install .
 python -m pip install lib/megaman-0.1.0-py3-none-any.whl
 ```

@@ -65,7 +65,7 @@ class Database:
             else self.database_dir_to_io_handler.keys()
         )
         for dir_name in dir_names:
-            self.open_dir(dir_name)
+            self.open_dir(dir_name, mode=mode)
 
         for db_dir_path in get_dir_paths_in_dir(self.path):
             self._validate_dir_name(db_dir_path.name)
@@ -88,9 +88,9 @@ class Database:
         else:
             raise KeyError(f"Invalid item {key}!")
 
-    def open_dir(self, dir_name: str) -> DatabaseDir:
+    def open_dir(self, dir_name: str, mode:str = "safe") -> DatabaseDir:
         io_handler = self.database_dir_to_io_handler[dir_name]
-        db_dir = DatabaseDir(self.path / dir_name, io_handler)
+        db_dir = DatabaseDir(self.path / dir_name, io_handler, mode=mode)
         self.db_dirs[dir_name] = db_dir
         return db_dir
 

@@ -12,7 +12,7 @@ from geometry_analysis.io import Database
 from geometry_analysis.visualization import COLORS, normalize_color
 
 
-DATASET = Database(database_name="hem_latent_vecs_256_final")
+DATASET = Database(database_name="igg_data_final")
 RR_SCALE = 900.0
 
 
@@ -62,7 +62,7 @@ class Results:
 
 sim_results = Results(
     name="sim",
-    ies_coords=[0, 2, 3],
+    ies_coords=[0, 1, 2],
 )
 # sim_results = Results(name="exp", ies_coords=[0, 1, 3])
 

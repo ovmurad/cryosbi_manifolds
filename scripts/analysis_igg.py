@@ -50,16 +50,16 @@ ALL_PARAMS = SIM_PARAMS + NET_PARAMS
 SIM_SUBSAMPLE_KEY_PAIRS = (("points", "sim"),) + tuple(
     ("params", f"sim_{p}") for p in ALL_PARAMS
 )
-
-DATASET_NAME = "igg_latent_vecs_256"
+# This needs to be the name of the folder in data/ with all latent data from cryosbi
+DATASET_NAME = "igg_data"
 DATA_NAME = "sim"
 
 TRAIN_NAME = "train"
 CLEAN_NAME = "clean"
 UNIFORM_NAME = "unif"
 
-all_dataset = Database(database_name=f"{DATASET_NAME}_all")
-final_dataset = Database(database_name=f"{DATASET_NAME}_final")
+all_dataset = Database(database_name=f"{DATASET_NAME}", mode="append")
+final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode="append")
 
 # ------------------ ANALYSIS PARAMETERS ------------------
 
@@ -83,8 +83,8 @@ RS = np.concatenate(
 )
 
 # Number of points
-EMB_NPTS = 2000
-SPLIT_NPTS = {TRAIN_NAME: 10000}
+EMB_NPTS = 20000
+SPLIT_NPTS = {TRAIN_NAME: 60000}
 
 # Check OUTLIER REMOVAL
 ALPHA = 0.20  # percentile cutoff for outlier removal(higher means more data is cutoff)
@@ -200,3 +200,4 @@ eigvals, embedding = spectral_embedding(
 )
 final_dataset["lap_eigvals"]["sim_wc"] = eigvals
 final_dataset["lap_eigvecs"]["sim_wc"] = embedding
+

@@ -61,7 +61,6 @@ UNIFORM_NAME = "unif"
 all_dataset = Database(database_name=f"{DATASET_NAME}", mode="append")
 final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode="append")
 # ------------------ ANALYSIS PARAMETERS ------------------
-
 # Check LOCAL STATISTICS
 # the ks for the k-nn distances
 MIN_K, MAX_K = 10, 120
@@ -197,6 +196,7 @@ final_dataset["masks"]["sim_wc"] = degrees >= np.percentile(degrees, 5)
 ## Subamples final dataset to only have well-connected ("wc") points
 subsample_dataset(final_dataset, final_dataset, "wc", SIM_SUBSAMPLE_KEY_PAIRS)
 
+print(f"Running spectral embedding for igg {DATA_NAME} data.")
 eigvals, embedding = spectral_embedding(
     affs=final_dataset["affs|sim-sim|wc-wc"],
     ncomp=20,
@@ -210,7 +210,7 @@ final_dataset["lap_eigvecs"]["sim"] = embedding
 #I'm taking only one d for IES because the algorithm is very slow. Definitely need to improve it.
 #Look at the json file and display the top 3 axes selected by IES as they will be the embedding coordinates
 #have the smallest frequency and are as independent as possible w.r.t. to the objective defined in the paper.
-
+print(f"Running IES for igg {DATA_NAME} data.")
 final_dataset["ies"]["sim_wc"] = ies(
     emb_pts=final_dataset["lap_eigvecs"]["sim"],
     emb_eigvals=final_dataset["lap_eigvals"]["sim"],
@@ -220,13 +220,13 @@ final_dataset["ies"]["sim_wc"] = ies(
     sample=64,
 )
 
+print(f"Estimating gradients for igg {DATA_NAME} data.")
 # Gradient estimation
 func_vals = [final_dataset["params"][f"sim_{sp}"] for sp in SIM_PARAMS]
 funcs = np.concatenate(
     [np.expand_dims(fv, axis=1) if fv.ndim == 1 else fv for fv in func_vals], axis=1
 )
 
-# Compute local pca for TSLasso
 final_dataset["grads"]["sim_wc"] = local_grad_estimation(
     x_pts=final_dataset["points"]["sim"],
     f0_vals=funcs,
@@ -236,6 +236,8 @@ final_dataset["grads"]["sim_wc"] = local_grad_estimation(
     ncomp=10,
 )
 
+print(f"Estimating local PCA for for igg {DATA_NAME} data.")
+# Compute local pca for TSLasso
 pca_iter = local_weighted_pca_iter(
     x_pts=final_dataset["points"]["sim"],
     weights=final_dataset["affs|sim-sim|wc-wc"],

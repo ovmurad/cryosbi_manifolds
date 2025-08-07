@@ -72,7 +72,7 @@ VALID_NAME = "valid"
 CLEAN_NAME = "clean"
 UNIFORM_NAME = "unif"
 
-all_dataset = Database(database_name=f"{DATASET_NAME}")
+all_dataset = Database(database_name=f"{DATASET_NAME}", mode="append")
 final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode="append")
 
 # ------------------ ANALYSIS PARAMETERS ------------------
@@ -95,8 +95,8 @@ RS = np.concatenate(
 )
 
 # Number of points
-EMB_NPTS = 2000
-SPLIT_NPTS = {TRAIN_NAME: 10000, TEST_NAME: 5000, VALID_NAME: 5000}
+EMB_NPTS = 20000
+SPLIT_NPTS = {TRAIN_NAME: 60000, TEST_NAME: 5000, VALID_NAME: 5000}
 
 # Check OUTLIER REMOVAL
 # percentile cutoff for outlier removal(higher means more data is cutoff)
@@ -112,80 +112,85 @@ EPS = {k: rad / RADIUS_EPS_RATIO for k, rad in RADIUS.items()}
 # CHECK INTRINSIC DIMENSIONALITY ESTIMATION
 DS = {EXP_NAME: [4, 5, 6], SIM_NAME: [2, 3, 4]}  # approximate intrinsic dimensions
 
+
+print(final_dataset["lap_eigvecs"]["sim_wc"].shape)
+
+
 # # ------------------ DATA SPLIT ------------------
-for data_name in DATA_NAMES:
-    compute_split_masks(all_dataset, data_name, SPLIT_NPTS)
-
-# ------------------ OUTLIER REMOVAL ------------------
-# Plot histograms of the number of neighbors for various radii and the knn distance for various k.
-# Use these to find a cutoff percentage in [0, 1] for outlier detection.
-# Intuitively, the outliers will be either points with few neighbors(in the bottom alpha/beta percentile)
-# or points with large knn distance(in the top alpha/beta percentile).
-# For the number of neighbors, the histogram will have large bins close to 0. We need to remove those.
-# For the knn distance of neighbors, the histogram will have a long tail of points with large k-nn distances.
-# Pick percentiles alpha(sim)/beta(exp) that reliably eliminate the anomalous bins.
-# Compute local statistics(closest distance to nearest k neighbors or neighbor counts for different radii)
-if OUTLIER_ALGO == "knn_dists":
-    local_stats_dict = dict(ks=KS)
-elif OUTLIER_ALGO == "n_counts":
-    local_stats_dict = dict(rs=RS)
-else:
-    raise ValueError
-
-for data_name in (EXP_NAME, SIM_NAME):
-
-    compute_distance_statistics(all_dataset, data_name, TRAIN_NAME, **local_stats_dict)
-
-    train_key = f"{data_name}_{TRAIN_NAME}-{data_name}_{TRAIN_NAME}"
-    clean_key = f"{data_name}_{CLEAN_NAME}"
-
-    # plot_n_count_or_knn_dist(knn_dist=all_dataset["knn_dists"][train_key])
-    clean_mask = detect_outliers(
-        all_dataset, data_name, TRAIN_NAME, ALPHA[data_name], OUTLIER_ALGO
-    )
-
-    if data_name == SIM_NAME:
-
-        # Furthermore, we remove simulated points that are not in the real
-        pair_data_name = (SIM_NAME, EXP_NAME)
-        pair_mask_name = (TRAIN_NAME, TRAIN_NAME)
-
-        compute_distance_statistics(
-            all_dataset, pair_data_name, pair_mask_name, **local_stats_dict
-        )
-
-        near_mask = detect_outliers(
-            all_dataset,
-            pair_data_name[::-1],
-            pair_mask_name[::-1],
-            ALPHA[EXP_NAME],
-            OUTLIER_ALGO,
-        )
-        clean_mask &= near_mask
-
-    all_dataset["masks"][clean_key] = clean_mask
-
-
-# ------------------ UNIFORM RESAMPLING ------------------
-# Resample the data to obtain uniform samples.
-for data_name, key_pairs in DATA_SUBSAMPLE_KEY_PAIRS.items():
-    compute_distance_statistics(all_dataset, data_name, CLEAN_NAME, rs=RS)
-    compute_uniform_sample(all_dataset, data_name, CLEAN_NAME, EMB_NPTS)
-    subsample_dataset(all_dataset, final_dataset, UNIFORM_NAME, key_pairs)
-
-# ------------------ INTRINSIC DIMENSIONALITY ESTIMATION ------------------
-# Compute distances to closest KS neighbors and for a given set of radii RS compute the number of neighbors.
-for data_name in DATA_NAMES:
-
-    compute_distance_statistics(final_dataset, data_name, "all", RS, KS)
-
-    print(f"Running intrinsic dimensionality estimation for hemagglutinin {data_name} data.")
-    pair_name = f"{data_name}-{data_name}"
-    run_dimensionality_estimation(
-        n_count=final_dataset["n_counts"][pair_name],
-        knn_dist=final_dataset["knn_dists"][pair_name],
-        algos=("dd", "lb", "cd"),
-    )
+#for data_name in DATA_NAMES:
+#    compute_split_masks(all_dataset, data_name, SPLIT_NPTS)
+#
+## ------------------ OUTLIER REMOVAL ------------------
+## Plot histograms of the number of neighbors for various radii and the knn distance for various k.
+## Use these to find a cutoff percentage in [0, 1] for outlier detection.
+## Intuitively, the outliers will be either points with few neighbors(in the bottom alpha/beta percentile)
+## or points with large knn distance(in the top alpha/beta percentile).
+## For the number of neighbors, the histogram will have large bins close to 0. We need to remove those.
+## For the knn distance of neighbors, the histogram will have a long tail of points with large k-nn distances.
+## Pick percentiles alpha(sim)/beta(exp) that reliably eliminate the anomalous bins.
+## Compute local statistics(closest distance to nearest k neighbors or neighbor counts for different radii)
+#if OUTLIER_ALGO == "knn_dists":
+#    local_stats_dict = dict(ks=KS)
+#elif OUTLIER_ALGO == "n_counts":
+#    local_stats_dict = dict(rs=RS)
+#else:
+#    raise ValueError
+#
+#for data_name in (EXP_NAME, SIM_NAME):
+#
+#    compute_distance_statistics(all_dataset, data_name, TRAIN_NAME, **local_stats_dict)
+#
+#    train_key = f"{data_name}_{TRAIN_NAME}-{data_name}_{TRAIN_NAME}"
+#    clean_key = f"{data_name}_{CLEAN_NAME}"
+#
+#    # plot_n_count_or_knn_dist(knn_dist=all_dataset["knn_dists"][train_key])
+#    clean_mask = detect_outliers(
+#        all_dataset, data_name, TRAIN_NAME, ALPHA[data_name], OUTLIER_ALGO
+#    )
+#
+#    if data_name == SIM_NAME:
+#
+#        # Furthermore, we remove simulated points that are not in the real
+#        pair_data_name = (SIM_NAME, EXP_NAME)
+#        pair_mask_name = (TRAIN_NAME, TRAIN_NAME)
+#
+#        compute_distance_statistics(
+#            all_dataset, pair_data_name, pair_mask_name, **local_stats_dict
+#        )
+#
+#        near_mask = detect_outliers(
+#            all_dataset,
+#            pair_data_name[::-1],
+#            pair_mask_name[::-1],
+#            ALPHA[EXP_NAME],
+#            OUTLIER_ALGO,
+#        )
+#        clean_mask &= near_mask
+#
+#    all_dataset["masks"][clean_key] = clean_mask
+#
+#
+## ------------------ UNIFORM RESAMPLING ------------------
+## Resample the data to obtain uniform samples.
+#for data_name, key_pairs in DATA_SUBSAMPLE_KEY_PAIRS.items():
+#    compute_distance_statistics(all_dataset, data_name, CLEAN_NAME, rs=RS)
+#    compute_uniform_sample(all_dataset, data_name, CLEAN_NAME, EMB_NPTS)
+#    # Saves subsample of "all_dataset" into "final_dataset"
+#    subsample_dataset(all_dataset, final_dataset, UNIFORM_NAME, key_pairs)
+#
+## ------------------ INTRINSIC DIMENSIONALITY ESTIMATION ------------------
+## Compute distances to closest KS neighbors and for a given set of radii RS compute the number of neighbors.
+#for data_name in DATA_NAMES:
+#
+#    compute_distance_statistics(final_dataset, data_name, "all", RS, KS)
+#
+#    print(f"Running intrinsic dimensionality estimation for hemagglutinin {data_name} data.")
+#    pair_name = f"{data_name}-{data_name}"
+#    run_dimensionality_estimation(
+#        n_count=final_dataset["n_counts"][pair_name],
+#        knn_dist=final_dataset["knn_dists"][pair_name],
+#        algos=("dd", "lb", "cd"),
+#    )
 
 # ------------------ MANIFOLD LEARNING ------------------
 # Select the bandwidth for the affinity matrix which will then be used for diffusion maps.
@@ -243,3 +248,80 @@ for data_name in DATA_NAMES:
     )
     final_dataset["lap_eigvals"][mask_key] = eigvals
     final_dataset["lap_eigvecs"][mask_key] = embedding
+
+    #------------------ FEATURE SELECTION ------------------
+    #I'm taking only one d for IES because the algorithm is very slow. Definitely need to improve it.
+    #Look at the json file and display the top 3 axes selected by IES as they will be the embedding coordinates
+    #have the smallest frequency and are as independent as possible w.r.t. to the objective defined in the paper.
+    final_dataset["ies"][f"{data_name}_wc"] = ies(
+        emb_pts=final_dataset["lap_eigvecs"][f"{data_name}_wc"],
+        emb_eigvals=final_dataset["lap_eigvals"][f"{data_name}_wc"],
+        lap=final_dataset[f"laps|{pair_key}|wc-wc"],
+        ds=6,
+        s=6,
+        sample=64,
+    )
+
+# ------------------ EXTENDS DATA AND EMBEDDINGS ------------------
+# We will use kernel regression to extend the data from one
+data_name = "sim"
+pair_name = f"{data_name}-{data_name}"
+# Estimate gradients for all the generative parameters(which have to first be induced for the exp_data)
+func_vals = [final_dataset["params"][f"{data_name}_{sp}"][:5000] for sp in SIM_PARAMS]
+funcs = np.concatenate(
+    [np.expand_dims(fv, axis=1) if fv.ndim == 1 else fv for fv in func_vals], axis=1
+)
+print(final_dataset["affs"][pair_name].shape)
+final_dataset["grads"][data_name] = local_grad_estimation(
+    x_pts=final_dataset["points"][data_name],
+    f0_vals=funcs,
+    f_vals=funcs,
+    weights=final_dataset["affs"][pair_name],
+    bsize=64,
+    ncomp=int(np.mean(DS[data_name]) * 3),
+)
+
+# TODO: insert kernel embedding here
+
+# Compute the local spectra of the local weighted pcas.
+pca_iter = local_weighted_pca_iter(
+    x_pts=final_dataset["points"][data_name],
+    weights=final_dataset["affs"][pair_name],
+    ncomp=int(np.mean(DS[data_name]) * 3),
+    bsize=256,
+    in_place_norm=True,
+    needs_norm=True,
+)
+final_dataset["wlpca_eigvals"][data_name] = np.concatenate(
+    [eigen_pair[0] for eigen_pair in pca_iter], axis=0
+)
+
+x_pts = final_dataset["points"][data_name]
+grads = final_dataset["grads"][data_name]
+affs = final_dataset[f"affs|{data_name}-{data_name}|wc-wc"]
+snr = final_dataset["params"][f"{data_name}_snr"]
+
+for percentile in create_grid_1d(start=0, stop=95, step_size=5, scale="int"):
+
+    cutoff = np.percentile(snr, q=percentile)
+    print(f"Running TSLasso for percentile={percentile} and cutoff={cutoff}.")
+
+    sample = np.flatnonzero(snr >= cutoff)
+    sample = np.sort(sample_array(sample, num_or_pct=500))
+
+    tslasso_results = tslasso(
+        x_pts=x_pts,
+        affs=affs,
+        grads=grads,
+        ncomp=4,
+        sample=sample,
+        bsize=128,
+        lr=100.0,
+        l2_reg=0.0,
+        max_nlamb=20,
+        max_niter=500,
+        tol=1e-14,
+    )
+    final_dataset["tslasso"][f"{data_name}_{percentile}"] = tslasso_results
+
+

@@ -75,18 +75,18 @@ def plot_slopes():
         ci=None,
         palette=palette,
     )
-    plt.text(
-        2.5,
-        2.6,
-        f'Hg. Sim Slope:  {slope_estimation_results["hem_sim"]["slope"]: .2f}',
-        size=12,
-    )
-    plt.text(
-        2.5,
-        2.2,
-        f'Hg.. Exp Slope: {slope_estimation_results["hem_exp"]["slope"]: .2f}',
-        size=12,
-    )
+    #plt.text(
+    #    2.5,
+    #    2.6,
+    #    f'Hg. Sim Slope:  {slope_estimation_results["hem_sim"]["slope"]: .2f}',
+    #    size=12,
+    #)
+    #plt.text(
+    #    2.5,
+    #    2.2,
+    #    f'Hg.. Exp Slope: {slope_estimation_results["hem_exp"]["slope"]: .2f}',
+    #    size=12,
+    #)
     plt.text(
         2.5,
         1.8,
@@ -133,8 +133,8 @@ def plot_dd():
 
     ### --- Your existing data prep ---
     data_key_to_counts = {
-        "hem_exp": {r: c for r, c in hem_counts["exp"].items() if 8.5 <= r},
-        "hem_sim": {r: c for r, c in hem_counts["sim"].items() if 8.5 <= r},
+        #"hem_exp": {r: c for r, c in hem_counts["exp"].items() if 8.5 <= r},
+        #"hem_sim": {r: c for r, c in hem_counts["sim"].items() if 8.5 <= r},
         "igg_sim": {r: c for r, c in igg_counts["sim"].items() if 8.5 <= r},
     }
 

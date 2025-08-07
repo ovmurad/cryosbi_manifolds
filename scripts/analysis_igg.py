@@ -60,7 +60,6 @@ UNIFORM_NAME = "unif"
 
 all_dataset = Database(database_name=f"{DATASET_NAME}", mode="append")
 final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode="append")
-
 # ------------------ ANALYSIS PARAMETERS ------------------
 
 # Check LOCAL STATISTICS
@@ -99,18 +98,18 @@ EPS = RADIUS / RADIUS_EPS_RATIO
 DS = [6, 7, 8]  # approximate intrinsic dimensions.
 
 
-# ------------------ DATA SPLIT ------------------
+## ------------------ DATA SPLIT ------------------
 compute_split_masks(all_dataset, DATA_NAME, SPLIT_NPTS)
-
-# ------------------ OUTLIER REMOVAL ------------------
-# Plot histograms of the number of neighbors for various radii and the knn distance for various k.
-# Use these to find a cutoff percentage in [0, 1] for outlier detection.
-# Intuitively, the outliers will be either points with few neighbors(in the bottom alpha/beta percentile)
-# or points with large knn distance(in the top alpha/beta percentile).
-# For the number of neighbors, the histogram will have large bins close to 0. We need to remove those.
-# For the knn distance of neighbors, the histogram will have a long tail of points with large k-nn distances.
-# Pick percentiles alpha(sim)/beta(exp) that reliably eliminate the anomalous bins.
-# Compute local statistics(closest distance to nearest k neighbors or neighbor counts for different radii)
+#
+## ------------------ OUTLIER REMOVAL ------------------
+## Plot histograms of the number of neighbors for various radii and the knn distance for various k.
+## Use these to find a cutoff percentage in [0, 1] for outlier detection.
+## Intuitively, the outliers will be either points with few neighbors(in the bottom alpha/beta percentile)
+## or points with large knn distance(in the top alpha/beta percentile).
+## For the number of neighbors, the histogram will have large bins close to 0. We need to remove those.
+## For the knn distance of neighbors, the histogram will have a long tail of points with large k-nn distances.
+## Pick percentiles alpha(sim)/beta(exp) that reliably eliminate the anomalous bins.
+## Compute local statistics(closest distance to nearest k neighbors or neighbor counts for different radii)
 if OUTLIER_ALGO == "knn_dists":
     local_stats_dict = dict(ks=KS)
 elif OUTLIER_ALGO == "n_counts":
@@ -123,14 +122,16 @@ plot_n_count_or_knn_dist(knn_dist=all_dataset["knn_dists"]["sim_train-sim_train"
 all_dataset["masks"]["sim_clean"] = detect_outliers(
     all_dataset, DATA_NAME, TRAIN_NAME, ALPHA, OUTLIER_ALGO
 )
-
-# ------------------ UNIFORM RESAMPLING ------------------
-# Resample the data to obtain uniform samples.
+#
+## ------------------ UNIFORM RESAMPLING ------------------
+## Resample the data to obtain uniform samples.
 compute_distance_statistics(all_dataset, DATA_NAME, CLEAN_NAME, rs=RS)
 compute_uniform_sample(all_dataset, DATA_NAME, CLEAN_NAME, EMB_NPTS)
-subsample_dataset(all_dataset, final_dataset, UNIFORM_NAME, SIM_SUBSAMPLE_KEY_PAIRS)
 
-# ------------------ INTRINSIC DIMENSIONALITY ESTIMATION ------------------
+## Saves subsample of "all_dataset" into "final_dataset"
+subsample_dataset(all_dataset, final_dataset, UNIFORM_NAME, SIM_SUBSAMPLE_KEY_PAIRS)
+#
+## ------------------ INTRINSIC DIMENSIONALITY ESTIMATION ------------------
 # Compute distances to closest KS neighbors and for a given set of radii RS compute the number of neighbors.
 compute_distance_statistics(final_dataset, DATA_NAME, "all", RS, KS)
 
@@ -150,17 +151,17 @@ dim_estimates[np.isnan(dim_estimates)] = np.mean(
     dim_estimates[~np.isnan(dim_estimates)], axis=0
 )
 final_dataset["estimated_d"]["sim"] = np.mean(dim_estimates, axis=0)
-
-# # ------------------ MANIFOLD LEARNING ------------------
-
-# Select the bandwidth for the affinity matrix which will then be used for diffusion maps.
-# We don't need the distortions really, just look at the printout, the distortion will go down, then it will start
-# going up again so just pick the minimum when it occurs. There is generally no harm in picking a slightly larger radius
-# than the one that achieves the minimum distortion. In fact, I generally find that to be more stable and yield better
-# embeddings. Particularly for this type of data that seems to have varying topology and probably varying intrinsic
-# dimensionality(so not really a manifold), I find it useful to go above the minimum computed here which seems to give
-# a lower bound under which DM fails.
-
+#
+## # ------------------ MANIFOLD LEARNING ------------------
+#
+## Select the bandwidth for the affinity matrix which will then be used for diffusion maps.
+## We don't need the distortions really, just look at the printout, the distortion will go down, then it will start
+## going up again so just pick the minimum when it occurs. There is generally no harm in picking a slightly larger radius
+## than the one that achieves the minimum distortion. In fact, I generally find that to be more stable and yield better
+## embeddings. Particularly for this type of data that seems to have varying topology and probably varying intrinsic
+## dimensionality(so not really a manifold), I find it useful to go above the minimum computed here which seems to give
+## a lower bound under which DM fails.
+#
 print(f"Running bandwidth distortion estimation for igg {DATA_NAME} data.")
 final_dataset["eval_radii"][DATA_NAME] = radii_distortions(
     x_pts=final_dataset["points"][DATA_NAME],
@@ -184,13 +185,17 @@ final_dataset["affs"]["sim-sim"] = affinity(
 final_dataset["laps"]["sim-sim"] = laplacian(
     affs=final_dataset["affs"]["sim-sim"], eps=EPS
 )
+affs = final_dataset["affs"]["sim-sim"]
+
 
 # Embed the data
 # Important!!!: The warning that the affinity matrix is not connected is a good indication that the
 # radius needs to be larger and that the embedding will probably fail miserably.
-affs = final_dataset["affs"]["sim-sim"]
 degrees = reduce_arr_to_degrees(affs, axis=1)
 final_dataset["masks"]["sim_wc"] = degrees >= np.percentile(degrees, 5)
+
+## Subamples final dataset to only have well-connected ("wc") points
+subsample_dataset(final_dataset, final_dataset, "wc", SIM_SUBSAMPLE_KEY_PAIRS)
 
 eigvals, embedding = spectral_embedding(
     affs=final_dataset["affs|sim-sim|wc-wc"],
@@ -198,6 +203,77 @@ eigvals, embedding = spectral_embedding(
     eps=EPS,
     eigen_solver="amg",
 )
-final_dataset["lap_eigvals"]["sim_wc"] = eigvals
-final_dataset["lap_eigvecs"]["sim_wc"] = embedding
+final_dataset["lap_eigvals"]["sim"] = eigvals
+final_dataset["lap_eigvecs"]["sim"] = embedding
+
+#------------------ FEATURE SELECTION ------------------
+#I'm taking only one d for IES because the algorithm is very slow. Definitely need to improve it.
+#Look at the json file and display the top 3 axes selected by IES as they will be the embedding coordinates
+#have the smallest frequency and are as independent as possible w.r.t. to the objective defined in the paper.
+
+final_dataset["ies"]["sim_wc"] = ies(
+    emb_pts=final_dataset["lap_eigvecs"]["sim"],
+    emb_eigvals=final_dataset["lap_eigvals"]["sim"],
+    lap=final_dataset["laps|sim-sim|wc-wc"],
+    ds=6,
+    s=6,
+    sample=64,
+)
+
+# Gradient estimation
+func_vals = [final_dataset["params"][f"sim_{sp}"] for sp in SIM_PARAMS]
+funcs = np.concatenate(
+    [np.expand_dims(fv, axis=1) if fv.ndim == 1 else fv for fv in func_vals], axis=1
+)
+
+# Compute local pca for TSLasso
+final_dataset["grads"]["sim_wc"] = local_grad_estimation(
+    x_pts=final_dataset["points"]["sim"],
+    f0_vals=funcs,
+    f_vals=funcs,
+    weights=final_dataset["affs|sim-sim|wc-wc"],
+    bsize=64,
+    ncomp=10,
+)
+
+pca_iter = local_weighted_pca_iter(
+    x_pts=final_dataset["points"]["sim"],
+    weights=final_dataset["affs|sim-sim|wc-wc"],
+    ncomp=16,
+    bsize=256,
+    in_place_norm=True,
+    needs_norm=True,
+)
+final_dataset["wlpca_eigvals"]["sim"] = np.concatenate(
+    [eigen_pair[0] for eigen_pair in pca_iter], axis=0
+)
+x_pts = final_dataset["points"]["sim"]
+grads = final_dataset["grads"]["sim"]
+affs = final_dataset["affs|sim-sim|wc-wc"]
+snr = final_dataset["params"][f"sim_snr"]
+
+
+for percentile in create_grid_1d(start=0, stop=95, step_size=5, scale="int"):
+
+    cutoff = np.percentile(snr, q=percentile)
+    print(f"Running TSLasso for percentile={percentile} and cutoff={cutoff}.")
+
+    sample = np.flatnonzero(snr >= cutoff)
+    sample = np.sort(sample_array(sample, num_or_pct=500))
+
+    tslasso_results = tslasso(
+        x_pts=x_pts,
+        affs=affs,
+        grads=grads,
+        ncomp=4,
+        sample=sample,
+        bsize=128,
+        lr=100.0,
+        l2_reg=0.0,
+        max_nlamb=20,
+        max_niter=500,
+        tol=1e-14,
+    )
+    final_dataset["tslasso"][f"sim_{percentile}"] = tslasso_results
+
 

@@ -22,7 +22,7 @@ class Results:
 
         self.name = name
 
-        self.embedding = DATASET["lap_eigvecs"][f"{name}_wc"]
+        self.embedding = DATASET["lap_eigvecs"][f"{name}"]
         # self.relax_embedding = DATASET["lap_embedding"][f"{name}_relax"] / RR_SCALE
 
         # self.pred_embedding = DATASET["lap_embedding"][f"{name}_pred"]
@@ -33,13 +33,13 @@ class Results:
         self.ies_coords = list(ies_coords)
         # self.estimated_d = DATASET[f"estimated_d|{name}|wc"]
         #
-        self.conf = DATASET[f"params|{name}_conf|wc"]
-        self.snr = DATASET[f"params|{name}_snr|wc"]
+        self.conf = DATASET[f"params|{name}_conf"]
+        self.snr = DATASET[f"params|{name}_snr"]
         #
         # self.sigma = DATASETf["params|{name}_sigma"]|wc
         # self.defoc = DATASETf["params|{name}_defoc"]|wc
-        self.postm = DATASET[f"params|{name}_postm|wc"]
-        self.postw = DATASET[f"params|{name}_postw|wc"]
+        self.postm = DATASET[f"params|{name}_postm"]
+        self.postw = DATASET[f"params|{name}_postw"]
 
         # self.shift = DATASET["params"][f"{name}_shift"]
         # self.shift1 = self.shift[:, 0]

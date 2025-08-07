@@ -43,11 +43,16 @@ class Database:
 
     def __init__(
         self, 
-        database_name: str, 
+        database_name: str,
+        custom_data_dir: Optional[str] = None,
         dir_names: Optional[Sequence[str]] = None,
-        mode='safe') -> None:
+        mode: Optional[str] ='safe') -> None:
 
-        self.path: Path = DATA_DIR / database_name
+        # set a global data dir path if user provided
+        if custom_data_dir is not None:
+            self.path: Path = Path(f"{custom_data_dir}") / database_name
+        else:
+            self.path: Path = DATA_DIR / database_name
 
         if not self.path.exists():
             if mode == "safe":

@@ -15,15 +15,15 @@ from geometry_analysis.visualization import make_radius_dict_df
 sns.set_style("whitegrid")
 palette = {"hem_exp": "red", "hem_sim": "blue", "igg_sim": "green"}
 
-igg_dataset = Database(database_name="igg_latent_vecs_256_final")
+igg_dataset = Database(database_name="igg_data_final")
 igg_dists = {dk: igg_dataset["knn_dists"][f"{dk}-{dk}"] for dk in ("sim",)}
 igg_counts = {dk: igg_dataset["n_counts"][f"{dk}-{dk}"] for dk in ("sim",)}
 igg_eigvals = {dk: igg_dataset["wlpca_eigvals"][dk] for dk in ("sim",)}
 
-hem_dataset = Database(database_name="hem_latent_vecs_256_final")
-hem_dists = {dk: hem_dataset["knn_dists"][f"{dk}-{dk}"] for dk in ("sim", "exp")}
-hem_counts = {dk: hem_dataset["n_counts"][f"{dk}-{dk}"] for dk in ("sim", "exp")}
-hem_eigvals = {dk: hem_dataset["wlpca_eigvals"][dk] for dk in ("sim", "exp")}
+#hem_dataset = Database(database_name="hem_latent_vecs_256_final")
+#hem_dists = {dk: hem_dataset["knn_dists"][f"{dk}-{dk}"] for dk in ("sim", "exp")}
+#hem_counts = {dk: hem_dataset["n_counts"][f"{dk}-{dk}"] for dk in ("sim", "exp")}
+#hem_eigvals = {dk: hem_dataset["wlpca_eigvals"][dk] for dk in ("sim", "exp")}
 
 
 def plot_slopes():
@@ -39,8 +39,8 @@ def plot_slopes():
         return slope_df
 
     data_key_to_counts = {
-        "hem_exp": {r: c for r, c in hem_counts["exp"].items() if 8.0 <= r <= 18.0},
-        "hem_sim": {r: c for r, c in hem_counts["sim"].items() if 8.0 <= r <= 18.0},
+        #"hem_exp": {r: c for r, c in hem_counts["exp"].items() if 8.0 <= r <= 18.0},
+        #"hem_sim": {r: c for r, c in hem_counts["sim"].items() if 8.0 <= r <= 18.0},
         "igg_sim": {r: c for r, c in igg_counts["sim"].items() if 8.0 <= r <= 18.0},
     }
 
@@ -220,8 +220,8 @@ def plot_eigengap():
         return eigengap_df
 
     data_key_to_eigvals = {
-        "hem_exp": hem_eigvals["exp"],
-        "hem_sim": hem_eigvals["sim"],
+        #"hem_exp": hem_eigvals["exp"],
+        #"hem_sim": hem_eigvals["sim"],
         "igg_sim": igg_eigvals["sim"],
     }
 
@@ -314,8 +314,8 @@ def plot_lb():
         ax.tick_params(axis="both", labelsize=12)
 
     data_key_to_dists = {
-        "hem_exp": {k: v for k, v in hem_dists["exp"].items() if 30 <= k <= 100},
-        "hem_sim": {k: v for k, v in hem_dists["sim"].items() if 30 <= k <= 100},
+        #"hem_exp": {k: v for k, v in hem_dists["exp"].items() if 30 <= k <= 100},
+        #"hem_sim": {k: v for k, v in hem_dists["sim"].items() if 30 <= k <= 100},
         "igg_sim": {k: v for k, v in igg_dists["sim"].items() if 30 <= k <= 100},
     }
 

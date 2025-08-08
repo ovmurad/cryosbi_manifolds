@@ -275,15 +275,15 @@ class IOHandler[Data]:
     delete_func: DeleteFunc
 
     def save(self, file_path: PathLike, data: Data, **kwargs: Any) -> None:
-        print(f"Saving {self.ext} file to {file_path}.")
+        #print(f"Saving {self.ext} file to {file_path}.")
         self.save_func(file_path, data, **kwargs)
 
     def load(self, file_path: PathLike, **kwargs: Any) -> Data:
-        print(f"Loading {self.ext} file from {file_path}.")
+        #print(f"Loading {self.ext} file from {file_path}.")
         return self.load_func(file_path, **kwargs)
 
     def delete(self, file_path: PathLike, **kwargs: Any) -> None:
-        print(f"Deleting {self.ext} file from {file_path}.")
+        #print(f"Deleting {self.ext} file from {file_path}.")
         self.delete_func(file_path, **kwargs)
 
 

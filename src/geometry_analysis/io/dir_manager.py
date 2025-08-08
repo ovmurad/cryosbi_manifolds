@@ -47,13 +47,13 @@ class DirManager(Generic[Data]):
                 raise FileNotFoundError(f"Dir path '{dir_path}' does not exist!")
             if not dir_path.is_dir():
                 raise FileExistsError(f"Dir path '{dir_path}' is a file!")
-            print(f"Loaded dir '{dir_path}'.")
+            #print(f"Loaded dir '{dir_path}'.")
         elif mode in {"append", "overwrite", "new", "open"}:
             if not dir_path.exists():
-                print(f"Created dir '{dir_path}'.")
+                #print(f"Created dir '{dir_path}'.")
                 dir_path.mkdir()
-            else:
-                print(f"Loaded dir '{dir_path}'.")
+            #else:
+                #print(f"Loaded dir '{dir_path}'.")
         else:
             raise NotImplementedError(f"'{mode}' is not a valid DirManager Mode!")
 

@@ -71,8 +71,8 @@ TRAIN_NAME = "train"
 CLEAN_NAME = "clean"
 UNIFORM_NAME = "unif"
 
-all_dataset = Database(database_name=f"{DATASET_NAME}", mode="append")
-final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode="append")
+all_dataset = Database(database_name=f"{DATASET_NAME}", mode="overwrite")
+final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode="overwrite")
 
 # ------------------ ANALYSIS PARAMETERS ------------------
 
@@ -138,7 +138,7 @@ else:
     raise ValueError
 
 for data_name in (EXP_NAME, SIM_NAME):
-
+    print(f"Running outlier removal for hem {data_name} data.")
     compute_distance_statistics(all_dataset, data_name, TRAIN_NAME, **local_stats_dict)
 
     train_key = f"{data_name}_{TRAIN_NAME}-{data_name}_{TRAIN_NAME}"
@@ -172,6 +172,8 @@ for data_name in (EXP_NAME, SIM_NAME):
 # ------------------ UNIFORM RESAMPLING ------------------
 # Resample the data to obtain uniform samples.
 for data_name, key_pairs in DATA_SUBSAMPLE_KEY_PAIRS.items():
+    print(f"Uniformly subsampling hem {data_name} data.")
+ 
     compute_distance_statistics(all_dataset, data_name, CLEAN_NAME, rs=RS)
     compute_uniform_sample(all_dataset, data_name, CLEAN_NAME, EMB_NPTS)
     # Saves subsample of "all_dataset" into "final_dataset"
@@ -180,7 +182,7 @@ for data_name, key_pairs in DATA_SUBSAMPLE_KEY_PAIRS.items():
 # ------------------ INTRINSIC DIMENSIONALITY ESTIMATION ------------------
 # Compute distances to closest KS neighbors and for a given set of radii RS compute the number of neighbors.
 for data_name in DATA_NAMES:
-
+    print(f"Computing distance statistics for hem {data_name} data.")
     compute_distance_statistics(final_dataset, data_name, "all", RS, KS)
 
     print(f"Running intrinsic dimensionality estimation for hemagglutinin {data_name} data.")
@@ -219,6 +221,7 @@ for data_name in DATA_NAMES:
 
     # Compute the geometry matrices: distance, gaussian affinity and geometric laplacian using the
     # radius and bandwidth suggested by the previous analysis
+    print(f"Computing geometry matrices for hem {data_name} data.")
     pair_key = f"{data_name}-{data_name}"
     final_dataset["dists"][pair_key] = dist(
         x_pts=final_dataset["points"][data_name],
@@ -230,31 +233,34 @@ for data_name in DATA_NAMES:
     final_dataset["laps"][pair_key] = laplacian(
         affs=final_dataset["affs"][pair_key], eps=eps
     )
-
     # Embed the data
     # Important!!!: The warning that the affinity matrix is not connected is a good indication that the
     # radius needs to be larger and that the embedding will probably fail miserably.
-    mask_key = f"{data_name}_wc"
     affs = final_dataset["affs"][pair_key]
     degrees = reduce_arr_to_degrees(affs, axis=1)
-    final_dataset["masks"][mask_key] = degrees >= np.percentile(degrees, 5)
+    final_dataset["masks"]["f{data_name}"] = degrees >= np.percentile(degrees, 5)
 
+    # Subsamples final dataset to only have well-connected ("wc") points
+    print(f"Subsampling hem {data_name} data to only well-connected points.")
+    subsample_dataset(final_dataset, final_dataset, "wc", SIM_SUBSAMPLE_KEY_PAIRS)
+    
+    print(f"Running spectral embedding for hem {data_name} data.")
     eigvals, embedding = spectral_embedding(
         affs=final_dataset[f"affs|{pair_key}|wc-wc"],
         ncomp=20,
         eps=eps,
         eigen_solver="amg",
     )
-    final_dataset["lap_eigvals"][mask_key] = eigvals
-    final_dataset["lap_eigvecs"][mask_key] = embedding
+    final_dataset["lap_eigvals"]["f{data_name}"] = eigvals
+    final_dataset["lap_eigvecs"]["f{data_name}"] = embedding
 
 # ------------------ FEATURE SELECTION ------------------
 # I'm taking only one d for IES because the algorithm is very slow. Definitely need to improve it.
 # Look at the json file and display the top 3 axes selected by IES as they will be the embedding coordinates
 # have the smallest frequency and are as independent as possible w.r.t. to the objective defined in the paper.
-    final_dataset["ies"][f"{data_name}_wc"] = ies(
-        emb_pts=final_dataset["lap_eigvecs"][f"{data_name}_wc"],
-        emb_eigvals=final_dataset["lap_eigvals"][f"{data_name}_wc"],
+    final_dataset["ies"][f"{data_name}"] = ies(
+        emb_pts=final_dataset["lap_eigvecs"][f"{data_name}"],
+        emb_eigvals=final_dataset["lap_eigvals"][f"{data_name}"],
         lap=final_dataset[f"laps|{pair_key}|wc-wc"],
         ds=3,
         s=DS[data_name][1],
@@ -283,21 +289,20 @@ for param in ("conf", "snr", "rot", "shift", "sigma", "defoc"):
     )
     exp_predicted_param[weights == 0.0] = np.mean(sim_param, axis=0)
 
-    final_dataset["params"][f"sim_{param}"] = exp_predicted_param
+    final_dataset["params"][f"exp_{param}"] = exp_predicted_param
 
-# ------------------ Gradient Estimation and TSLasso ------------------
-
+#------------------ Gradient Estimation and TSLasso ------------------
+DATA_NAMES = [SIM_NAME]
 for data_name in DATA_NAMES:
-
     pair_name = f"{data_name}-{data_name}"
 
-    func_vals = [final_dataset[f"params|{data_name}_{sp}|wc"] for sp in SIM_PARAMS]
+    func_vals = [final_dataset[f"params|{data_name}_{sp}"] for sp in SIM_PARAMS]
     funcs = np.concatenate(
         [np.expand_dims(fv, axis=1) if fv.ndim == 1 else fv for fv in func_vals], axis=1
     )
 
-    final_dataset["grads"][f"{data_name}_wc"] = local_grad_estimation(
-        x_pts=final_dataset[f"points|{data_name}|wc"],
+    final_dataset["grads"][f"{data_name}"] = local_grad_estimation(
+        x_pts=final_dataset[f"points|{data_name}"],
         f0_vals=funcs,
         f_vals=funcs,
         weights=final_dataset[f"affs|{data_name}-{data_name}|wc-wc"][:GRAD_ESTIM_SUBSAMPLE_SIZE],
@@ -305,10 +310,10 @@ for data_name in DATA_NAMES:
         ncomp=10,
     )
 
-    x_pts = final_dataset[f"points|{data_name}|wc"]
-    grads = final_dataset["grads"][f"{data_name}_wc"]
+    x_pts = final_dataset[f"points|{data_name}"]
+    grads = final_dataset["grads"][f"{data_name}"]
     affs = final_dataset[f"affs|{data_name}-{data_name}|wc-wc"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
-    snr = final_dataset["params"][f"{data_name}_snr"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
+    snr = final_dataset[f"params|{data_name}_snr"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
 
     for percentile in create_grid_1d(start=0, stop=90, step_size=5, scale="int"):
 
@@ -337,11 +342,11 @@ for data_name in DATA_NAMES:
 
 for data_name in DATA_NAMES:
 
-    print(f"Estimating local PCA for for igg {data_name} data.")
+    print(f"Estimating local PCA for for hem {data_name} data.")
 
     # Compute local pca for TSLasso
     pca_iter = local_weighted_pca_iter(
-        x_pts=final_dataset[f"points|{data_name}|wc"],
+        x_pts=final_dataset[f"points|{data_name}"],
         weights=final_dataset[f"affs|{data_name}-{data_name}|wc-wc"][:EIGENGAP_ESTIM_SUBSAMPLE_SIZE],
         ncomp=16,
         bsize=256,

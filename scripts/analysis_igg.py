@@ -58,8 +58,8 @@ TRAIN_NAME = "train"
 CLEAN_NAME = "clean"
 UNIFORM_NAME = "unif"
 
-all_dataset = Database(database_name=f"{DATASET_NAME}", mode='overwrite')
-final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode='overwrite')
+all_dataset = Database(database_name=f"{DATASET_NAME}", mode='append')
+final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode='append')
 # ------------------ ANALYSIS PARAMETERS ------------------
 # Check LOCAL STATISTICS
 # the ks for the k-nn distances
@@ -74,9 +74,7 @@ MIN_R, MAX_R = 8.0, 22.0
 RS = np.concatenate(
     [
         create_grid_1d(start=MIN_R, stop=MAX_R // 2, step_size=0.5, scale="linear"),
-        create_grid_1d(
-            start=MAX_R // 2 + 1, stop=MAX_R, step_size=1.0, scale="linear"
-        ),  # double those of above
+        create_grid_1d(start=MAX_R // 2 + 1, stop=MAX_R, step_size=1.0, scale="linear"),
     ]
 )
 
@@ -114,7 +112,6 @@ compute_split_masks(all_dataset, DATA_NAME, SPLIT_NPTS)
 # For the knn distance of neighbors, the histogram will have a long tail of points with large k-nn distances.
 # Pick percentiles alpha(sim)/beta(exp) that reliably eliminate the anomalous bins.
 # Compute local statistics(closest distance to nearest k neighbors or neighbor counts for different radii)
-print(f"Running outlier removal for igg {DATA_NAME} data.")
 
 if OUTLIER_ALGO == "knn_dists":
     local_stats_dict = dict(ks=KS)
@@ -122,6 +119,8 @@ elif OUTLIER_ALGO == "n_counts":
     local_stats_dict = dict(rs=RS)
 else:
     raise ValueError
+
+print(f"Running outlier removal for igg {DATA_NAME} data.")
 
 compute_distance_statistics(all_dataset, DATA_NAME, TRAIN_NAME, **local_stats_dict)
 plot_n_count_or_knn_dist(knn_dist=all_dataset["knn_dists"][f"{DATA_NAME}_train-{DATA_NAME}_train"])
@@ -193,12 +192,11 @@ final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"] = affinity(
 final_dataset["laps"][f"{DATA_NAME}-{DATA_NAME}"] = laplacian(
     affs=final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"], eps=EPS
 )
-affs = final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"]
-
 
 # Embed the data
 # Important!!!: The warning that the affinity matrix is not connected is a good indication that the
 # radius needs to be larger and that the embedding will probably fail miserably.
+affs = final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"]
 degrees = reduce_arr_to_degrees(affs, axis=1)
 final_dataset["masks"][f"{DATA_NAME}_wc"] = degrees >= np.percentile(degrees, 5)
 

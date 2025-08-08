@@ -211,8 +211,8 @@ eigvals, embedding = spectral_embedding(
     eps=EPS,
     eigen_solver="amg",
 )
-final_dataset["lap_eigvals"][f"{DATA_NAME}"] = eigvals
-final_dataset["lap_eigvecs"][f"{DATA_NAME}"] = embedding
+final_dataset["lap_eigvals"][DATA_NAME] = eigvals
+final_dataset["lap_eigvecs"][DATA_NAME] = embedding
 
 # ------------------ FEATURE SELECTION ------------------
 #
@@ -222,9 +222,9 @@ final_dataset["lap_eigvecs"][f"{DATA_NAME}"] = embedding
 # have the smallest frequency and are as independent as possible w.r.t. to the objective defined in the paper.
 
 print(f"Running IES for igg {DATA_NAME} data.")
-final_dataset["ies"][f"{DATA_NAME}"] = ies(
-    emb_pts=final_dataset["lap_eigvecs"][f"{DATA_NAME}"],
-    emb_eigvals=final_dataset[f"lap_eigvals"][f"{DATA_NAME}"],
+final_dataset["ies"][DATA_NAME] = ies(
+    emb_pts=final_dataset["lap_eigvecs"][DATA_NAME],
+    emb_eigvals=final_dataset[f"lap_eigvals"][DATA_NAME],
     lap=final_dataset[f"laps|{DATA_NAME}-{DATA_NAME}|wc-wc"],
     ds=3,
     s=6,
@@ -240,7 +240,7 @@ funcs = np.concatenate(
     [np.expand_dims(fv, axis=1) if fv.ndim == 1 else fv for fv in func_vals], axis=1
 )
 
-final_dataset["grads"][f"{DATA_NAME}"] = local_grad_estimation(
+final_dataset["grads"][DATA_NAME] = local_grad_estimation(
     x_pts=final_dataset[f"points|{DATA_NAME}"],
     f0_vals=funcs,
     f_vals=funcs,
@@ -250,7 +250,7 @@ final_dataset["grads"][f"{DATA_NAME}"] = local_grad_estimation(
 )
 
 x_pts = final_dataset[f"points|{DATA_NAME}"]
-grads = final_dataset["grads"][f"{DATA_NAME}"]
+grads = final_dataset["grads"][DATA_NAME]
 affs = final_dataset[f"affs|{DATA_NAME}-{DATA_NAME}|wc-wc"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
 snr = final_dataset["params"][f"{DATA_NAME}_snr"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
 
@@ -290,7 +290,7 @@ pca_iter = local_weighted_pca_iter(
     in_place_norm=True,
     needs_norm=True,
 )
-final_dataset["wlpca_eigvals"][f"{DATA_NAME}"] = np.concatenate(
+final_dataset["wlpca_eigvals"][DATA_NAME] = np.concatenate(
     [eigen_pair[0] for eigen_pair in pca_iter], axis=0
 )
 

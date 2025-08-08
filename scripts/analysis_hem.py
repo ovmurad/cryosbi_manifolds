@@ -71,8 +71,8 @@ TRAIN_NAME = "train"
 CLEAN_NAME = "clean"
 UNIFORM_NAME = "unif"
 
-all_dataset = Database(database_name=f"{DATASET_NAME}", mode="overwrite")
-final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode="overwrite")
+all_dataset = Database(database_name=f"{DATASET_NAME}", mode="append")
+final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode="append")
 
 # ------------------ ANALYSIS PARAMETERS ------------------
 
@@ -238,11 +238,13 @@ for data_name in DATA_NAMES:
     # radius needs to be larger and that the embedding will probably fail miserably.
     affs = final_dataset["affs"][pair_key]
     degrees = reduce_arr_to_degrees(affs, axis=1)
-    final_dataset["masks"]["f{data_name}"] = degrees >= np.percentile(degrees, 5)
 
-    # Subsamples final dataset to only have well-connected ("wc") points
-    print(f"Subsampling hem {data_name} data to only well-connected points.")
-    subsample_dataset(final_dataset, final_dataset, "wc", SIM_SUBSAMPLE_KEY_PAIRS)
+    if data_name == SIM_NAME: 
+        final_dataset["masks"][f"{data_name}_wc"] = degrees >= np.percentile(degrees, 5)
+
+        # Subsamples final dataset to only have well-connected ("wc") points
+        print(f"Subsampling hem {data_name} data to only well-connected points.")
+        subsample_dataset(final_dataset, final_dataset, "wc", SIM_SUBSAMPLE_KEY_PAIRS)
     
     print(f"Running spectral embedding for hem {data_name} data.")
     eigvals, embedding = spectral_embedding(
@@ -251,16 +253,16 @@ for data_name in DATA_NAMES:
         eps=eps,
         eigen_solver="amg",
     )
-    final_dataset["lap_eigvals"]["f{data_name}"] = eigvals
-    final_dataset["lap_eigvecs"]["f{data_name}"] = embedding
+    final_dataset["lap_eigvals"][data_name] = eigvals
+    final_dataset["lap_eigvecs"][data_name] = embedding
 
 # ------------------ FEATURE SELECTION ------------------
 # I'm taking only one d for IES because the algorithm is very slow. Definitely need to improve it.
 # Look at the json file and display the top 3 axes selected by IES as they will be the embedding coordinates
 # have the smallest frequency and are as independent as possible w.r.t. to the objective defined in the paper.
-    final_dataset["ies"][f"{data_name}"] = ies(
-        emb_pts=final_dataset["lap_eigvecs"][f"{data_name}"],
-        emb_eigvals=final_dataset["lap_eigvals"][f"{data_name}"],
+    final_dataset["ies"][data_name] = ies(
+        emb_pts=final_dataset["lap_eigvecs"][data_name],
+        emb_eigvals=final_dataset["lap_eigvals"][data_name],
         lap=final_dataset[f"laps|{pair_key}|wc-wc"],
         ds=3,
         s=DS[data_name][1],
@@ -301,7 +303,7 @@ for data_name in DATA_NAMES:
         [np.expand_dims(fv, axis=1) if fv.ndim == 1 else fv for fv in func_vals], axis=1
     )
 
-    final_dataset["grads"][f"{data_name}"] = local_grad_estimation(
+    final_dataset["grads"][data_name] = local_grad_estimation(
         x_pts=final_dataset[f"points|{data_name}"],
         f0_vals=funcs,
         f_vals=funcs,
@@ -311,7 +313,7 @@ for data_name in DATA_NAMES:
     )
 
     x_pts = final_dataset[f"points|{data_name}"]
-    grads = final_dataset["grads"][f"{data_name}"]
+    grads = final_dataset["grads"][data_name]
     affs = final_dataset[f"affs|{data_name}-{data_name}|wc-wc"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
     snr = final_dataset[f"params|{data_name}_snr"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
 
@@ -353,6 +355,6 @@ for data_name in DATA_NAMES:
         in_place_norm=True,
         needs_norm=True,
     )
-    final_dataset["wlpca_eigvals"][f"{data_name}"] = np.concatenate(
+    final_dataset["wlpca_eigvals"][data_name] = np.concatenate(
         [eigen_pair[0] for eigen_pair in pca_iter], axis=0
     )

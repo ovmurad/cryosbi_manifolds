@@ -25,7 +25,6 @@ DATASET = Database(database_name="hemagglutinin_data_final")
 exp_results = {p: DATASET["tslasso"][f"exp_{p}"] for p in TS_LASSO_PCTS}
 sim_results = {p: DATASET["tslasso"][f"sim_{p}"] for p in TS_LASSO_PCTS}
 
-
 def plot_tslasso_norms(df, selections, name):
 
     nrows, ncols = 2, 5
@@ -54,8 +53,8 @@ def plot_tslasso_norms(df, selections, name):
 
         sel_pct = np.sum(selections == i) / selections.shape[0]
         ax.set_title(
-            f"{func}(selected {sel_pct * 100:.2f}%)",
-            fontsize=12,
+            f"{func} \n (selected {sel_pct * 100:.2f}%)",
+            fontsize=18,
         )
 
         # ax limits for hem sim
@@ -74,15 +73,15 @@ def plot_tslasso_norms(df, selections, name):
         ax.tick_params(axis="both", labelsize=12)  # both x and y ticks
 
         # Change axis label sizes
-        ax.set_xlabel("Lambda", fontsize=12)
-        ax.set_ylabel("Bk_norm", fontsize=12)
+        ax.set_xlabel("Lambda", fontsize=14)
+        ax.set_ylabel("Bk_norm", fontsize=16)
 
         # Control legend
         handles, labels = ax.get_legend_handles_labels()
         ax.legend(
             handles[0:2] + handles[3:-3:2] + handles[-3:],
             labels[0:2] + labels[3:-3:2] + labels[-3:],
-            fontsize=11,
+            fontsize=14,
         )
 
     # fig.suptitle(f"TSLasso on {name} data", fontsize=10)

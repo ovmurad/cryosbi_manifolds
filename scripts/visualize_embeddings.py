@@ -14,16 +14,15 @@ from geometry_analysis.visualization import COLORS, normalize_color
 
 DATASET = Database(database_name="hemagglutinin_data_final")
 # DATASET = Database(database_name="igg_data_final")
+
 RR_SCALE = 900.0
-
-
 class Results:
 
     def __init__(self, name: str, ies_coords: Sequence[int]):
 
         self.name = name
 
-        self.embedding = DATASET["lap_eigvecs"][f"{name}_wc"]
+        self.embedding = DATASET["lap_eigvecs"][f"{name}"]
         # self.relax_embedding = DATASET["lap_embedding"][f"{name}_relax"] / RR_SCALE
 
         # self.pred_embedding = DATASET["lap_embedding"][f"{name}_pred"]

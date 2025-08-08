@@ -58,8 +58,8 @@ TRAIN_NAME = "train"
 CLEAN_NAME = "clean"
 UNIFORM_NAME = "unif"
 
-all_dataset = Database(database_name=f"{DATASET_NAME}")
-final_dataset = Database(database_name=f"{DATASET_NAME}_final")
+all_dataset = Database(database_name=f"{DATASET_NAME}", mode='overwrite')
+final_dataset = Database(database_name=f"{DATASET_NAME}_final", mode='overwrite')
 # ------------------ ANALYSIS PARAMETERS ------------------
 # Check LOCAL STATISTICS
 # the ks for the k-nn distances
@@ -114,6 +114,7 @@ compute_split_masks(all_dataset, DATA_NAME, SPLIT_NPTS)
 # For the knn distance of neighbors, the histogram will have a long tail of points with large k-nn distances.
 # Pick percentiles alpha(sim)/beta(exp) that reliably eliminate the anomalous bins.
 # Compute local statistics(closest distance to nearest k neighbors or neighbor counts for different radii)
+print(f"Running outlier removal for igg {DATA_NAME} data.")
 
 if OUTLIER_ALGO == "knn_dists":
     local_stats_dict = dict(ks=KS)
@@ -130,6 +131,7 @@ all_dataset["masks"][f"{DATA_NAME}_clean"] = detect_outliers(
 
 # ------------------ UNIFORM RESAMPLING ------------------
 # Resample the data to obtain uniform samples.
+print(f"Uniformly subsampling igg {DATA_NAME} data.")
 compute_distance_statistics(all_dataset, DATA_NAME, CLEAN_NAME, rs=RS)
 compute_uniform_sample(all_dataset, DATA_NAME, CLEAN_NAME, EMB_NPTS)
 
@@ -138,6 +140,7 @@ subsample_dataset(all_dataset, final_dataset, UNIFORM_NAME, SIM_SUBSAMPLE_KEY_PA
 
 # ------------------ INTRINSIC DIMENSIONALITY ESTIMATION ------------------
 # Compute distances to closest KS neighbors and for a given set of radii RS compute the number of neighbors.
+print(f"Computing distance statistics for igg {DATA_NAME} data.")
 compute_distance_statistics(final_dataset, DATA_NAME, "all", RS, KS)
 
 # Run all dimensionality estimation algorithms. Look at the outputs and pick a reasonable span of dimensions.
@@ -179,7 +182,7 @@ final_dataset["eval_radii"][DATA_NAME] = radii_distortions(
 
 # Compute the geometry matrices: distance, gaussian affinity and geometric laplacian using the
 # radius and bandwidth suggested by the previous analysis
-
+print(f"Computing geometry matrices for igg {DATA_NAME} data.")
 final_dataset["dists"][f"{DATA_NAME}-{DATA_NAME}"] = dist(
     x_pts=final_dataset["points"][DATA_NAME],
     threshold=RADIUS,
@@ -200,6 +203,7 @@ degrees = reduce_arr_to_degrees(affs, axis=1)
 final_dataset["masks"][f"{DATA_NAME}_wc"] = degrees >= np.percentile(degrees, 5)
 
 # Subsamples final dataset to only have well-connected ("wc") points
+print(f"Subsampling igg {DATA_NAME} data to only well-connected points.")
 subsample_dataset(final_dataset, final_dataset, "wc", SIM_SUBSAMPLE_KEY_PAIRS)
 
 print(f"Running spectral embedding for igg {DATA_NAME} data.")
@@ -220,9 +224,9 @@ final_dataset["lap_eigvecs"][f"{DATA_NAME}"] = embedding
 # have the smallest frequency and are as independent as possible w.r.t. to the objective defined in the paper.
 
 print(f"Running IES for igg {DATA_NAME} data.")
-final_dataset["ies"][f"{DATA_NAME}_wc"] = ies(
-    emb_pts=final_dataset["lap_eigvecs"][f"{DATA_NAME}_wc"],
-    emb_eigvals=final_dataset[f"lap_eigvals"][f"{DATA_NAME}_wc"],
+final_dataset["ies"][f"{DATA_NAME}"] = ies(
+    emb_pts=final_dataset["lap_eigvecs"][f"{DATA_NAME}"],
+    emb_eigvals=final_dataset[f"lap_eigvals"][f"{DATA_NAME}"],
     lap=final_dataset[f"laps|{DATA_NAME}-{DATA_NAME}|wc-wc"],
     ds=3,
     s=6,
@@ -233,13 +237,13 @@ final_dataset["ies"][f"{DATA_NAME}_wc"] = ies(
 
 print(f"Estimating gradients for igg {DATA_NAME} data.")
 
-func_vals = [final_dataset[f"params|{DATA_NAME}_{sp}|wc"] for sp in SIM_PARAMS]
+func_vals = [final_dataset[f"params|{DATA_NAME}_{sp}"] for sp in SIM_PARAMS]
 funcs = np.concatenate(
     [np.expand_dims(fv, axis=1) if fv.ndim == 1 else fv for fv in func_vals], axis=1
 )
 
-final_dataset["grads"][f"{DATA_NAME}_wc"] = local_grad_estimation(
-    x_pts=final_dataset[f"points|{DATA_NAME}|wc"],
+final_dataset["grads"][f"{DATA_NAME}"] = local_grad_estimation(
+    x_pts=final_dataset[f"points|{DATA_NAME}"],
     f0_vals=funcs,
     f_vals=funcs,
     weights=final_dataset[f"affs|{DATA_NAME}-{DATA_NAME}|wc-wc"][:GRAD_ESTIM_SUBSAMPLE_SIZE],
@@ -247,8 +251,8 @@ final_dataset["grads"][f"{DATA_NAME}_wc"] = local_grad_estimation(
     ncomp=10,
 )
 
-x_pts = final_dataset[f"points|{DATA_NAME}|wc"]
-grads = final_dataset["grads"][f"{DATA_NAME}_wc"]
+x_pts = final_dataset[f"points|{DATA_NAME}"]
+grads = final_dataset["grads"][f"{DATA_NAME}"]
 affs = final_dataset[f"affs|{DATA_NAME}-{DATA_NAME}|wc-wc"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
 snr = final_dataset["params"][f"{DATA_NAME}_snr"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
 
@@ -281,7 +285,7 @@ print(f"Estimating local PCA for for igg {DATA_NAME} data.")
 
 # Compute local pca for TSLasso
 pca_iter = local_weighted_pca_iter(
-    x_pts=final_dataset[f"points|{DATA_NAME}|wc"],
+    x_pts=final_dataset[f"points|{DATA_NAME}"],
     weights=final_dataset[f"affs|{DATA_NAME}-{DATA_NAME}|wc-wc"][:EIGENGAP_ESTIM_SUBSAMPLE_SIZE],
     ncomp=16,
     bsize=256,

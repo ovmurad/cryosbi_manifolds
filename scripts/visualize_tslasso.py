@@ -7,7 +7,7 @@ from geometry_analysis.utils import create_grid_1d
 
 sns.set_style("darkgrid")
 
-TS_LASSO_PCTS = create_grid_1d(start=0, stop=95, step_size=5, scale="int")
+TS_LASSO_PCTS = create_grid_1d(start=0, stop=90, step_size=5, scale="int")
 TS_LASSO_FUNCS = (
     "conf",
     "snr",
@@ -20,9 +20,9 @@ TS_LASSO_FUNCS = (
     "sigma",
     "defoc",
 )
-DATASET = Database(database_name="igg_latent_vecs_256_final")
+DATASET = Database(database_name="hemagglutinin_data_final")
 
-# real_results = {p: DATASET["tslasso"][f"real_{p}"] for p in TS_LASSO_PCTS}
+exp_results = {p: DATASET["tslasso"][f"exp_{p}"] for p in TS_LASSO_PCTS}
 sim_results = {p: DATASET["tslasso"][f"sim_{p}"] for p in TS_LASSO_PCTS}
 
 
@@ -39,6 +39,7 @@ def plot_tslasso_norms(df, selections, name):
     for i, (ax, func) in enumerate(zip(axes, TS_LASSO_FUNCS)):
 
         data = df[df["func"] == func]
+
         sns.lineplot(
             data,
             x="lambda",
@@ -53,12 +54,36 @@ def plot_tslasso_norms(df, selections, name):
 
         sel_pct = np.sum(selections == i) / selections.shape[0]
         ax.set_title(
-            f"Function {func} (selected {sel_pct:.2f} pct of the time)",
-            fontsize=8,
+            f"{func}(selected {sel_pct * 100:.2f}%)",
+            fontsize=12,
         )
 
-        ax.set_xlim(0, 12)
-        ax.set_ylim(-0.1, 80)
+        # ax limits for hem sim
+        ax.set_xlim(2.0, 4)
+        ax.set_ylim(-0.1, 30)
+
+        # # ax limits for hem exp
+        # ax.set_xlim(7, 14)
+        # ax.set_ylim(-0.1, 10)
+
+        #
+        # # ax limits for igg
+        # ax.set_xlim(8, 17.5)
+        # ax.set_ylim(-0.1, 10)
+
+        ax.tick_params(axis="both", labelsize=12)  # both x and y ticks
+
+        # Change axis label sizes
+        ax.set_xlabel("Lambda", fontsize=12)
+        ax.set_ylabel("Bk_norm", fontsize=12)
+
+        # Control legend
+        handles, labels = ax.get_legend_handles_labels()
+        ax.legend(
+            handles[0:2] + handles[3:-3:2] + handles[-3:],
+            labels[0:2] + labels[3:-3:2] + labels[-3:],
+            fontsize=11,
+        )
 
     # fig.suptitle(f"TSLasso on {name} data", fontsize=10)
 
@@ -66,7 +91,7 @@ def plot_tslasso_norms(df, selections, name):
     plt.show()
 
 
-for name, results in (("sim", sim_results),):
+for name, results in (("sim", sim_results), ("exp", exp_results)):
 
     selections = []
     for solution_idx, _, _, beta_norms in results.values():

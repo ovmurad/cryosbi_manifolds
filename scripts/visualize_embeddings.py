@@ -7,12 +7,13 @@ import pandas as pd
 import seaborn as sns
 from mpl_toolkits.mplot3d import Axes3D
 
-from geometry_analysis.arr import AxIdx
-from geometry_analysis.io import Database
-from geometry_analysis.visualization import COLORS, normalize_color
+from src.geometry_analysis.arr import AxIdx
+from src.geometry_analysis.io import Database
+from src.geometry_analysis.visualization import COLORS, normalize_color
 
 
-DATASET = Database(database_name="igg_data_final")
+DATASET = Database(database_name="hemagglutinin_data_final")
+# DATASET = Database(database_name="igg_data_final")
 RR_SCALE = 900.0
 
 
@@ -22,7 +23,7 @@ class Results:
 
         self.name = name
 
-        self.embedding = DATASET["lap_eigvecs"][f"{name}"]
+        self.embedding = DATASET["lap_eigvecs"][f"{name}_wc"]
         # self.relax_embedding = DATASET["lap_embedding"][f"{name}_relax"] / RR_SCALE
 
         # self.pred_embedding = DATASET["lap_embedding"][f"{name}_pred"]
@@ -33,13 +34,13 @@ class Results:
         self.ies_coords = list(ies_coords)
         # self.estimated_d = DATASET[f"estimated_d|{name}|wc"]
         #
-        self.conf = DATASET[f"params|{name}_conf"]
-        self.snr = DATASET[f"params|{name}_snr"]
+        self.conf = DATASET[f"params|{name}_conf|wc"]
+        self.snr = DATASET[f"params|{name}_snr|wc"]
         #
         # self.sigma = DATASETf["params|{name}_sigma"]|wc
         # self.defoc = DATASETf["params|{name}_defoc"]|wc
-        self.postm = DATASET[f"params|{name}_postm"]
-        self.postw = DATASET[f"params|{name}_postw"]
+        self.postm = DATASET[f"params|{name}_postm|wc"]
+        self.postw = DATASET[f"params|{name}_postw|wc"]
 
         # self.shift = DATASET["params"][f"{name}_shift"]
         # self.shift1 = self.shift[:, 0]
@@ -60,11 +61,8 @@ class Results:
         # self.color = COLORS[name]
 
 
-sim_results = Results(
-    name="sim",
-    ies_coords=[0, 1, 2],
-)
-# sim_results = Results(name="exp", ies_coords=[0, 1, 3])
+sim_results = Results(name="sim", ies_coords=[0, 1, 3])
+exp_results = Results(name="exp", ies_coords=[0, 1, 2])
 
 
 def _prepare_color_kwargs(
@@ -266,7 +264,7 @@ def plot_3d(
 
 def color_by_figures():
 
-    for res in (sim_results,):
+    for res in (sim_results, exp_results):
         for param in ("conf", "snr", "postm", "postw"):
 
             fig = plt.figure(figsize=(20, 14))
@@ -277,14 +275,14 @@ def color_by_figures():
                 ax=ax,
                 results=res,
                 color_by=param,
-                color_lims=(2, 98),
+                color_lims=(5, 95),
                 data_cols="ies",
                 x_lims=(-0.020, 0.020),
                 y_lims=(-0.020, 0.020),
                 z_lims=(-0.020, 0.020),
                 alpha=0.6,
                 size=2.5,
-                color_map="viridis",
+                color_map="viridis_r",
             )
 
             plt.tight_layout()

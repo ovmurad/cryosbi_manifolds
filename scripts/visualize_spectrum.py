@@ -5,8 +5,8 @@ import seaborn as sns
 
 from geometry_analysis.io import Database
 
-igg_dataset = Database(database_name="hem_latent_vecs_256_final")
-hem_dataset = Database(database_name="hem_latent_vecs_256_final")
+igg_dataset = Database(database_name="igg_data_final")
+hem_dataset = Database(database_name="hemagglutinin_data_final")
 
 
 def make_eigvals_df(evals, name):

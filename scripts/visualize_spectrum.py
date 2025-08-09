@@ -17,8 +17,8 @@ def make_eigvals_df(evals, name):
     return evals_df
 
 
-sim_eigvals_df = make_eigvals_df(hem_dataset["lap_eigvals"]["sim_wc"], "hem_sim")
-real_eigvals_df = make_eigvals_df(hem_dataset["lap_eigvals"]["exp_wc"], "hem_exp")
+sim_eigvals_df = make_eigvals_df(hem_dataset["lap_eigvals"]["sim"], "hem_sim")
+real_eigvals_df = make_eigvals_df(hem_dataset["lap_eigvals"]["exp"], "hem_exp")
 eigvals_df = pd.concat([sim_eigvals_df, real_eigvals_df])
 
 sns.set_style("darkgrid")
@@ -36,7 +36,7 @@ plt.ylabel("Eigenvalues")
 plt.legend()
 plt.show()
 
-eigvals_df = make_eigvals_df(igg_dataset["lap_eigvals"]["sim_wc"], "igg_sim")
+eigvals_df = make_eigvals_df(igg_dataset["lap_eigvals"]["sim"], "igg_sim")
 
 plt.figure(figsize=(12, 6))
 sns.barplot(

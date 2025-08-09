@@ -11,19 +11,15 @@ from geometry_analysis.arr import AxIdx
 from geometry_analysis.io import Database
 from geometry_analysis.visualization import COLORS, normalize_color
 
-
-DATASET = Database(database_name="hemagglutinin_data_final")
-# DATASET = Database(database_name="igg_data_final")
 RR_SCALE = 900.0
-
 
 class Results:
 
-    def __init__(self, name: str, ies_coords: Sequence[int]):
+    def __init__(self, database: Database, name: str, ies_coords: Sequence[int]):
 
         self.name = name
 
-        self.embedding = DATASET["lap_eigvecs"][f"{name}_wc"]
+        self.embedding = database["lap_eigvecs"][f"{name}"]
         # self.relax_embedding = DATASET["lap_embedding"][f"{name}_relax"] / RR_SCALE
 
         # self.pred_embedding = DATASET["lap_embedding"][f"{name}_pred"]
@@ -33,14 +29,18 @@ class Results:
 
         self.ies_coords = list(ies_coords)
         # self.estimated_d = DATASET[f"estimated_d|{name}|wc"]
-        #
-        self.conf = DATASET[f"params|{name}_conf|wc"]
-        self.snr = DATASET[f"params|{name}_snr|wc"]
+
+        if name == "sim":
+            self.conf = database[f"params|{name}_conf|wc"]
+            self.snr = database[f"params|{name}_snr|wc"]
+        else:
+            self.conf = database["params"][f"{name}_conf_wc"]
+            self.snr = database["params"][f"{name}_snr_wc"]
         #
         # self.sigma = DATASETf["params|{name}_sigma"]|wc
         # self.defoc = DATASETf["params|{name}_defoc"]|wc
-        self.postm = DATASET[f"params|{name}_postm|wc"]
-        self.postw = DATASET[f"params|{name}_postw|wc"]
+        self.postm = database[f"params|{name}_postm|wc"]
+        self.postw = database[f"params|{name}_postw|wc"]
 
         # self.shift = DATASET["params"][f"{name}_shift"]
         # self.shift1 = self.shift[:, 0]
@@ -59,10 +59,6 @@ class Results:
         # self.umap2 = self.umap[:, 1]
 
         # self.color = COLORS[name]
-
-
-sim_results = Results(name="sim", ies_coords=[0, 1, 3])
-exp_results = Results(name="exp", ies_coords=[0, 1, 2])
 
 
 def _prepare_color_kwargs(
@@ -265,6 +261,10 @@ def plot_3d(
 def color_by_figures():
 
     for res in (sim_results, exp_results):
+
+        if res is None:
+            continue
+
         for param in ("conf", "snr", "postm", "postw"):
 
             fig = plt.figure(figsize=(20, 14))
@@ -325,6 +325,18 @@ def density_figures():
         plt.tight_layout()
         plt.show()
 
+
+# for igg data
+database = Database(database_name="igg_data_final")
+sim_results = Results(database, name="sim", ies_coords=[0, 1, 2])
+exp_results = None
+
+color_by_figures()
+
+# for hem data
+database = Database(database_name="hemagglutinin_data_final")
+sim_results = Results(database, name="sim", ies_coords=[0, 1, 3])
+exp_results = Results(database, name="exp", ies_coords=[0, 1, 2])
 
 color_by_figures()
 # density_figures()

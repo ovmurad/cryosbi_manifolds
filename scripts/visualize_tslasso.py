@@ -20,10 +20,8 @@ TS_LASSO_FUNCS = (
     "sigma",
     "defoc",
 )
-DATASET = Database(database_name="hemagglutinin_data_final")
 
-exp_results = {p: DATASET["tslasso"][f"exp_{p}"] for p in TS_LASSO_PCTS}
-sim_results = {p: DATASET["tslasso"][f"sim_{p}"] for p in TS_LASSO_PCTS}
+
 
 def plot_tslasso_norms(df, selections, name):
 
@@ -58,17 +56,16 @@ def plot_tslasso_norms(df, selections, name):
         )
 
         # ax limits for hem sim
-        ax.set_xlim(2.0, 4)
-        ax.set_ylim(-0.1, 30)
+        # ax.set_xlim(2.0, 6.0)
+        # ax.set_ylim(-0.1, 40)
 
         # # ax limits for hem exp
-        # ax.set_xlim(7, 14)
-        # ax.set_ylim(-0.1, 10)
+        ax.set_xlim(5, 15)
+        ax.set_ylim(-0.1, 30)
 
-        #
         # # ax limits for igg
-        # ax.set_xlim(8, 17.5)
-        # ax.set_ylim(-0.1, 10)
+        # ax.set_xlim(10, 15)
+        # ax.set_ylim(-0.1, 7)
 
         ax.tick_params(axis="both", labelsize=12)  # both x and y ticks
 
@@ -89,8 +86,20 @@ def plot_tslasso_norms(df, selections, name):
     plt.tight_layout()
     plt.show()
 
+# for igg data
+# DATASET = Database(database_name="igg_data_final")
+# exp_results = None
+# sim_results = {p: DATASET["tslasso"][f"sim_{p}"] for p in TS_LASSO_PCTS}
 
-for name, results in (("sim", sim_results), ("exp", exp_results)):
+# for hem data
+DATASET = Database(database_name="hemagglutinin_data_final")
+exp_results = {p: DATASET["tslasso"][f"exp_{p}"] for p in TS_LASSO_PCTS}
+sim_results = {p: DATASET["tslasso"][f"sim_{p}"] for p in TS_LASSO_PCTS}
+
+for name, results in (("exp", exp_results),):
+
+    if results is None:
+        continue
 
     selections = []
     for solution_idx, _, _, beta_norms in results.values():
@@ -128,3 +137,4 @@ for name, results in (("sim", sim_results), ("exp", exp_results)):
     norms_df = pd.DataFrame.from_records(norms_df)
 
     plot_tslasso_norms(norms_df, selections, name)
+

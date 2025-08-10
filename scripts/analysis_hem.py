@@ -375,11 +375,12 @@ for data_name in DATA_NAMES:
     lap = final_dataset[f"laps|{data_name}-{data_name}|wc-wc"]
     lap_eps = RADIUS[data_name] / RADIUS_EPS_RATIO
 
-    niter = 50
+    niter = 20
     emb_pts = final_dataset["lap_eigvecs"][data_name] * RR_SCALE
 
     for i in range(0, 250, niter):
 
+        print(f"Starting iters {i} to {niter + i}!")
         emb_pts = riemannian_relaxation(
             emb_pts=emb_pts,
             lap=lap,

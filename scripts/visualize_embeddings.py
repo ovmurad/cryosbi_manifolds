@@ -19,8 +19,8 @@ class Results:
 
         self.name = name
 
-        self.embedding = database["lap_eigvecs"][f"{name}"]
-        # self.relax_embedding = DATASET["lap_embedding"][f"{name}_relax"] / RR_SCALE
+        # self.embedding = database["lap_eigvecs"][name]
+        self.embedding = database["lap_eigvecs"][f"{name}_relax_260"] / RR_SCALE
 
         # self.pred_embedding = DATASET["lap_embedding"][f"{name}_pred"]
 
@@ -260,7 +260,7 @@ def plot_3d(
 
 def color_by_figures():
 
-    for res in (sim_results, exp_results):
+    for res in (exp_results, sim_results):
 
         if res is None:
             continue
@@ -327,11 +327,11 @@ def density_figures():
 
 
 # for igg data
-database = Database(database_name="igg_data_final")
-sim_results = Results(database, name="sim", ies_coords=[0, 1, 2])
-exp_results = None
-
-color_by_figures()
+# database = Database(database_name="igg_data_final")
+# sim_results = Results(database, name="sim", ies_coords=[0, 1, 2])
+# exp_results = None
+#
+# color_by_figures()
 
 # for hem data
 database = Database(database_name="hemagglutinin_data_final")

@@ -30,9 +30,9 @@ Visualization of the results can be found from the routines in the scripts:
 
 ---
 
-In the `analysis`  scripts, the many hyperparameters can be quickly adjusted. These include:
-- `EMB_NPTS`: this sets the size of the dataset after it is subsampled to be approximately uniform density, and corresponding to the size of $\mathcal{X}_{unif}$ in the manuscript. In our case, $N=100,000$ for the datasets, and we subsample to `EMB_NPTS=20,000.$ We recommend to subsample to at least 1/3 smaller than the original data.
-- `SPLIT_NPTS`: this sets the training and test split. By default, this is set to $60,000,$ $2/3$ of the original $100,000$ points. 
+The `analysis`  scripts have many hyperparameters can be quickly adjusted. These include:
+- `EMB_NPTS`: this sets the size of the dataset after it is subsampled to be approximately uniform density, and corresponding to the size of $\mathcal{X}_{unif}$ in the manuscript. In our case, N=100,000 for the datasets, and we subsample to `EMB_NPTS`=20,000 We recommend to subsample to at least 1/3 smaller than the original data.
+- `SPLIT_NPTS`: this sets the training and test split. By default, this is set to 60,000, two-thirds of the original 100,000 points. 
 
 The variables `IES_SUBSAMPLE_SIZE`, `TSLASSO_SUBSAMPLE_SIZE`, `GRAD_ESTIM_SUBSAMPLE_SIZE`, `EIGENGAP_ESTIM_SUBSAMPLE_SIZE` in the `analysis` scripts all set subsampling sizes to ease computational time of processes, and can be increased for more accuracy at the expense of computational time.
 

@@ -197,11 +197,11 @@ for data_name in DATA_NAMES:
 
 # ------------------ MANIFOLD LEARNING ------------------
 # Select the bandwidth for the affinity matrix which will then be used for diffusion maps.
-# We don't need the distortions really, just look at the printout, the distortion will go down, then it will start
-# going up again so just pick the minimum when it occurs. There is generally no harm in picking a slightly larger radius
-# than the one that achieves the minimum distortion. In fact, I generally find that to be more stable and yield better
-# embeddings. Particularly for this type of data that seems to have varying topology and probably varying intrinsic
-# dimensionality(so not really a manifold), I find it useful to go above the minimum computed here which seems to give
+# We pick the radii slightly above the radii for which the distortion reaches its minimum.
+# There is generally no harm in picking a slightly larger radius
+# than the one that achieves the minimum distortion. 
+# Particularly for this type of data that seems to have varying topology and probably varying intrinsic
+# dimensionality, I find it useful to go above the minimum computed here which seems to give
 # a lower bound under which DM fails.
 
 for data_name in DATA_NAMES:

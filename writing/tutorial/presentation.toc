@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{Basics of ML with SuperMan}{6}{0}{2}
+\beamer@sectionintoc {3}{Pipeline for Cryo-EM}{9}{0}{3}
+\beamer@sectionintoc {4}{Conclusions and Resources}{11}{0}{4}
+\beamer@sectionintoc {5}{Possible Venues}{14}{0}{5}
+\beamer@sectionintoc {6}{Ancillary Notes}{16}{0}{6}

@@ -1,0 +1,186 @@
+\documentclass[aspectratio=169]{beamer}
+% ======================================================================
+% Theme & appearance
+% ======================================================================
+\usetheme{metropolis}
+
+\metroset{
+	progressbar=frametitle,
+	numbering=fraction,
+	titleformat=smallcaps,
+}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+% ======================================================================
+% Macros & Commands
+% ======================================================================
+\usepackage{amsmath, amsfonts, amssymb}
+
+\input{../macros/notation}
+\input{../macros/commands}
+
+
+% ======================================================================
+% Metadata
+% ======================================================================
+\title{Manifold Learning and Simulation-Based Inference for Cryo-EM}
+\author{Luke Evans, Octavian-Vlad Murad, Marina Meilă}
+\institute{Flatiron Institute, University of Washington, University of Waterloo}
+\date{\today}
+
+% ======================================================================
+% Presentation
+% ======================================================================
+\begin{document}
+
+
+% ======================================================================
+% Title, Contents, Acknowledgement, etc.
+% ======================================================================
+% ----------------------------------------------------------------------
+\begin{frame}
+	\titlepage
+\end{frame}
+
+% ----------------------------------------------------------------------
+\begin{frame}{Outline}
+	\tableofcontents
+\end{frame}
+
+% ======================================================================
+\section{Motivation}
+% ======================================================================
+% ----------------------------------------------------------------------
+\begin{frame}{Motivation}
+	\begin{itemize}
+		\item Examples of relevant SBI (Simulation-Based Inference) problems
+		\item Our main Cryo-EM question
+	\end{itemize}
+\end{frame}
+
+% ----------------------------------------------------------------------
+\begin{frame}{Motivation for Manifold Learning (ML)}
+	\begin{itemize}
+		\item Many natural data sets are intrinsically low-dimensional
+		\item Neural network embeddings are often low-dimensional as well
+		\item Therefore: manifold learning can help in many ways (incomplete list):
+		\begin{itemize}
+			\item estimate dimension
+			\item check whether simulated data covers real data
+			\item reduce dimension via embedding algorithms
+			\item visualize and interpret latent structure
+			\item measure distortion
+			\item perform SBI in a low-dimensional representation
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+% ======================================================================
+\section{Basics of ML with SuperMan}
+% ======================================================================
+% ----------------------------------------------------------------------
+\begin{frame}{Basics of ML with SuperMan}
+	\begin{itemize}
+		\item Brief intro to manifold learning algorithms:
+		\begin{itemize}
+			\item Diffusion Maps
+			\item t-SNE
+		\end{itemize}
+		\item Why ML is harder than PCA:
+		\begin{itemize}
+			\item many parameter choices (neighbors $k$, radius $\varepsilon$, metrics, etc.)
+		\end{itemize}
+		\item Hands-on SuperMan on a toy data set:
+		\begin{itemize}
+			\item Swiss roll with a hole
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+% ----------------------------------------------------------------------
+\begin{frame}{Implementation: SuperMan vs.\ scikit-learn}
+	\begin{itemize}
+		\item Performance:
+		\begin{itemize}
+			\item SuperMan: fast, real-time or semi-real-time
+			\item scikit-learn: slower; may not complete on large data sets
+		\end{itemize}
+		\item Statistical and geometric features in SuperMan:
+		\begin{itemize}
+			\item neighbor selection ($k$-NN, radius $\varepsilon$)
+			\item Riemannian metric estimation (RMetric)
+			\item intrinsic dimension estimation (IES)
+			\item other diagnostics and elementary statistics
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+% ======================================================================
+\section{Pipeline for Cryo-EM}
+% ======================================================================
+% ----------------------------------------------------------------------
+\begin{frame}{The Pipeline for Cryo-EM}
+	\begin{itemize}
+		\item Subsample for uniformity
+		\item Construct neighborhoods
+		\item Estimate intrinsic dimension
+		\item Assess coverage
+		\item RRelax
+		\item TSLasso
+	\end{itemize}
+\end{frame}
+
+% ======================================================================
+\section{Conclusions and Resources}
+% ======================================================================
+% ----------------------------------------------------------------------
+\begin{frame}{Conclusions \& Take-Home Messages}
+	\begin{itemize}
+		\item Manifold learning offers powerful tools for Cryo-EM and SBI
+		\item Embeddings can reveal intrinsic structure and reduce complexity
+		\item SuperMan integrates state-of-the-art statistical diagnostics
+	\end{itemize}
+\end{frame}
+
+% ----------------------------------------------------------------------
+\begin{frame}{Further Reading and Resources}
+	\begin{itemize}
+		\item Key papers on manifold learning and diffusion maps
+		\item References on SBI and applications to Cryo-EM
+		\item SuperMan documentation and code repository
+	\end{itemize}
+\end{frame}
+
+% ======================================================================
+\section{Possible Venues}
+% ======================================================================
+% ----------------------------------------------------------------------
+\begin{frame}{Possible Venues for the Tutorial}
+	\begin{itemize}
+		\item Flatiron Institute — early January
+		\item eScience Institute — discuss with D.~Beck
+		\item Instats
+	\end{itemize}
+\end{frame}
+
+% ======================================================================
+\section{Ancillary Notes}
+% ======================================================================
+% ----------------------------------------------------------------------
+\begin{frame}{Ancillary Notes}
+	\begin{itemize}
+		\item \textbf{Friday, Nov.\ 15}: Initial deadline for low-level stabilized code  
+		\\(internal note: this was the deadline for the first seminar presentation;
+		please communicate if plans change)
+		\item \textbf{Monday, Dec.\ 15}: Initial deadline for tutorial materials
+	\end{itemize}
+\end{frame}
+
+% ======================================================================
+\bibliographystyle{ieeetr}
+\bibliography{references.bib}
+% ======================================================================
+\end{document}

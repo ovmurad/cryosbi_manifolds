@@ -21,7 +21,9 @@ The main analysis from the manuscript [''Cryo-em images are intrinsically low di
 - `scripts/analysis_igg.py` for the simulated igg data. Data available in this repo on `data/igg_data`, from the file `igg_data.zip` from the Zenodo below
 - `scripts/analysis_hem.py` for the simulated and experimental hemagglutinin data. Needs `hemagglutinin_data.zip` from the Zenodo below, imported as a folder `hemagglutinin_data` to the `data/` folder.
 
-The data to use in the above scripts can be downloaded from [https://zenodo.org/records/15733579](https://zenodo.org/records/15733579).
+The data to use in the above scripts can be downloaded from:
+- IgG and hemagglutinin datasets: [https://zenodo.org/records/15733579](https://zenodo.org/records/15733579).
+- MDS datasets: [https://drive.google.com/drive/u/2/folders/1Z_khrybks7NA5K3Y4QvujajpgQVG28KL](https://drive.google.com/drive/u/2/folders/1Z_khrybks7NA5K3Y4QvujajpgQVG28KL)
 
 Visualization of the results can be found from the routines in the scripts:
 - `scripts/visualize_embeddings.py`

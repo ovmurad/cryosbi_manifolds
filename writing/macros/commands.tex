@@ -8,9 +8,16 @@
 % ======================================================================
 % Algos
 % ======================================================================
-\NewDocumentCommand{\tslasso}{}{\textsc{TSLasso}}
-\NewDocumentCommand{\ies}{}{\textsc{IES}}
-\NewDocumentCommand{\rrelex}{}{\textsc{RRelax}}
+\NewDocumentCommand{\dm}{}{\textsc{DiffMaps} }
+\NewDocumentCommand{\tslasso}{}{\textsc{TSLasso} }
+\NewDocumentCommand{\ies}{}{\textsc{IES} }
+\NewDocumentCommand{\rrelex}{}{\textsc{RRelax} }
+
+% ======================================================================
+% Operators
+% ======================================================================
+\NewDocumentCommand{\dk}{o O{k}}{\IfValueTF{#1}{\mathrm{dist}_{#2}\left(#1\right)}{\mathrm{dist}_{#2}}}
+\NewDocumentCommand{\nr}{o O{r}}{\IfValueTF{#1}{\mathrm{n}_{#2}\left(#1\right)}{\mathrm{n}_{#2}}}
 
 % ======================================================================
 % Misc

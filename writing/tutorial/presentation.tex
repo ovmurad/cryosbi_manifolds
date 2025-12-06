@@ -119,19 +119,126 @@
 \end{frame}
 
 % ======================================================================
-\section{Pipeline for Cryo-EM}
+\section{SBI Validation Pipeline}
 % ======================================================================
 % ----------------------------------------------------------------------
-\begin{frame}{The Pipeline for Cryo-EM}
+\begin{frame}{SBI Validation Pipeline}
 	\begin{itemize}
-		\item Subsample for uniformity
-		\item Construct neighborhoods
-		\item Estimate intrinsic dimension
-		\item Assess coverage
-		\item RRelax
-		\item TSLasso
+		\item Construct distance matrix and local statistics.
+		\item Preprocessing I: Outlier removal.
+		\item Assess coverage and fidelity.
+		\item Preprocessing II: Uniform resampling.
+		\item Construct the Laplacian and recompute local statistics.
+		\item Estimate intrinsic dimension.
+		\item Manifold Learning: \dm.
+		\item Manifold Interpretation \& Visualization I: \ies and plotting.
+		\item Manifold Interpretation \& Visualization II: \tslasso.
+		\item Manifold Interpretation \& Visualization III: \rrelex.
 	\end{itemize}
 \end{frame}
+
+% ----------------------------------------------------------------------
+% 1. Construct distance matrix and local statistics
+% ----------------------------------------------------------------------
+\begin{frame}{Construct Distance Matrix and Local Statistics}
+	
+	\textbf{Optional Step: Sub-sampling for tractability}
+	\begin{itemize}
+		\item Many downstream operations scale superlinearly in $N$:
+		\begin{itemize}
+			\item pairwise distances / neighbor graphs,
+			\item spectral decompositions of graph Laplacians,
+			\item local statistics (kNN, radius counts, etc.),
+			\item local covariance matrices and their spectral decompositions. 
+		\end{itemize}
+		\item If $N$ is very large:
+		\begin{itemize}
+			\item Randomly sub-sample to a size that:
+			\begin{itemize}
+				\item still captures the geometry of the data,
+				\item fits within the available computational budget.
+			\end{itemize}
+			\item In general, one should use as many points as resources allow.
+		\end{itemize}
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{Construct Distance Matrix and Local Statistics}
+	
+	\textbf{Main Step: Distance matrix and local statistics}
+	\begin{itemize}
+		\item Compute distances between latent points in $\X$.
+		\item For each point $x \in \X$, compute local statistics:
+		\begin{itemize}
+			\item $\dk[x]$: distance to the $k$-th nearest neighbor for a range $k \in \{k_{\min}, \dots, k_{\max}\}$ or,
+			\item $\nr[x]$: the number of neighbors within radius $r$ for a range $r \in \{r_{\min}, \dots, r_{\max}\}$.
+		\end{itemize}
+	\end{itemize}
+	
+	\textbf{Practical notes:}
+	\begin{itemize}
+		\item Store distances in sparse form.
+		\item As we subsample the data, slice the already computed distance matrix.
+		\item Reuse the same local statistics across multiple steps in the pipeline.
+	\end{itemize}
+\end{frame}
+
+
+% ----------------------------------------------------------------------
+% 2. Preprocessing I: Outlier removal
+% ----------------------------------------------------------------------
+
+\begin{frame}{Preprocessing I: Outlier Removal}
+	\textbf{Motivation}
+	\begin{itemize}
+		\item Highly noisy or pathological points:
+		\begin{itemize}
+			\item are not representative of the underlying geometry or data distribution
+			\item distort local geometry,
+			\item destabilize spectral embeddings,
+			\item bias intrinsic dimension estimates.
+		\end{itemize}
+		\item For this purpose, we want a \textbf{clean}(i.e. outlier free) subset $\X^{clean} \subseteq \X$.
+	\end{itemize}
+	\vspace{0.7em}
+	\textbf{Recommended approach: Minimum Volume Sets (MVS)}
+	\begin{itemize}
+		\item Define an $\alpha$-MVS as the smallest set containing at least
+		fraction $\alpha$ of the probability mass.
+		\item Approximate local density via the same neighbor statistics:
+		\begin{itemize}
+			\item inverse $k$-NN distance $1/\operatorname{dist}_k(x)$, or
+			\item neighbor counts $n_r(x)$ within fixed radii $r$.
+		\end{itemize}
+		\item Flag points in the lowest-density tail as outliers and remove them.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Outlier Removal in Practice}
+	\textbf{Using MVS with neighbor-based scores}
+	\begin{itemize}
+		\item For each point $x$:
+		\begin{itemize}
+			\item compute a density proxy (e.g.\ $1/\operatorname{dist}_k(x)$ or $n_r(x)$),
+			\item rank all points by this proxy.
+		\end{itemize}
+		\item Choose a threshold $\alpha \in (0,1)$:
+		\begin{itemize}
+			\item keep roughly the top $\alpha N$ highest-density points as in-distribution,
+			\item discard the remaining $(1-\alpha)N$ as outliers.
+		\end{itemize}
+		\item Optionally average scores over multiple $k$ / radii for robustness.
+	\end{itemize}
+	\vspace{0.7em}
+	\textbf{Other reasonable options}
+	\begin{itemize}
+		\item One-Class SVMs, Isolation Forests, KDE-based detectors, etc.
+		\item Key design choice: align the outlier detector with the local 
+		statistics and geometry used later in the pipeline.
+	\end{itemize}
+\end{frame}
+
 
 % ======================================================================
 \section{Conclusions and Resources}

@@ -9,6 +9,7 @@ from geometry_analysis.sampling import RANDOM_STATE
 
 MDS_D = {"ethanol": 27, "toluene": 45, "malonaldehyde": 27}
 MDS_d = {"ethanol": 2, "toluene": 1, "malonaldehyde": 2}
+MDS_quads = {"ethanol": [(0, 1, 3, 7), (0, 2, 3, 8)], "toluene": [(0, 1, 6, 7)], "malonaldehyde": [(0, 1, 3, 7), (1, 2, 4, 7)]}
 
 RAW_DATA_FOLDER_NAME = "mds_raw_data"
 
@@ -52,12 +53,14 @@ def pos_to_angles(data: np.ndarray) -> np.ndarray:
     return angles
 
 
-def pos_to_torsion(data: np.ndarray, batch_size: int = 10000) -> np.ndarray:
+def pos_to_torsion(data: np.ndarray, molecule_name: str, batch_size: int = 10000) -> tuple[np.ndarray, np.ndarray]:
     """
     Parameters
     ----------
     data : (B, N, 3)
         B molecules, N atoms, 3 coords
+    molecule_name: str
+        Name of the molecule
     batch_size : int
         How many molecules to process at once
 
@@ -65,13 +68,16 @@ def pos_to_torsion(data: np.ndarray, batch_size: int = 10000) -> np.ndarray:
     -------
     torsions : (B, T)
         T torsions per conformation, T = C(N,4)
+    z: (B, MDS_d[molecule_name])
+        Torsions that parametrize the molecule's configuration manifold
     """
+
     n_batch, natoms, _ = data.shape
     atoms4 = np.asarray(list(combinations(range(natoms), 4)), dtype=int)
     n_tors = atoms4.shape[0]
 
     # Prepare output
-    out = np.empty((n_batch, n_tors), dtype=np.float64)
+    torsions = np.empty((n_batch, n_tors), dtype=np.float64)
 
     # Pre-extract index arrays for the 4 atoms
     a0, a1, a2, a3 = atoms4[:, 0], atoms4[:, 1], atoms4[:, 2], atoms4[:, 3]
@@ -118,33 +124,44 @@ def pos_to_torsion(data: np.ndarray, batch_size: int = 10000) -> np.ndarray:
         cos_theta = (ab2 - bc2 + ca2) / (2 * ab * ca)
         cos_theta = np.clip(cos_theta, -1.0, 1.0)
 
-        torsions_flat = np.arccos(cos_theta)
-        torsions = torsions_flat.reshape(b, n_tors)
+        b_torsions_flat = np.arccos(cos_theta)
+        b_torsions = b_torsions_flat.reshape(b, n_tors)
 
         # Store results
-        out[start:end] = torsions
+        torsions[start:end] = b_torsions
 
-    return out
+    param_quads = MDS_quads[molecule_name]
+    param_indices = []
+    for quad in param_quads:
+        quad_idx = np.flatnonzero(np.all(atoms4 == quad, axis=1)).item()
+        param_indices.append(quad_idx)
+    z = torsions[:, param_indices]
+
+    return torsions, z
 
 
-def mds_mat_to_database(molecule_name: str, **kwargs: Any) -> None:
+def mds_mat_to_database(molecule_name: str, npts: int) -> None:
 
     database = Database(database_name=f"{molecule_name}_data", mode="overwrite")
     raw_data_path = database.path.parent / RAW_DATA_FOLDER_NAME / f"{molecule_name}.mat"
 
     data = loadmat(str(raw_data_path))["R"]
-    sample_idx = RANDOM_STATE.choice(data.shape[0], kwargs["npts"], replace=False)
+    sample_idx = RANDOM_STATE.choice(data.shape[0], size=npts, replace=False)
     data = data[sample_idx]
 
     database["points"]["positions"] = data.reshape(data.shape[0], data.shape[1] * data.shape[2])
     database["points"]["angles"] = pos_to_angles(data)
-    database["points"]["torsions"] = pos_to_torsion(data)
-    # database["params"]["..."] = ... #
+
+    torsions, z = pos_to_torsion(data, molecule_name)
+    database["points"]["torsions"] = torsions
+    database["params"]["z"] = torsions
 
 
 if __name__ == "__main__":
+
     molecules = ("ethanol", "malonaldehyde", "toluene")
-    kwargs = {"npts": 20000}
+    npts = 20000
+
     for mol in molecules:
         print(f"Creating {mol} data!")
-        mds_mat_to_database(mol, **kwargs)
+        mds_mat_to_database(mol, npts)

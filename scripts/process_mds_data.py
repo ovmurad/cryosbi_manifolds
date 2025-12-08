@@ -136,6 +136,7 @@ def mds_mat_to_database(molecule_name: str, **kwargs: Any) -> None:
     sample_idx = RANDOM_STATE.choice(data.shape[0], kwargs["npts"], replace=False)
     data = data[sample_idx]
 
+    database["points"]["positions"] = data.reshape(data.shape[0], data.shape[1] * data.shape[2])
     database["points"]["angles"] = pos_to_angles(data)
     database["points"]["torsions"] = pos_to_torsion(data)
     # database["params"]["..."] = ... #

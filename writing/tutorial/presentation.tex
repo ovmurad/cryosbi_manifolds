@@ -203,62 +203,6 @@
 	\end{itemize}
 	\vspace{0.7em}
 	\textbf{Recommended approach: Minimum Volume Sets (MVS)}
-	\begin{itemize}
-		\item Define an $\alpha$-MVS as the smallest set containing at least
-		fraction $\alpha$ of the probability mass.
-		\item Approximate local density via the same neighbor statistics:
-		\begin{itemize}
-			\item inverse $k$-NN distance $1/\operatorname{dist}_k(x)$, or
-			\item neighbor counts $n_r(x)$ within fixed radii $r$.
-		\end{itemize}
-		\item Flag points in the lowest-density tail as outliers and remove them.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Outlier Removal in Practice}
-	\textbf{Using MVS with neighbor-based scores}
-	\begin{itemize}
-		\item For each point $x$:
-		\begin{itemize}
-			\item compute a density proxy (e.g.\ $1/\operatorname{dist}_k(x)$ or $n_r(x)$),
-			\item rank all points by this proxy.
-		\end{itemize}
-		\item Choose a threshold $\alpha \in (0,1)$:
-		\begin{itemize}
-			\item keep roughly the top $\alpha N$ highest-density points as in-distribution,
-			\item discard the remaining $(1-\alpha)N$ as outliers.
-		\end{itemize}
-		\item Optionally average scores over multiple $k$ / radii for robustness.
-	\end{itemize}
-	\vspace{0.7em}
-	\textbf{Other reasonable options}
-	\begin{itemize}
-		\item One-Class SVMs, Isolation Forests, KDE-based detectors, etc.
-		\item Key design choice: align the outlier detector with the local 
-		statistics and geometry used later in the pipeline.
-	\end{itemize}
-\end{frame}
-
-
-% ======================================================================
-\section{Conclusions and Resources}
-% ======================================================================
-% ----------------------------------------------------------------------
-\begin{frame}{Conclusions \& Take-Home Messages}
-	\begin{itemize}
-		\item Manifold learning offers powerful tools for Cryo-EM and SBI
-		\item Embeddings can reveal intrinsic structure and reduce complexity
-		\item SuperMan integrates state-of-the-art statistical diagnostics
-	\end{itemize}
-\end{frame}
-
-% ----------------------------------------------------------------------
-\begin{frame}{Further Reading and Resources}
-	\begin{itemize}
-		\item Key papers on manifold learning and diffusion maps
-		\item References on SBI and applications to Cryo-EM
-		\item SuperMan documentation and code repository
-	\end{itemize}
 \end{frame}
 
 % ======================================================================

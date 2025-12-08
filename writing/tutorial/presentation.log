@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.5.18)  5 DEC 2025 17:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2024.5.18)  5 DEC 2025 17:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1139,31 +1139,15 @@ LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <10.95> not available
 
 ] [12
 
-]
-Overfull \vbox (39.93372pt too high) detected at line 216
- []
+] [13
 
-[13
-
-]
-Overfull \vbox (12.33386pt too high) detected at line 240
- []
-
-[14
+] [14
 
 ] [15
 
 ] [16
 
 ] [17
-
-] [18
-
-] [19
-
-] [20
-
-] [21
 
 ] (./presentation.bbl
 
@@ -1183,31 +1167,46 @@ LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: BB991296C13C9090EA36BEBAF52A49A6;858.
+
+Package rerunfilecheck Warning: File `presentation.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `presentation.out':
+(rerunfilecheck)             Before: BB991296C13C9090EA36BEBAF52A49A6;858
+(rerunfilecheck)             After:  19FD3361A1E6D527AFC1D384B0A64B2C;684.
  ) 
 Here is how much of TeX's memory you used:
- 25864 strings out of 480171
- 523505 string characters out of 5894489
- 749567 words of memory out of 5000000
+ 25858 strings out of 480171
+ 523453 string characters out of 5894489
+ 747567 words of memory out of 5000000
  43193 multiletter control sequences out of 15000+600000
  573920 words of font info for 93 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  128i,13n,122p,1811b,754s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dv
-ips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share
-/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ma
-thit.enc}</usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/
-fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.
-pfb></usr/share/texmf/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmss9.pfb></u
-sr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1
-/public/lm/lmsso10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso8.pfb></usr
-/share/texmf/fonts/type1/public/lm/lmsy10.pfb>
-Output written on presentation.pdf (21 pages, 208644 bytes).
+pdfTeX warning (dest): name{Navigation20} has been referenced but does not ex
+ist, replaced by a fixed one
+
+pdfTeX warning (dest): name{Navigation18} has been referenced but does not exis
+t, replaced by a fixed one
+
+pdfTeX warning (dest): name{Outline0.6} has been referenced but does not exist,
+ replaced by a fixed one
+
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvip
+s/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/t
+exmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-math
+it.enc}</usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fo
+nts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pf
+b></usr/share/texmf/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/ty
+pe1/public/lm/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmss9.pfb></usr
+/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmsso10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso8.pfb></usr/s
+hare/texmf/fonts/type1/public/lm/lmsy10.pfb>
+Output written on presentation.pdf (17 pages, 202706 bytes).
 PDF statistics:
- 243 PDF objects out of 1000 (max. 8388607)
- 188 compressed objects within 2 object streams
- 49 named destinations out of 1000 (max. 500000)
+ 222 PDF objects out of 1000 (max. 8388607)
+ 171 compressed objects within 2 object streams
+ 43 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

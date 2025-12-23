@@ -16,3 +16,8 @@ These relate to files in the `params` and `points` folders
 
 ### Naming conventions, splitting strings
 It is hard to figure out how to name folders with respect to `wc` for well-connected points, or related.
+
+Something that is pretty tricky right now is these functions:
+- `tslasso`
+- `local_grad_estimation`
+have a a `sample` field that interacts with the arrays input in `x_pts`, `affs`, `grads`, but currently it is difficult to figure out what array sizes are correct, and to track down `IndexError` commands

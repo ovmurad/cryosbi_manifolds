@@ -2,20 +2,34 @@ This is my (luke's) log of some things to adjust in the code for adding clarity 
 
 I am making a script based off of one of the `analysis` scripts, and basically denoting where things are unclear to me right now, this is still informal.
 
-### Variables a user needs to fill in
-- `PARAMS'
-- `SUBSAMPLE_KEY_PAIRS'
-- `DATASET_NAME'
-- `DATA_NAME' 
-- `TRAIN_NAME'
-- `CLEAN_NAME'
-- `UNIFORM_NAME'
+### Variables/names a user needs to fill in
+- `PARAMS`
+- `SUBSAMPLE_KEY_PAIRS`
+- `DATASET_NAME`
+- `DATA_NAME`
+- `TRAIN_NAME`
+- `CLEAN_NAME`
+- `UNIFORM_NAME`
 
-These relate to files in the `params` and `points` folders
+These above relate to files in the `params` and `points` folders
+
+- `EMB_NPTS`
+- `SPLIT_NPTS`
+- `IES_SUBSAMPLE_SIZE`
+- `TSLASSO_SUBSAMPLE_SIZE`
+- `GRAD_ESTIM_SUBSAMPLE_SIZE`
+- `EIGENGAP_ESTIM_SUBSAMPLE_SIZE`
+
+
+### Ranges/values that should be changed per dataset
+- `MIN_K, MAX_K`, maybe?
+- `MIN_R, MAX_R`
+- `RADIUS`
+- `DS`?
 
 
 ### Naming conventions, splitting strings
-It is hard to figure out how to name folders with respect to `wc` for well-connected points, or related.
+It is hard to figure out how to name folders with respect to `wc` for well-connected points, or related. These are `_` names that indicate a mask that should be applied.
 
 Something that is pretty tricky right now is these functions:
 - `tslasso`

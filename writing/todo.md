@@ -1,3 +1,17 @@
+MMP 12/23
+=========
+* broke the presentation into modules, i.e. module-<something>.tex
+* I added my tex slides from the last tutorial (edinburgh, very similar to IMSI).
+* to make the new presentation compile, I added mmp-commands.tex to macros/
+* and I added figures/figures-MMP
+* These additions can/should be merged later in the tutorial structure, they are just temporary
+* i also added a \graphicspath command
+* with all these, compilation is a pain, and I don't think all the figures should be copied anyways. So currently the presentation has a lot of compilation errors. It's obvious that re-typing the slides is faster than making the originals compile, therefore I also added the pdf of the edinburgh talk, in tutorial/
+Sorry for the relative mess, I think it can be fixed easily by re-typing each module and inputting the figures. Then we can delete my original modules. 
+
+
+Luke
+====
 This is my (luke's) log of some things to adjust in the code for adding clarity to the tutorial.
 
 I am making a script based off of one of the `analysis` scripts, and basically denoting where things are unclear to me right now, this is still informal.

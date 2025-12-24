@@ -1,5 +1,8 @@
 \beamer@sectionintoc {1}{Motivation}{3}{0}{1}
-\beamer@sectionintoc {2}{Basics of ML with SuperMan}{6}{0}{2}
-\beamer@sectionintoc {3}{SBI Validation Pipeline}{9}{0}{3}
-\beamer@sectionintoc {4}{Possible Venues}{14}{0}{4}
-\beamer@sectionintoc {5}{Ancillary Notes}{16}{0}{5}
+\beamer@sectionintoc {2}{Basics of ML with SuperMan}{15}{0}{2}
+\beamer@subsectionintoc {2}{1}{E-vector based embedding algorithms}{19}{0}{2}
+\beamer@subsectionintoc {2}{2}{Repulsion-based algorithms}{20}{0}{2}
+\beamer@subsectionintoc {2}{3}{Overview of {\tt SuperMan}}{24}{0}{2}
+\beamer@sectionintoc {3}{SBI Validation Pipeline}{25}{0}{3}
+\beamer@sectionintoc {4}{Possible Venues}{30}{0}{4}
+\beamer@sectionintoc {5}{Ancillary Notes}{32}{0}{5}

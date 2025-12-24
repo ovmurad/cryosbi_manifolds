@@ -1,0 +1,372 @@
+%------------------------------------------------------------------------
+\begin{frame}\frametitle{Spectra of galaxies measured by the \mygreen{Sloan Digital Sky Survey (SDSS)}}
+%\begin{frame}\frametitle{Spectra of galaxies measured by the \mygreen{Sloan Digital Sky Survey (SDSS)}}
+\begin{columns}
+\begin{column}{0.3\tttwi}
+\setlength{\picwi}{\textwidth}
+\centerline{\mygray{\tiny www.sdss.org}}
+\includegraphics[width=\picwi]{Figures/Spectra-data/pie_boss_z0-710.jpg}
+\\
+\centerline{\mygray{\tiny www.sdss.org}}
+\includegraphics[width=\picwi]{Figures/Spectra-data/specById_asp.png}
+\end{column}
+%
+\begin{column}{0.7\tttwi}
+\bit
+%\item Spectra of galaxies measured by the \mygreen{Sloan Digital Sky Survey (SDSS)}
+\item {\small Preprocessed by Jacob VanderPlas and Grace Telford}
+\item $n=675,000$ spectra $\times\,D=3750$ dimensions
+\eit
+\includegraphics[width=0.6\tttwi]{Figures/Spectra-data/3D-PC-AllData/pcEmbed_SFR-trim.png}
+\centerline{\mygray{\tiny embedding by James McQueen}}
+
+\end{column}
+\end{columns}
+\end{frame}
+%------------------------------------------------------------------------
+\begin{frame}\frametitle{Molecular configurations}
+\begin{columns}
+\begin{column}{0.35\tttwi}
+\setlength{\picwi}{\textwidth}
+\centerline{{\small aspirin molecule}}
+\includegraphics[width=\picwi]{Figures-aspirin/renderings/aspirin.png}
+\\
+\includegraphics[width=\picwi]{Figures-aspirin/aspirin-R33-82.png}
+\end{column}
+\begin{column}{0.7\tttwi}
+\bit
+\item Data from \mygreen{Molecular Dynamics (MD)} simulations of small molecules by \likecite{Chmiela et al. 2016}
+\item $n\approx 200,000$ configurations $\times\,D\sim 20-60$ dimensions
+\item[]
+\eit
+\includegraphics[width=0.6\tttwi]{Figures-aspirin/00selected/fig-aspirin-cc.png}
+\end{column}
+\end{columns}
+
+\end{frame}
+%------------------------------------------------------------------------
+\begin{frame}<beamer:0|handout:0>\frametitle{ When to do (non-linear) dimension reduction}
+%\begin{frame}\frametitle{ When to do (non-linear) dimension reduction}
+\setlength{\picwi}{0.6\textwidth}
+\centerline{\includegraphics[width=\picwi]{Figures/IsomapFaces.png}}
+\bit
+\item high-dimensional \myblue{data $p \in \rrr^D,\,D=64\times 64$}
+\item can be described by a small number $d$ of continuous parameters 
+\item Usually, large sample size \myblue{\nsam}
+\eit
+\end{frame}
+%------------------------------------------------------------------------
+%\begin{frame}<beamer:0|handout:0>\frametitle{ When to do (non-linear) dimension reduction}
+\begin{frame}\frametitle{ When to do (non-linear) dimension reduction}
+
+%\setlength{\picwi}{0.6\textwidth}
+%\centerline{\includegraphics[width=\picwi]{Figures/IsomapFaces.png}}
+
+%
+\begin{center}
+\setlength{\picwi}{0.3\tttwi}
+\begin{tabular}{ccc}
+  {\tiny HR diagram} & {\tiny aspirin MD simulation} & {\tiny SDSS galaxy spectra} \\
+ \includegraphics[width=0.7\picwi]{Figures/HRDiagram.png}&
+\hspace{-.3em}\includegraphics[width=1.\picwi]{Figures-aspirin/00selected/fig-aspirin-cc.png}
+&
+\includegraphics[width=1.\picwi]{Figures/Spectra-data/3D-PC-AllData/pcEmbed_SFR-trim.png}\\
+\end{tabular}
+\end{center}
+
+\only<1>{
+  \bit
+\item high-dimensional %\myblue{data $p \in \rrr^D,\,D=64\times 64$}
+\item can be described by a small number $d$ of continuous parameters 
+\item Usually, large sample size \myblue{\nsam}
+\eit
+}%end only 1
+\only<2>{
+Why?
+ \bit 
+\item To save space and computation
+  \bit
+  \item $\nsam\times \dhigh$ data matrix $\rightarrow\;n\times \dembed$, $\dembed\ll \dhigh$
+      \eit
+\item To use it afterwards in (\myemph{prediction}) tasks
+\item To \myemph{understand} the data better
+  \bit
+  \item preserve large scale features, suppress fine scale features
+  \eit
+  \eit
+  }%end only 2
+\end{frame}
+%------------------------------------------------------------------------
+%\begin{frame}<beamer:0|handout:0>\frametitle{Manifold Learning (ML) for the physical sciences}
+\begin{frame}\frametitle{Manifold Learning (ML) for the physical sciences}
+  \bit
+\item big, high-dimensional data
+\item data, physics supports manifold models
+\item understanding \& prediction equally important
+\item[]
+%\item \myemph{Simple assumption} data i.i.d. from manifold $\M$ (no noise)
+  \pause
+\eit
+\mydef{Challenges} for ML algorithms
+  \bit
+\item scalable  \myblue{\tt mega}\myorange{man}
+  \pause
+  ML package \likecite{McQueen et al JMLR 2015}  \myref{\checkmark}
+\pause
+\item \mygreen{find ``something new, trustworthy, reproducible, interpretable''}
+  \pause
+\item remove algorithmic artefacts \mygreen{(replace grad student)}
+\item data-driven parameter selection  \mygreen{(replace grad student)}
+\item validation on mathematical/statistical grounds as much as possible \mygreen{(replace experimental validation)}
+\item use \myred{domain knowledge} \mygreen{(not domain expert)}
+\eit
+\end{frame}
+%------------------------------------------------------------------------
+%\begin{frame}\frametitle{Brief intro to manifold learning algorithms} 
+\begin{frame}<beamer:0|handout:0>\frametitle{Brief intro to manifold learning algorithms} 
+\setlength{\picwi}{0.3\textwidth}
+\bit
+\item {\bf Input} Data $p_1,\ldots p_n$, embedding dimension \myblue{$m$}, neighborhood scale parameter \myblue{$\epsilon$}
+\only<2->{\item \mygreen{Construct neighborhood graph} $p,p'$ neighbors iff {\small $||p-{p'}||^2\leq \epsilon$}}
+\only<3->{\item Construct a \myred{$\nsam\times \nsam$ matrix}:
+ its leading eigenvectors are the \myblue{coordinates $\phi(p_{1:n})$}}
+\\
+\only<1-3>{\includegraphics[width=.7\picwi,height=.5\picwi,viewport=100 100 485 360,clip]{../dominique-epsilon/Figures/pretty-hourglass-sample-n2000.png}}
+\hspace{1em}
+\only<2-3>{ \includegraphics[width=.8\picwi]{../dominique-epsilon/Figures/fig_hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.png}}
+\hspace{1em}
+\only<3>{\includegraphics[width=.7\picwi]{../dominique-epsilon/Figures/pretty-hourglass-laplacian.png}}\\
+\only<1-3>{$p_1,\ldots p_n\,\subset\,\rrr^D$}
+\eit
+ 
+\end{frame}
+%------------------------------------------------------------------------
+%------------------------------------------------------------------------
+\begin{frame}<beamer:0|handout:0>\frametitle{Brief intro to manifold learning algorithms} % WITHOUT Isomap **** with Isomap is next slide. Remove <...> to make animation work
+\setlength{\picwi}{0.3\textwidth}
+\bit
+\item {\bf Input} Data $p_1,\ldots p_n$, embedding dimension \myblue{$m$}, neighborhood scale parameter \myblue{$\epsilon$}
+\only<2->{\item \mygreen{Construct neighborhood graph} $p,p'$ neighbors iff {\small $||p-{p'}||^2\leq \epsilon$}}
+\only<3->{\item Construct a \myred{$\nsam\times \nsam$ matrix}:
+ its leading eigenvectors are the \myblue{coordinates $\phi(p_{1:n})$}}
+\\
+\only<1-3>{\includegraphics[width=.7\picwi,height=.5\picwi,viewport=100 100 485 360,clip]{../dominique-epsilon/Figures/pretty-hourglass-sample-n2000.png}}
+\hspace{1em}
+\only<2-3>{ \includegraphics[width=.8\picwi]{../dominique-epsilon/Figures/fig_hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.png}}
+\hspace{1em}
+\only<3>{\includegraphics[width=.7\picwi]{../dominique-epsilon/Figures/pretty-hourglass-laplacian.png}}\\
+\only<1-3>{$p_1,\ldots p_n\,\subset\,\rrr^D$}
+
+\item[]
+\only<4>{
+\item[]{\sc Laplacian Eigenmaps/Diffusion Maps} \likecite{Belkin,Niyogi 02,Nadler et al 05}
+\item  Construct similarity matrix
+\[S=[S_{pp'}]_{p,p'\in \dataset}\quad \text{with}\quad
+S_{pp'}=e^{-\frac{1}{\epsilon}||p-p'||^2}\quad\text{iff $p,p'$ neighbors}
+\]
+\item Construct \myred{Laplacian matrix} $L=I-T^{-1}S$ with $T={\rm diag}(S{\mathbf 1})$
+\item Calculate  $\phi^{1\ldots m}\,=\,$ eigenvectors of $L$ {\small (smallest eigenvalues)}
+\item coordinates of $p\in \dataset$ are $(\phi^1(p),\,\ldots\,\phi^m(p))$\\
+\item[]}
+\eit
+ 
+\end{frame}
+%------------------------------------------------------------------------
+\begin{frame}<beamer:0|handout:0>\frametitle{Brief intro to manifold learning algorithms}  % WITH Isomap  <beamer:0|handout:0> must be deleted for animation to work
+%\begin{frame}\frametitle{Brief intro to manifold learning algorithms} 
+\setlength{\picwi}{0.3\textwidth}
+\bit
+\item {\bf Input} Data $p_1,\ldots p_n$, embedding dimension \myblue{$m$}, neighborhood scale parameter \myblue{$\epsilon$}
+\only<2->{\item \mygreen{Construct neighborhood graph} $p,p'$ neighbors iff {\small $||p-{p'}||^2\leq \epsilon$}}
+\hfill{\myemph{ALL ALGORITHMS}}
+\only<3>{\item Construct a \myred{$\nsam\times \nsam$ matrix}:
+ its leading eigenvectors are the \myblue{coordinates $\phi(p_{1:n})$}}
+\\
+\only<1-3>{\includegraphics[width=.7\picwi,height=.5\picwi,viewport=100 100 485 360,clip]{../dominique-epsilon/Figures/pretty-hourglass-sample-n2000.png}}
+\hspace{1em}
+\only<2-3>{ \includegraphics[width=.8\picwi]{../dominique-epsilon/Figures/fig_hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.png}}
+\hspace{1em}
+\only<3>{\includegraphics[width=.7\picwi]{../dominique-epsilon/Figures/pretty-hourglass-laplacian.png}}\\
+\only<1-3>{$p_1,\ldots p_n\,\subset\,\rrr^D$}
+
+\item[]
+\only<4>{
+\item[]{\sc Laplacian Eigenmaps/Diffusion Maps} \likecite{Belkin,Niyogi 02,Nadler et al 05}
+\item  Construct similarity matrix
+\[S=[S_{pp'}]_{p,p'\in \dataset}\quad \text{with}\quad
+S_{pp'}=e^{-\frac{1}{\epsilon}||p-p'||^2}\quad\text{iff $p,p'$ neighbors}
+\]
+\item Construct \myred{Laplacian matrix} $L=I-T^{-1}S$ with $T={\rm diag}(S{\mathbf 1})$
+\item Calculate  $\phi^{1\ldots m}\,=\,$ eigenvectors of $L$ {\small (smallest eigenvalues)}
+\item coordinates of $p\in \dataset$ are $(\phi^1(p),\,\ldots\,\phi^m(p))$\\
+\item[]}
+\only<5>{  % should be <5>
+\item[]{\sc Isomap} \likecite{Tennenbaum, deSilva \& Langford 00}
+\item Find all shortest paths in neighborhood graph, construct \myred{matrix of distances}
+\[M=[\text{distance}^2_{pp'}]\]
+\item use $M$ and \myblue{Multi-Dimensional Scaling (MDS)} to obtain $m$ dimensional coordinates for $p\in \dataset$}
+\eit
+ 
+\end{frame}
+%------------------------------------------------------------------------
+\begin{frame}<beamer:0|handout:0>\frametitle{Isomap vs. Diffusion Maps}
+%\begin{frame}\frametitle{Isomap vs. Diffusion Maps}
+
+\begin{columns}
+\begin{column}{0.5\tttwi}
+\includegraphics[trim= 1.5cm 1.5cm 1.5cm 1.5cm,clip=true,width=0.46\textwidth]{PARISDominique/Figures/IsomapFaces.png}  
+
+\mydef{Isomap}
+\bit
+\item Preserves geodesic distances
+  \bit
+  \item but only sometimes \likecite{}
+  \eit
+\item Computes all-pairs shortest paths $\bigOO(n^3)$
+\item Stores/processes \myemph{dense} matrix 
+\eit
+\end{column}
+\begin{column}{0.5\tttwi}
+\includegraphics[trim= 1.5cm 1.5cm 1.5cm 1.5cm,clip=true,width=0.46\textwidth]{PARISDominique/Figures/EigenmapFaces.png} 
+
+\mydef{DiffusionMap}
+\bit
+\item Distorts geodesic distances
+\item Computes only distances to nearest neighbors $\bigOO(n^{1+\epsilon})$
+\item Stores/processes \myemph{sparse} matrix 
+\eit
+\end{column}
+\end{columns}
+\vfill
+\bit
+\item t-SNE, UMAP visualization algorithms, heuristic
+\eit
+\end{frame}
+%------------------------------------------------------------------------
+\begin{frame}<beamer:0|handout:0>\frametitle{}
+%\begin{frame}\frametitle{}
+A toy example (the ``Swiss Roll'' with a hole)
+
+\vspace{2em}
+\setlength{\picwi}{0.55\textwidth}
+\begin{tabular}{cc}
+points in $\dhigh\geq 3$ dimensions & same points reparametrized in 2D \\ 
+\includegraphics[width=0.8\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-data.png} 
+&
+\hspace{-2.5em}\includegraphics[width=1.2\picwi,height=0.3\picwi]{Figures/mani-swisshole-1000-k8-ltsa-6-embe.png}
+\\
+\mydef{Input} & \mydef{Desired output}
+\end{tabular}
+\end{frame}
+%------------------------------------------------------------------------
+\begin{frame}<beamer:0|handout:0>\frametitle{Embedding in 2 dimensions by different manifold learning algorithms}
+%\begin{frame}\frametitle{Embedding in 2 dimensions by different manifold learning algorithms}
+\hspace{5.7em}\mydef{Input}\\
+\setlength{\picwi}{0.9\textwidth}
+\begin{center}
+\includegraphics[width=\picwi]{Figures/fig-mani-swisshole.png}
+\\\mygray{\tiny Figure by Todd Wittman}
+\end{center}
+\end{frame}
+%------------------------------------------------------------------------
+\begin{frame}<beamer:0|handout:0>\frametitle{Embedding in 2 dimensions by different manifold learning algorithms}
+%\begin{frame}\frametitle{Embedding in 2 dimensions by different manifold learning algorithms}
+\setlength{\picwi}{0.3\textwidth}
+
+\begin{small}
+\begin{columns}
+\begin{column}{\picwi}
+Original data\\{\small  (Swiss Roll with hole)}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-data.png}\\
+{\small Hessian Eigenmaps (HE)}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k12-he-6-embe.png}\\
+\end{column}
+\begin{column}{\picwi}
+{\small Laplacian Eigenmaps (LE)}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-le-embe.png}\\
+%\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-le-6-embe.png}\\
+% chilot
+{\small Local Linear Embedding (LLE)}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-lle-6-embe.png}\\
+\end{column}
+\begin{column}{\picwi}
+{\small Isomap}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-embe.png}\\
+{\small Local Tangent Space Alignment (LTSA)}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-ltsa-6-embe.png}\\
+\end{column}
+\end{columns}
+\end{small}
+\end{frame}
+%------------------------------------------------------------------------
+%\begin{frame}<beamer:0|handout:0>\frametitle{How to evaluate the results objectively?}
+\begin{frame}<beamer:0|handout:0>\frametitle{How to evaluate the results objectively?}
+\bit
+\item Many algorithms exist
+\myblue{Isomap, Laplacian Eigenmaps (LE), Diffusion Maps (DM), Hessian Eigenmaps (HE), Local Linear Embedding (LLE), Latent Tangent Space Alignment (LTSA)}
+\item Each algorithm gives a different embedding of the same data
+\eit
+
+\setlength{\picwi}{0.15\textwidth}
+\begin{small}
+\begin{columns}
+\begin{column}{\picwi}
+Original \\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-data.png}\\
+{\tiny Hessian Eigenmaps (HE)}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k12-he-6-embe.png}\\
+\end{column}
+\begin{column}{\picwi}
+{\tiny LE}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-le-embe.png}\\
+%\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-le-6-embe.png}\\
+% chilot
+{\tiny LLE}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-lle-6-embe.png}\\
+\end{column}
+\begin{column}{\picwi}
+{\tiny Isomap}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-embe.png}\\
+{\tiny LTSA}\\
+\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-ltsa-6-embe.png}\\
+\end{column}
+\begin{column}{0.7\textwidth}
+\bit
+\item which of these embedding are ``correct''?
+\item if several ``correct'', how do we reconcile them?
+\item if not ``correct'', what failed? 
+\eit
+\end{column}
+\end{columns}
+\end{small}
+\end{frame}
+%------------------------------------------------------------------------
+\begin{frame}<beamer:0|handout:0>\frametitle{How to evaluate the results objectively?}
+%\begin{frame}\frametitle{How to evaluate the results objectively?}
+
+\setlength{\picwi}{0.45\textwidth}
+\begin{small}
+\begin{columns}
+\begin{column}{\picwi}
+\only<1>{\includegraphics[width=\picwi]{Figures/fig-mani-swisshole.png}}
+\only<2>{%\includegraphics[width=0.5\picwi]{Figures/HRDiagram.png}
+\includegraphics[width=\picwi]{Figures/jvdp-spectra-data.png}
+\\
+\mygray{\tiny Spectrum of a galaxy. Source SDSS, Jake VanderPlas}
+}
+\end{column}
+\begin{column}{0.7\textwidth}
+\bit
+\item which of these embedding are ``correct''?
+\item if several ``correct'', how do we reconcile them?
+\item if not ``correct'', what failed?
+\only<2>{\item what if I have real data?} 
+\eit
+\end{column}
+\end{columns}
+\end{small}
+\only<1>{\tiny 
+Algorithms \myblue{Multidimensional Scaling (MDS), Principal Components (PCA), Isomap, Locally Linear Embedding (LLE),  Hessian Eigenmaps (HE), Laplacian Eigenmaps (LE), Diffusion Maps (DM)}
+}
+\end{frame}
+%------------------------------------------------------------------------

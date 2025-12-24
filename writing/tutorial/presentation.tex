@@ -21,7 +21,9 @@
 
 \input{../macros/notation}
 \input{../macros/commands}
+\input{../macros/mmp-commands}  % temp, until they are merged
 
+\graphicspath{{../figures/}{../figures/figures-MMP/}}
 
 % ======================================================================
 % Metadata
@@ -53,31 +55,7 @@
 % ======================================================================
 \section{Motivation}
 % ======================================================================
-% ----------------------------------------------------------------------
-\begin{frame}{Motivation}
-	\begin{itemize}
-		\item Examples of relevant SBI (Simulation-Based Inference) problems
-		\item Our main Cryo-EM question
-	\end{itemize}
-\end{frame}
-
-% ----------------------------------------------------------------------
-\begin{frame}{Motivation for Manifold Learning (ML)}
-	\begin{itemize}
-		\item Many natural data sets are intrinsically low-dimensional
-		\item Neural network embeddings are often low-dimensional as well
-		\item Therefore: manifold learning can help in many ways (incomplete list):
-		\begin{itemize}
-			\item estimate dimension
-			\item check whether simulated data covers real data
-			\item reduce dimension via embedding algorithms
-			\item visualize and interpret latent structure
-			\item measure distortion
-			\item perform SBI in a low-dimensional representation
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
+\input{module-motivation}
 % ======================================================================
 \section{Basics of ML with SuperMan}
 % ======================================================================
@@ -101,23 +79,11 @@
 \end{frame}
 
 % ----------------------------------------------------------------------
-\begin{frame}{Implementation: SuperMan vs.\ scikit-learn}
-	\begin{itemize}
-		\item Performance:
-		\begin{itemize}
-			\item SuperMan: fast, real-time or semi-real-time
-			\item scikit-learn: slower; may not complete on large data sets
-		\end{itemize}
-		\item Statistical and geometric features in SuperMan:
-		\begin{itemize}
-			\item neighbor selection ($k$-NN, radius $\varepsilon$)
-			\item Riemannian metric estimation (RMetric)
-			\item intrinsic dimension estimation (IES)
-			\item other diagnostics and elementary statistics
-		\end{itemize}
-	\end{itemize}
-\end{frame}
-
+\input{module-MMPalgorithms}
+% ----------------------------------------------------------------------
+\subsection{Overview of {\tt SuperMan}}
+% ----------------------------------------------------------------------
+\input{module-superman}
 % ======================================================================
 \section{SBI Validation Pipeline}
 % ======================================================================

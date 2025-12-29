@@ -1,5 +1,4 @@
 from itertools import combinations
-from typing import Any
 
 import numpy as np
 from scipy.io import loadmat
@@ -85,9 +84,8 @@ def pos_to_torsion(data: np.ndarray, molecule_name: str, batch_size: int = 10000
     # Loop over molecule batches
     for start in range(0, n_batch, batch_size):
 
-        end = min(start + batch_size, n_batch)
+        end = start + batch_size
         db = data[start:end]          # (b, N, 3)
-        b = end - start               # Actual batch size
 
         # Extract four atom positions → shapes (b, T, 3)
         # Flatten batch + torsion dims → (b*T, 3)
@@ -125,7 +123,7 @@ def pos_to_torsion(data: np.ndarray, molecule_name: str, batch_size: int = 10000
         cos_theta = np.clip(cos_theta, -1.0, 1.0)
 
         b_torsions_flat = np.arccos(cos_theta)
-        b_torsions = b_torsions_flat.reshape(b, n_tors)
+        b_torsions = b_torsions_flat.reshape(-1, n_tors)
 
         # Store results
         torsions[start:end] = b_torsions

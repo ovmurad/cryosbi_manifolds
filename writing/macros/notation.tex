@@ -7,8 +7,28 @@
 % Constants
 % ======================================================================
 \NewDocumentCommand{\N}{o o}{\IfValueTF{#1}{\IfValueTF{#2}{N_{#1}^{#2}}{N^{#1}}}{N}}
+\NewDocumentCommand{\eps}{}{\varepsilon}
 
 % ======================================================================
 % Sets
 % ======================================================================
 \NewDocumentCommand{\X}{o o}{\IfValueTF{#1}{\IfValueTF{#2}{\mathcal{X}_{#1}^{#2}}{\mathcal{X}^{#1}}}{\mathcal{X}}}
+\NewDocumentCommand{\neigh}{}{\mathcal{N}}
+
+% ======================================================================
+% Operator Names
+% ======================================================================
+\DeclareMathOperator{\oDist}{dist}
+\DeclareMathOperator{\oTrace}{trace}
+\DeclareMathOperator{\oDiag}{diag}
+\DeclareMathOperator{\oExp}{exp}
+
+% ======================================================================
+% Operators
+% ======================================================================
+\NewDocumentCommand{\dist}{o o}{\IfValueTF{#2}{\oDist_{#2}\left(#1\right)}{\IfValueTF{#1}{\oDist\left(#1 \right)}{\oDist}}}
+\NewDocumentCommand{\dk}{o O{k}}{\dist[#1][#2]}
+\NewDocumentCommand{\nr}{o O{r}}{\IfValueTF{#1}{\mathrm{n}_{#2}\left(#1\right)}{\mathrm{n}_{#2}}}
+\NewDocumentCommand{\norm}{o O{2}}{\left\lVert #1 \right\rVert_{#2}}
+\NewDocumentCommand{\diag}{o}{\IfValueTF{#1}{\oDiag\left(#1\right)}{\oDiag}}
+\RenewDocumentCommand{\exp}{o}{\IfValueTF{#1}{\oExp\left(#1\right)}{\oExp}}

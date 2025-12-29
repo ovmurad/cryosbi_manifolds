@@ -15,15 +15,17 @@
 \usepackage{lmodern}
 
 % ======================================================================
-% Macros & Commands
+% Packages
 % ======================================================================
 \usepackage{amsmath, amsfonts, amssymb}
+\usepackage[authoryear,round]{natbib}
+\bibliographystyle{plainnat}
 
+% ======================================================================
+% Macros & Commands
+% ======================================================================
 \input{../macros/notation}
 \input{../macros/commands}
-\input{../macros/mmp-commands}  % temp, until they are merged
-
-\graphicspath{{../figures/}{../figures/figures-MMP/}}
 
 % ======================================================================
 % Metadata
@@ -37,167 +39,29 @@
 % Presentation
 % ======================================================================
 \begin{document}
-
-
-% ======================================================================
+	
+% ----------------------------------------------------------------------
 % Title, Contents, Acknowledgement, etc.
-% ======================================================================
 % ----------------------------------------------------------------------
 \begin{frame}
 	\titlepage
 \end{frame}
 
-% ----------------------------------------------------------------------
 \begin{frame}{Outline}
 	\tableofcontents
 \end{frame}
 
-% ======================================================================
-\section{Motivation}
-% ======================================================================
-\input{module-motivation}
-% ======================================================================
-\section{Basics of ML with SuperMan}
-% ======================================================================
 % ----------------------------------------------------------------------
-\begin{frame}{Basics of ML with SuperMan}
-	\begin{itemize}
-		\item Brief intro to manifold learning algorithms:
-		\begin{itemize}
-			\item Diffusion Maps
-			\item t-SNE
-		\end{itemize}
-		\item Why ML is harder than PCA:
-		\begin{itemize}
-			\item many parameter choices (neighbors $k$, radius $\varepsilon$, metrics, etc.)
-		\end{itemize}
-		\item Hands-on SuperMan on a toy data set:
-		\begin{itemize}
-			\item Swiss roll with a hole
-		\end{itemize}
-	\end{itemize}
-\end{frame}
+% Modules
+% ----------------------------------------------------------------------
+\input{modules/motivation}
+\input{modules/superman}
+\input{modules/basics}
+\input{modules/validation}
 
 % ----------------------------------------------------------------------
-\input{module-MMPalgorithms}
+% Bibliography
 % ----------------------------------------------------------------------
-\subsection{Overview of {\tt SuperMan}}
-% ----------------------------------------------------------------------
-\input{module-superman}
-% ======================================================================
-\section{SBI Validation Pipeline}
-% ======================================================================
-% ----------------------------------------------------------------------
-\begin{frame}{SBI Validation Pipeline}
-	\begin{itemize}
-		\item Construct distance matrix and local statistics.
-		\item Preprocessing I: Outlier removal.
-		\item Assess coverage and fidelity.
-		\item Preprocessing II: Uniform resampling.
-		\item Construct the Laplacian and recompute local statistics.
-		\item Estimate intrinsic dimension.
-		\item Manifold Learning: \dm.
-		\item Manifold Interpretation \& Visualization I: \ies and plotting.
-		\item Manifold Interpretation \& Visualization II: \tslasso.
-		\item Manifold Interpretation \& Visualization III: \rrelex.
-	\end{itemize}
-\end{frame}
+\bibliography{../references}
 
-% ----------------------------------------------------------------------
-% 1. Construct distance matrix and local statistics
-% ----------------------------------------------------------------------
-\begin{frame}{Construct Distance Matrix and Local Statistics}
-	
-	\textbf{Optional Step: Sub-sampling for tractability}
-	\begin{itemize}
-		\item Many downstream operations scale superlinearly in $N$:
-		\begin{itemize}
-			\item pairwise distances / neighbor graphs,
-			\item spectral decompositions of graph Laplacians,
-			\item local statistics (kNN, radius counts, etc.),
-			\item local covariance matrices and their spectral decompositions. 
-		\end{itemize}
-		\item If $N$ is very large:
-		\begin{itemize}
-			\item Randomly sub-sample to a size that:
-			\begin{itemize}
-				\item still captures the geometry of the data,
-				\item fits within the available computational budget.
-			\end{itemize}
-			\item In general, one should use as many points as resources allow.
-		\end{itemize}
-	\end{itemize}
-	
-\end{frame}
-
-\begin{frame}{Construct Distance Matrix and Local Statistics}
-	
-	\textbf{Main Step: Distance matrix and local statistics}
-	\begin{itemize}
-		\item Compute distances between latent points in $\X$.
-		\item For each point $x \in \X$, compute local statistics:
-		\begin{itemize}
-			\item $\dk[x]$: distance to the $k$-th nearest neighbor for a range $k \in \{k_{\min}, \dots, k_{\max}\}$ or,
-			\item $\nr[x]$: the number of neighbors within radius $r$ for a range $r \in \{r_{\min}, \dots, r_{\max}\}$.
-		\end{itemize}
-	\end{itemize}
-	
-	\textbf{Practical notes:}
-	\begin{itemize}
-		\item Store distances in sparse form.
-		\item As we subsample the data, slice the already computed distance matrix.
-		\item Reuse the same local statistics across multiple steps in the pipeline.
-	\end{itemize}
-\end{frame}
-
-
-% ----------------------------------------------------------------------
-% 2. Preprocessing I: Outlier removal
-% ----------------------------------------------------------------------
-
-\begin{frame}{Preprocessing I: Outlier Removal}
-	\textbf{Motivation}
-	\begin{itemize}
-		\item Highly noisy or pathological points:
-		\begin{itemize}
-			\item are not representative of the underlying geometry or data distribution
-			\item distort local geometry,
-			\item destabilize spectral embeddings,
-			\item bias intrinsic dimension estimates.
-		\end{itemize}
-		\item For this purpose, we want a \textbf{clean}(i.e. outlier free) subset $\X^{clean} \subseteq \X$.
-	\end{itemize}
-	\vspace{0.7em}
-	\textbf{Recommended approach: Minimum Volume Sets (MVS)}
-\end{frame}
-
-% ======================================================================
-\section{Possible Venues}
-% ======================================================================
-% ----------------------------------------------------------------------
-\begin{frame}{Possible Venues for the Tutorial}
-	\begin{itemize}
-		\item Flatiron Institute — early January
-		\item eScience Institute — discuss with D.~Beck
-		\item Instats
-	\end{itemize}
-\end{frame}
-
-% ======================================================================
-\section{Ancillary Notes}
-% ======================================================================
-% ----------------------------------------------------------------------
-\begin{frame}{Ancillary Notes}
-	\begin{itemize}
-		\item \textbf{Friday, Nov.\ 15}: Initial deadline for low-level stabilized code  
-		\\(internal note: this was the deadline for the first seminar presentation;
-		please communicate if plans change)
-		\item \textbf{Monday, Dec.\ 15}: Initial deadline for tutorial materials
-	\end{itemize}
-\end{frame}
-
-% ======================================================================
-\bibliographystyle{ieeetr}
-\bibliography{references.bib}
-% ======================================================================
 \end{document}

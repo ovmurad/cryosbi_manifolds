@@ -1,23 +1,65 @@
 % ======================================================================
+% Colors
+% ======================================================================
+\definecolor{cNavy}{RGB}{0,85,166}
+\definecolor{cBlue}{RGB}{50,132,191}
+\definecolor{cRed}{rgb}{0.74,0.1,0.05}
+\definecolor{cGreen}{rgb}{0,0.52,0.32}
+\definecolor{cYellow}{RGB}{255,232,0}
+\definecolor{cOrange}{RGB}{254,187,54}
+\definecolor{cPurple}{RGB}{130,55,255}
+\definecolor{cGray}{rgb}{0.6,0.6,0.6}
+
+\NewDocumentCommand{\blue}{m}{\textcolor{cBlue}{#1}}
+\NewDocumentCommand{\red}{m}{\textcolor{cRed}{#1}}
+\NewDocumentCommand{\green}{m}{\textcolor{cGreen}{#1}}
+\NewDocumentCommand{\orange}{m}{\textcolor{cOrange}{#1}}
+\NewDocumentCommand{\yellow}{m}{\textcolor{cYellow}{#1}}
+\NewDocumentCommand{\purple}{m}{\textcolor{cPurple}{#1}}
+\NewDocumentCommand{\gray}{m}{\textcolor{cGray}{#1}}
+
+% ======================================================================
+% Lengths
+% ======================================================================
+\newlength{\picwi}
+\newlength{\txtwi}
+\setlength{\txtwi}{0.9\textwidth}
+
+
+% ======================================================================
 % Comments
 % ======================================================================
-\NewDocumentCommand{\luke}{m}{{\color{blue}{LE}: #1}}
-\NewDocumentCommand{\mmp}{m}{{\color{cyan}{MMP}: #1}}
-\NewDocumentCommand{\vlad}{m}{{\color{violet}{OVM}: #1}}
+\NewDocumentCommand{\luke}{m}{\textcolor{blue}{LE: #1}}
+\NewDocumentCommand{\mmp}{m}{\textcolor{cyan}{MMP: #1}}
+\NewDocumentCommand{\vlad}{m}{\textcolor{violet}{OVM: #1}}
 
 % ======================================================================
-% Algos
+% Algos & Such
 % ======================================================================
-\NewDocumentCommand{\dm}{}{\textsc{DiffMaps} }
-\NewDocumentCommand{\tslasso}{}{\textsc{TSLasso} }
-\NewDocumentCommand{\ies}{}{\textsc{IES} }
-\NewDocumentCommand{\rrelex}{}{\textsc{RRelax} }
+\NewDocumentCommand{\algname}{m m m}{\IfBooleanTF{#1}{#2}{#3}}
 
-% ======================================================================
-% Operators
-% ======================================================================
-\NewDocumentCommand{\dk}{o O{k}}{\IfValueTF{#1}{\mathrm{dist}_{#2}\left(#1\right)}{\mathrm{dist}_{#2}}}
-\NewDocumentCommand{\nr}{o O{r}}{\IfValueTF{#1}{\mathrm{n}_{#2}\left(#1\right)}{\mathrm{n}_{#2}}}
+% embedding algos
+\NewDocumentCommand{\lapmap}{s}{\algname{#1}{\textsc{LE}}{\textsc{Laplacian Eigenmaps}}}
+\NewDocumentCommand{\diffmap}{s}{\algname{#1}{\textsc{DM}}{\textsc{Diffusion Maps}}}
+\NewDocumentCommand{\hessmap}{s}{\algname{#1}{\textsc{HE}}{\textsc{Hessian Eigenmaps}}}
+\NewDocumentCommand{\ltsa}{s}{\algname{#1}{\textsc{LLE}}{\textsc{Local Linear Embedding}}}
+\NewDocumentCommand{\mds}{s}{\algname{#1}{\textsc{MDS}}{\textsc{Multi-Dimensional Scaling}}}
+\NewDocumentCommand{\pca}{s}{\algname{#1}{\textsc{PCA}}{\textsc{Principal Components Analysis}}}
+\NewDocumentCommand{\lle}{s}{\algname{#1}{\textsc{LLE}}{\textsc{Locally Linear Embedding}}}
+\NewDocumentCommand{\isomap}{s}{\algname{#1}{\textsc{ISOMAP}}{\textsc{ISOMAP}}}
+\NewDocumentCommand{\umap}{s}{\algname{#1}{\textsc{UMAP}}{\textsc{UMAP}}}
+\NewDocumentCommand{\tsne}{s}{\algname{#1}{\textsc{t-SNE}}{\textsc{t-SNE}}}
+
+% `special` algos
+\NewDocumentCommand{\tslasso}{s}{\algname{#1}{\textsc{TSLasso}}{\textsc{TSLasso}}}
+\NewDocumentCommand{\ies}{s}{\algname{#1}{\textsc{IES}}{\textsc{IES}}}
+\NewDocumentCommand{\rmetric}{s}{\algname{#1}{\textsc{RMetric}}{\textsc{Riemannian Metric Estimation}}}
+\NewDocumentCommand{\rrelex}{s}{\algname{#1}{\textsc{RR}}{\textsc{Riemannian Relaxation}}}
+
+% frameworks
+\NewDocumentCommand{\megaman}{s}{\algname{#1}{\textsc{MegaMan}}{\textsc{MegaMan}}}
+\NewDocumentCommand{\superman}{s}{\algname{#1}{\textsc{SuperMan}}{\textsc{SuperMan}}}
+\NewDocumentCommand{\sklearn}{s}{\algname{#1}{\textsc{sklearn}}{\textsc{scikit-learn}}}
 
 % ======================================================================
 % Misc
@@ -26,6 +68,3 @@
 \NewDocumentCommand{\hem}{}{hemagglutinin }
 \NewDocumentCommand{\igg}{}{IgG }
 
-% ======================================================================
-% MMP Commands
-% ======================================================================

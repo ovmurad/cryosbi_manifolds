@@ -1,3 +1,54 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Belkin and Niyogi(2001)]{BelkinLEM}
+Mikhail Belkin and Partha Niyogi.
+\newblock Laplacian eigenmaps and spectral techniques for embedding and
+  clustering.
+\newblock In T.~Dietterich, S.~Becker, and Z.~Ghahramani, editors,
+  \emph{Advances in Neural Information Processing Systems}, volume~14. MIT
+  Press, 2001.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2001/file/f106b7f99d2cb30c3db1c3cc0fde9ccb-Paper.pdf}.
+
+\bibitem[Chmiela et~al.(2018)Chmiela, Sauceda, Müller, and
+  Tkatchenko]{ChmielaMDS}
+Stefan Chmiela, Huziel~E. Sauceda, Klaus-Robert Müller, and Alexandre
+  Tkatchenko.
+\newblock Towards exact molecular dynamics simulations with machine-learned
+  force fields.
+\newblock \emph{Nature Communications}, 9\penalty0 (1):\penalty0 3887, 2018.
+\newblock ISSN 2041-1723.
+\newblock \doi{10.1038/s41467-018-06169-2}.
+\newblock URL \url{https://doi.org/10.1038/s41467-018-06169-2}.
+
+\bibitem[Coifman and Lafon(2006)]{CoifmanDM}
+Ronald~R. Coifman and Stéphane Lafon.
+\newblock Diffusion maps.
+\newblock \emph{Applied and Computational Harmonic Analysis}, 21\penalty0
+  (1):\penalty0 5--30, 2006.
+\newblock ISSN 1063-5203.
+\newblock \doi{https://doi.org/10.1016/j.acha.2006.04.006}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/S1063520306000546}.
+\newblock Special Issue: Diffusion Maps and Wavelets.
+
+\bibitem[McQueen et~al.(2016)McQueen, Meil{\u{a}}, VanderPlas, and
+  Zhang]{McQueenMegaman}
+James McQueen, Marina Meil{\u{a}}, Jacob VanderPlas, and Zhongyue Zhang.
+\newblock Megaman: Scalable manifold learning in python.
+\newblock \emph{Journal of Machine Learning Research}, 17\penalty0
+  (148):\penalty0 1--5, 2016.
+\newblock URL \url{http://jmlr.org/papers/v17/16-109.html}.
+
+\bibitem[Tenenbaum et~al.(2000)Tenenbaum, de~Silva, and
+  Langford]{TenenbaumISOMAP}
+Joshua~B. Tenenbaum, Vin de~Silva, and John~C. Langford.
+\newblock A global geometric framework for nonlinear dimensionality reduction.
+\newblock \emph{Science}, 290\penalty0 (5500):\penalty0 2319--2323, 2000.
 
 \end{thebibliography}

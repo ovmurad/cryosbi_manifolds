@@ -1,0 +1,187 @@
+% ======================================================================
+\section{Basics of ML with \superman}
+% ======================================================================
+% ----------------------------------------------------------------------
+% Overview
+% ----------------------------------------------------------------------
+\begin{frame}{Basics of ML with \superman}
+	\begin{itemize}
+		\item Brief intro to manifold learning algorithms:
+		\begin{itemize}
+			\item \diffmap(\diffmap*)
+			\item \tsne
+		\end{itemize}
+		\item Why ML is harder than \pca*:
+		\begin{itemize}
+			\item many parameter choices (neighbors $k$, radius $\eps$, metrics, etc.)
+		\end{itemize}
+		\item Hands-on \superman \ on a toy data set:
+		\begin{itemize}
+			\item Swiss roll with a hole
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+% ----------------------------------------------------------------------
+% Data
+% ----------------------------------------------------------------------
+%-----------------------------------------------------------------------
+\begin{frame}{A toy example (the ``Swiss Roll'' with a hole)}
+	
+	\setlength{\picwi}{0.5\txtwi}
+	
+	\begin{columns}
+		\begin{column}{0.4\txtwi}
+			\centerline{\green{Input}: points in $\R[d]$, $d \ge 3$}
+			% \includegraphics[width=0.8\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-data.png}
+		\end{column}
+		
+		\begin{column}{0.6\txtwi}
+			\centerline{\green{Desired output}: same points reparametrized in 2D}
+			% \includegraphics[width=1.2\picwi,height=0.3\picwi]{Figures/mani-swisshole-1000-k8-ltsa-6-embe.png}
+			
+			\pause
+			Linear dimension reduction fails\\
+			% \includegraphics[width=0.4\picwi,height=0.6\picwi]{Figures/fig-mani-swisshole-pcacut.png}
+			\hspace{1em}
+			% \includegraphics[width=0.4\picwi,height=0.6\picwi]{Figures/fig-mani-swisshole-mdscut.png}
+		\end{column}
+	\end{columns}
+	
+\end{frame}
+
+% ----------------------------------------------------------------------
+% Neighborhood graphs
+% ----------------------------------------------------------------------
+%------------------------------------------------------------------------
+\begin{frame}{Neighborhood graphs}
+	
+	\begin{itemize}
+		\item All manifold learning algorithms start from a \green{neighborhood graph}
+		\item $\neigh_i$ denotes neighbors of $\xi_i$, with $k_i = |\neigh_i|$
+		\item $\Xi_i = [\xi_{i'}]_{i' \in \neigh_i} \in \R[d \times k_i]$
+		\item Radius graph: $\neigh_i = \{ \xi_j \in \X : \|\xi_i - \xi_j\| \le r \}$
+		\item $k$-NN graph: $\neigh_i = \{ \xi_j \in \X : \xi_j \text{ is a $k$ nearest neighbor of $\xi_i$}\}$
+	\end{itemize}
+	
+	\medskip
+	\begin{itemize}
+		\item Advantages of $k$-NN:
+		\begin{itemize}
+			\item constant degree
+			\item connected for $k>1$
+			\item efficient implementations
+		\end{itemize}
+		\item Harder to analyze statistically
+	\end{itemize}
+	
+	\setlength{\picwi}{0.3\textwidth}
+	\begin{center}
+		\begin{tabular}{ccc}
+			%\includegraphics[width=.7\picwi]{pretty-hourglass-sample-n2000.png} &
+			%\includegraphics[width=.8\picwi]{fig_hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.png} &
+			%\includegraphics[width=.7\picwi]{pretty-hourglass-laplacian.png}
+			%\\
+			data & neighborhood graph & graph Laplacian
+		\end{tabular}
+	\end{center}
+	
+\end{frame}
+
+% ----------------------------------------------------------------------
+% Eigenvector Algos
+% ----------------------------------------------------------------------
+%-----------------------------------------------------------------------
+\subsection{Eigenvector-based embedding algorithms}
+
+\begin{frame}{Embedding algorithms}
+	
+	\blue{\lapmap}, \blue{\diffmap}, \blue{\isomap}, \blue{\ltsa}, \blue{\hessmap}, \blue{\tsne}, \blue{\umap}
+	
+	\begin{itemize}
+		\item Map $\X \subset \R[D] \to \R[m]$ (global coordinates)
+		\item Or locally map $U \subset \X$ to $\R[d]$
+		\item Inputs:
+		\begin{itemize}
+			\item embedding dimension $m$
+			\item neighborhood scale $\eps$
+			\item neighborhood graph
+		\end{itemize}
+		\item Distance matrix:
+		\[
+		D_{ij} = \begin{cases}
+			\|\xi_i - \xi_j\|, \quad \text{ if } j \in \neigh_i \\
+			\infty, \quad \text{ if } j \notin \neigh_i \\
+		\end{cases}
+		\]
+	\end{itemize}
+	
+\end{frame}
+
+% ----------------------------------------------------------------------
+% ISOMAP
+% ----------------------------------------------------------------------
+%-----------------------------------------------------------------------
+\begin{frame}{The \isomap\ algorithm}
+	
+	\begin{block}{\isomap}
+		\begin{enumerate}
+			\item Input: distance matrix $D$, embedding dimension $d$
+			\item Compute shortest-path distances on the neighborhood graph
+			\item Form $M_{ij} = D_{ij}^2$
+			\item Apply \mds*\ to obtain $d$-dimensional embedding
+		\end{enumerate}
+	\end{block}
+	
+\end{frame}
+
+
+%------------------------------------------------------------------------
+\begin{frame}{\diffmap\ / \lapmap}
+	
+	\begin{block}{\diffmap\ / \lapmap}
+		\begin{enumerate}
+			\item Input: distance matrix $A$, bandwidth $\eps$
+			\item Construct similarity matrix
+			\[
+			S_{ij} = \exp[-\frac{A_{ij}^2}{\eps^2}]
+			\]
+			\item Normalize to form Markov matrix $P$
+			\item Compute smallest nontrivial eigenvectors of $P$
+			\item Embed using $(\phi_1,\dots,\phi_m)$
+		\end{enumerate}
+	\end{block}
+	
+\end{frame}
+
+%------------------------------------------------------------------------
+\begin{frame}{\isomap\ vs. \lapmap}
+	
+	\begin{columns}
+		
+		\begin{column}{0.5\txtwi}
+			% \includegraphics[width=0.46\textwidth]{PARISDominique/Figures/IsomapFaces.png}
+			
+			\green{\isomap}
+			\begin{itemize}
+				\item Preserves geodesic distances
+				\item Sensitive to topology
+				\item Dense $O(n^3)$ computation
+			\end{itemize}
+		\end{column}
+		
+		\begin{column}{0.5\txtwi}
+			% \includegraphics[width=0.46\textwidth]{PARISDominique/Figures/EigenmapFaces.png}
+			
+			\green{\diffmap}
+			\begin{itemize}
+				\item Robust to noise
+				\item Local neighborhoods only
+				\item Sparse computation
+			\end{itemize}
+		\end{column}
+		
+	\end{columns}
+	
+\end{frame}

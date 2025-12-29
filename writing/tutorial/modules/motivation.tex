@@ -1,0 +1,443 @@
+% ======================================================================
+\section{Motivation}
+% ======================================================================
+
+% ----------------------------------------------------------------------
+% Brief Motivation
+% ----------------------------------------------------------------------
+% ----------------------------------------------------------------------
+\begin{frame}{Motivation}
+	\begin{itemize}
+		\item Examples of relevant SBI (Simulation-Based Inference) problems
+		\item Our main Cryo-EM question
+	\end{itemize}
+\end{frame}
+
+% ----------------------------------------------------------------------
+\begin{frame}{Motivation for Manifold Learning (ML)}
+	\begin{itemize}
+		\item Many natural data sets are intrinsically low-dimensional
+		\item Neural network embeddings are often low-dimensional as well
+		\item Therefore: manifold learning can help in many ways (incomplete list):
+		\begin{itemize}
+			\item estimate dimension
+			\item check whether simulated data covers real data
+			\item reduce dimension via embedding algorithms
+			\item visualize and interpret latent structure
+			\item measure distortion
+			\item perform SBI in a low-dimensional representation
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+% ----------------------------------------------------------------------
+% Datasets
+% ----------------------------------------------------------------------
+% ----------------------------------------------------------------------
+\begin{frame}{Spectra of galaxies measured by the \green{Sloan Digital Sky Survey (SDSS)}}
+	
+	\begin{columns}
+		\begin{column}{0.3\txtwi}
+			\setlength{\picwi}{\textwidth}
+			
+			\centerline{\href{www.sdss.org}{\gray{\tiny www.sdss.org}}}
+			\includegraphics[width=\picwi]{../figures/galaxies/pie_boss_z0-710.jpg}
+			
+			\centerline{\href{www.sdss.org}{\gray{\tiny www.sdss.org}}}
+			\includegraphics[width=\picwi]{../figures/galaxies/specById_asp.png}
+		\end{column}
+		
+		\begin{column}{0.7\txtwi}
+			\begin{itemize}
+				\item {\small Preprocessed by Jacob VanderPlas and Grace Telford}
+				\item $n=675{,}000$ spectra $\times\, D=3750$ dimensions
+			\end{itemize}
+			
+			\includegraphics[width=0.6\txtwi]{../figures/galaxies/pcEmbed_SFR-trim.png}
+			\centerline{\gray{\tiny embedding by James McQueen}}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------------
+\begin{frame}{Molecular configurations}
+	
+	\begin{columns}
+		\begin{column}{0.35\txtwi}
+			\setlength{\picwi}{\textwidth}
+			
+			\centerline{\small aspirin molecule}
+			\includegraphics[width=\picwi]{../figures/mds/aspirin/aspirin.png}
+		\end{column}
+		
+		\begin{column}{0.7\txtwi}
+			
+			\begin{itemize}
+				\item Data from \green{Molecular Dynamics (MD)} simulations of small molecules \citep{ChmielaMDS}
+				\item $n \approx 200{,}000$ configurations $\times\, D \sim 20$–$60$
+			\end{itemize}
+			\includegraphics[width=0.5\txtwi]{../figures/mds/aspirin/aspirin-cc.png}
+			
+		\end{column}
+	\end{columns}
+	
+\end{frame}
+
+% ----------------------------------------------------------------------
+% Why and When to do Manifold Learning
+% ----------------------------------------------------------------------
+\begin{frame}{When to do (non-linear) dimension reduction}
+	
+	\setlength{\picwi}{0.3\txtwi}
+	% \centerline{\includegraphics[width=\picwi]{IsomapFaces.png}}
+	
+	\begin{itemize}
+		\item high-dimensional \blue{data $p \in \R[D],\; D=64\times 64$}
+		\item can be described by a small number $d$ of continuous parameters
+		\item Usually, large sample size \blue{$n$}
+	\end{itemize}
+	
+\end{frame}
+
+% ----------------------------------------------------------------------
+\begin{frame}{When to do (non-linear) dimension reduction}
+	\begin{center}
+		\setlength{\picwi}{0.2\txtwi}
+		\begin{tabular}{ccc}
+			{\tiny HR diagram} & {\tiny aspirin MD simulation} & {\tiny SDSS galaxy spectra} \\
+			% \includegraphics[width=0.7\picwi]{HRDiagram.png} &
+			\includegraphics[width=\picwi]{../figures/mds/aspirin/aspirin-cc.png} &
+			\includegraphics[width=\picwi]{../figures/galaxies/pcEmbed_SFR-trim.png} \\
+		\end{tabular}
+	\end{center}
+	
+	\only<1>{
+		\begin{itemize}
+			\item high-dimensional
+			\item can be described by a small number $d$ of continuous parameters
+			\item Usually, large sample size \blue{$n$}
+		\end{itemize}
+	}
+	
+	\only<2>{
+		Why?
+		\begin{itemize}
+			\item To save space and computation
+			\begin{itemize}
+				\item $n\times D$ data matrix $\rightarrow n\times m$, $m\ll D$
+			\end{itemize}
+			\item To use it afterwards in (\green{prediction}) tasks
+			\item To \green{understand} the data better
+			\begin{itemize}
+				\item preserve large-scale features, suppress fine-scale features
+			\end{itemize}
+		\end{itemize}
+	}
+\end{frame}
+
+% ----------------------------------------------------------------------
+\begin{frame}{Manifold Learning (ML) for the physical sciences}
+	\begin{itemize}
+		\item big, high-dimensional data
+		\item data, physics supports manifold models
+		\item understanding \& prediction equally important
+		\pause
+	\end{itemize}
+	
+	\red{Challenges} for ML algorithms
+	\begin{itemize}
+		\item scalable \megaman
+		\pause
+		ML package \citep{McQueenMegaman} \checkmark
+		\pause
+		\item \green{find ``something new, trustworthy, reproducible, interpretable''}
+		\pause
+		\item remove algorithmic artifacts \green{(replace grad student)}.
+		\item data-driven parameter selection \green{(replace grad student)}.
+		\item validation on mathematical/statistical grounds as much as possible \green{(replace experimental validation)}
+		\item use \red{domain knowledge} \green{(not domain expert)}.
+	\end{itemize}
+\end{frame}
+
+% ----------------------------------------------------------------------
+% Intro into Algos
+% ----------------------------------------------------------------------
+%------------------------------------------------------------------------
+\begin{frame}{Brief intro to manifold learning algorithms}
+	
+	\setlength{\picwi}{0.3\txtwi}
+	
+	\begin{itemize}
+		\item \textbf{Input:} data $p_1,\dots,p_n$, embedding dimension \blue{$m$}, neighborhood scale \blue{$\eps$}
+		
+		\only<2->{%
+			\item \green{Construct neighborhood graph:}
+			$p,p'$ are neighbors iff {\small $\norm[p-p']^2 \le \eps$}
+		}
+		
+		\hfill{\green{ALL ALGORITHMS}}
+		
+		\only<3>{%
+			\item Construct a \red{$n\times n$ matrix} whose leading eigenvectors are the \blue{coordinates $\phi(p_{1:n})$}
+		}
+	\end{itemize}
+	
+	\vspace{-0.4em}
+	\only<1-3>{%
+		\includegraphics[width=.7\picwi,height=.5\picwi,viewport=100 100 485 360,clip]{../figures/hourglass/pretty-hourglass-sample-n2000.png}%
+	}
+	\hspace{1em}
+	\only<2-3>{%
+		\includegraphics[width=.8\picwi]{../figures/hourglass/hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.png}%
+	}
+	\hspace{1em}
+	\only<3>{%
+		\includegraphics[width=.7\picwi]{../figures/hourglass/pretty-hourglass-laplacian.png}%
+	}\\[-0.2em]
+	
+	\only<1-3>{$p_1,\dots ,p_n \subset \R[D]$}
+	
+	\only<4>{%
+		\vspace{0.6em}
+		\begin{itemize}
+			\item \lapmap \citep{BelkinLEM}/ \diffmap \citep{CoifmanDM}
+			
+			\item Construct similarity matrix
+			\[
+			S = [S_{pp'}]_{p,p'\in\X}
+			\quad\text{with}\quad
+			S_{pp'} = \exp[-\frac{\norm[p-p']^2}{\eps}]
+			\quad\text{iff $p,p'$ are neighbors.}
+			\]
+			
+			\item Construct \red{Laplacian matrix}
+			\(
+			L = I - T^{-1}S,
+			\qquad
+			T = \diag[S\mathbf{1}]
+			\)
+			
+			\item Compute $\phi^{1\dots m} =$ eigenvectors of $L$ (smallest eigenvalues)
+			
+			\item Coordinates of $p \in \X$ are $(\phi^1(p),\dots,\phi^m(p))$
+		\end{itemize}
+	}
+	
+	\only<5>{%
+		\vspace{0.6em}
+		\begin{itemize}
+			\item \isomap \citep{TenenbaumISOMAP}
+			
+			\item Find all shortest paths in neighborhood graph, construct \red{distance matrix}
+			\[
+			M_{pp'} = \big[\dist[p, p']\big]
+			\]
+			
+			\item Apply \blue{Multi-Dimensional Scaling (MDS)} to obtain $m$-dimensional coordinates
+		\end{itemize}
+	}
+	
+\end{frame}
+
+%------------------------------------------------------------------------
+\begin{frame}{\isomap vs. \diffmap}
+	
+	\begin{columns}
+		
+		\begin{column}{0.5\txtwi}
+			% \includegraphics[
+			% trim=1.5cm 1.5cm 1.5cm 1.5cm,
+			% clip,
+			% width=0.46\textwidth
+			% ]{PARISDominique/Figures/IsomapFaces.png}
+			
+			\isomap
+			\begin{itemize}
+				\item Preserves geodesic distances
+				\begin{itemize}
+					\item but only sometimes \citep{TODO}
+				\end{itemize}
+				\item All-pairs shortest paths \blue{$\mathcal{O}(n^3)$}
+				\item Stores/processes a \green{dense} matrix
+			\end{itemize}
+		\end{column}
+		
+		\begin{column}{0.5\txtwi}
+			% \includegraphics[
+			% trim=1.5cm 1.5cm 1.5cm 1.5cm,
+			% clip,
+			% width=0.46\textwidth
+			% ]{PARISDominique/Figures/EigenmapFaces.png}
+			
+			\diffmap
+			\begin{itemize}
+				\item Distorts geodesic distances
+				\item Only nearest-neighbor distances \blue{$\mathcal{O}(n^{1+\delta})$} (sparse graph)
+				\item Stores/processes a \green{sparse} matrix
+			\end{itemize}
+		\end{column}
+		
+	\end{columns}
+	
+	\vfill
+	\begin{itemize}
+		\item \tsne, \umap: visualization-first, heuristic
+	\end{itemize}
+	
+\end{frame}
+
+%------------------------------------------------------------------------
+% Toy Example
+%------------------------------------------------------------------------
+%------------------------------------------------------------------------
+\begin{frame}{A Toy Example}
+	
+	A toy example (the ``Swiss Roll'' with a hole)
+	
+	\vspace{2em}
+	\setlength{\picwi}{0.55\txtwi}
+	
+	\begin{tabular}{cc}
+		points in $D \ge 3$ dimensions & same points reparametrized in 2D \\
+		% \includegraphics[width=0.8\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-data.png}
+		&
+		% \hspace{-2.5em}\includegraphics[width=1.2\picwi,height=0.3\picwi]{Figures/mani-swisshole-1000-k8-ltsa-6-embe.png}
+		\\
+		\green{\textbf{Input}} & \green{\textbf{Desired output}}
+	\end{tabular}
+\end{frame}
+
+%------------------------------------------------------------------------
+\begin{frame}{Embedding in 2 dimensions by different manifold learning algorithms}
+	
+	\hspace{5.7em}\green{\textbf{Input}} \\[-0.3em]
+	
+	\setlength{\picwi}{0.9\txtwi}
+	\begin{center}
+		% \includegraphics[width=\picwi]{Figures/fig-mani-swisshole.png}\\
+		\gray{\tiny Figure by Todd Wittman}
+	\end{center}
+	
+\end{frame}
+
+%------------------------------------------------------------------------
+\begin{frame}{Embedding in 2 dimensions by different manifold learning algorithms}
+	
+	\setlength{\picwi}{0.3\txtwi}
+	
+	\begin{small}
+		\begin{columns}
+			
+			\begin{column}{\picwi}
+				Original data\\
+				{\small (Swiss Roll with hole)}\\
+				% \includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-data.png}\\
+				{\small \hessmap (\hessmap*)}\\
+				% \includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k12-he-6-embe.png}
+			\end{column}
+			
+			\begin{column}{\picwi}
+				{\small \lapmap (\lapmap*)}\\
+				% \includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-le-embe.png}\\
+				{\small \lle (\lle*)}\\
+				% \includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-lle-6-embe.png}
+			\end{column}
+			
+			\begin{column}{\picwi}
+				{\small \isomap}\\
+				% \includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-embe.png}\\
+				{\small \ltsa (\ltsa*)}\\
+				% \includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-ltsa-6-embe.png}
+			\end{column}
+			
+		\end{columns}
+	\end{small}
+	
+\end{frame}
+
+%------------------------------------------------------------------------
+% Evaluation
+%------------------------------------------------------------------------
+% ----------------------------------------------------------------------
+\begin{frame}{How to evaluate the results objectively?}
+	
+	\begin{itemize}
+		\item Many algorithms exist:
+		\blue{\isomap, \lapmap (\lapmap*), \diffmap (\diffmap*), \hessmap (\hessmap*), \lle (\lle*), \ltsa (\ltsa*)}
+		\item Each algorithm gives a different embedding of the same data
+	\end{itemize}
+	
+	\setlength{\picwi}{0.15\txtwi}
+	
+	\begin{small}
+		\begin{columns}
+			
+			\begin{column}{\picwi}
+				{\tiny Original} \\
+				%\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-data.png}\\
+				{\tiny \hessmap*}\\
+				%\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k12-he-6-embe.png}
+			\end{column}
+			
+			\begin{column}{\picwi}
+				{\tiny \lapmap*}\\
+				%\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-le-embe.png}\\
+				{\tiny \lle*}\\
+				%\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-lle-6-embe.png}
+			\end{column}
+			
+			\begin{column}{\picwi}
+				{\tiny \isomap*}\\
+				%\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-isomap-6-embe.png}\\
+				{\tiny \ltsa*}\\
+				%\includegraphics[width=\picwi]{Figures/mani-swisshole-1000-k8-ltsa-6-embe.png}
+			\end{column}
+			
+			\begin{column}{0.7\txtwi}
+				\begin{itemize}
+					\item which of these embeddings are ``correct''?
+					\item if several are ``correct'', how do we reconcile them?
+					\item if not ``correct'', what failed?
+				\end{itemize}
+			\end{column}
+			
+		\end{columns}
+	\end{small}
+	
+\end{frame}
+
+%------------------------------------------------------------------------
+\begin{frame}{How to evaluate the results objectively?}
+	
+	\setlength{\picwi}{0.45\txtwi}
+	
+	\begin{small}
+		\begin{columns}
+			
+			\begin{column}{\picwi}
+				\only<1>{
+					% \includegraphics[width=\picwi]{Figures/fig-mani-swisshole.png}
+				}
+				\only<2>{%
+					% \includegraphics[width=\picwi]{Figures/jvdp-spectra-data.png} \\
+					\gray{\tiny Spectrum of a galaxy. Source SDSS, Jake VanderPlas}
+				}
+			\end{column}
+			
+			\begin{column}{0.7\txtwi}
+				\begin{itemize}
+					\item which of these embeddings are ``correct''?
+					\item if several are ``correct'', how do we reconcile them?
+					\item if not ``correct'', what failed?
+					\only<2>{\item what if I have real data?}
+				\end{itemize}
+			\end{column}
+			
+		\end{columns}
+	\end{small}
+	
+	\only<1>{\tiny
+		Algorithms: \blue{\mds* , \pca* , \isomap*, \lle* , \hessmap* , \lapmap* , \diffmap*}
+	}
+	
+\end{frame}

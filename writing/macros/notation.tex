@@ -32,3 +32,10 @@
 \NewDocumentCommand{\norm}{o O{2}}{\left\lVert #1 \right\rVert_{#2}}
 \NewDocumentCommand{\diag}{o}{\IfValueTF{#1}{\oDiag\left(#1\right)}{\oDiag}}
 \RenewDocumentCommand{\exp}{o}{\IfValueTF{#1}{\oExp\left(#1\right)}{\oExp}}
+
+% ======================================================================
+% Matrices
+% ======================================================================
+\NewDocumentCommand{\distmat}{o}{\mathbf{\mathrm{D}}\IfValueT{#1}{_{#1}}}
+\NewDocumentCommand{\affmat}{o}{\mathbf{\mathrm{A}}\IfValueT{#1}{_{#1}}}
+\NewDocumentCommand{\lapmat}{o}{\mathbf{\mathrm{L}}\IfValueT{#1}{_{#1}}}

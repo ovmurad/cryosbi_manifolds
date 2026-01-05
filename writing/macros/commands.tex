@@ -55,11 +55,25 @@
 \NewDocumentCommand{\ies}{s}{\algname{#1}{\textsc{IES}}{\textsc{IES}}}
 \NewDocumentCommand{\rmetric}{s}{\algname{#1}{\textsc{RMetric}}{\textsc{Riemannian Metric Estimation}}}
 \NewDocumentCommand{\rrelex}{s}{\algname{#1}{\textsc{RR}}{\textsc{Riemannian Relaxation}}}
+\NewDocumentCommand{\mvs}{s}{\algname{#1}{\textsc{MVS}}{\textsc{Minimum Volume Sets}}}
+\NewDocumentCommand{\kde}{s}{\algname{#1}{\textsc{KDE}}{\textsc{Kernel Density Estimation}}}
 
 % frameworks
 \NewDocumentCommand{\megaman}{s}{\algname{#1}{\textsc{MegaMan}}{\textsc{MegaMan}}}
 \NewDocumentCommand{\superman}{s}{\algname{#1}{\textsc{SuperMan}}{\textsc{SuperMan}}}
 \NewDocumentCommand{\sklearn}{s}{\algname{#1}{\textsc{sklearn}}{\textsc{scikit-learn}}}
+
+% ======================================================================
+% Step Boxes
+% ======================================================================
+% Creates a colored box for step items in validation pipeline
+\NewDocumentCommand{\stepbox}{m m}{%
+    \colorbox{#1}{%
+        \parbox{\dimexpr\linewidth-2\fboxsep}{%
+            #2
+        }%
+    }%
+}
 
 % ======================================================================
 % Misc

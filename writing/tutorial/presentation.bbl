@@ -1,9 +1,17 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{13}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Assouad(1983)]{AssouadDoubling}
+Patrice Assouad.
+\newblock Plongements lipschitziens dans $r^n$.
+\newblock \emph{Bulletin de la Soci\'et\'e Math\'ematique de France},
+  111:\penalty0 429--448, 1983.
+\newblock \doi{10.24033/bsmf.1997}.
+\newblock URL \url{http://www.numdam.org/articles/10.24033/bsmf.1997/}.
 
 \bibitem[Belkin and Niyogi(2001)]{BelkinLEM}
 Mikhail Belkin and Partha Niyogi.
@@ -14,6 +22,21 @@ Mikhail Belkin and Partha Niyogi.
   Press, 2001.
 \newblock URL
   \url{https://proceedings.neurips.cc/paper_files/paper/2001/file/f106b7f99d2cb30c3db1c3cc0fde9ccb-Paper.pdf}.
+
+\bibitem[Chen et~al.()Chen, Little, and Maggioni]{MaggioniEigenGap}
+Guangliang Chen, Anna~V. Little, and Mauro Maggioni.
+\newblock \emph{Multi-Resolution Geometric Analysis for Data in High
+  Dimensions}, pages 259--285.
+\newblock Birkh{\"a}user Boston, Boston.
+\newblock ISBN 978-0-8176-8376-4.
+\newblock \doi{10.1007/978-0-8176-8376-4_13}.
+\newblock URL \url{https://doi.org/10.1007/978-0-8176-8376-4_13}.
+
+\bibitem[Chen and Meila(2019)]{MeilaIES}
+Yu-Chia Chen and Marina Meila.
+\newblock Selecting the independent coordinates of manifolds with large aspect
+  ratios.
+\newblock \emph{Advances in Neural Information Processing Systems}, 32, 2019.
 
 \bibitem[Chmiela et~al.(2018)Chmiela, Sauceda, Müller, and
   Tkatchenko]{ChmielaMDS}
@@ -37,13 +60,53 @@ Ronald~R. Coifman and Stéphane Lafon.
   \url{https://www.sciencedirect.com/science/article/pii/S1063520306000546}.
 \newblock Special Issue: Diffusion Maps and Wavelets.
 
-\bibitem[McQueen et~al.(2016)McQueen, Meil{\u{a}}, VanderPlas, and
-  Zhang]{McQueenMegaman}
+\bibitem[Grassberger and Procaccia(1983)]{ProcacciaSlope}
+Peter Grassberger and Itamar Procaccia.
+\newblock Measuring the strangeness of strange attractors.
+\newblock \emph{Physica D: Nonlinear Phenomena}, 9\penalty0 (1):\penalty0
+  189--208, 1983.
+\newblock ISSN 0167-2789.
+\newblock \doi{https://doi.org/10.1016/0167-2789(83)90298-1}.
+\newblock URL
+  \url{https://www.sciencedirect.com/science/article/pii/0167278983902981}.
+
+\bibitem[Koelle et~al.(2024)Koelle, Zhang, Murad, and Meila]{MeilaTSLasso}
+Samson~J Koelle, Hanyu Zhang, Octavian-Vlad Murad, and Marina Meila.
+\newblock Consistency of dictionary-based manifold learning.
+\newblock In \emph{International Conference on Artificial Intelligence and
+  Statistics}, pages 4348--4356. PMLR, 2024.
+
+\bibitem[Levina and Bickel(2004)]{BickelLB}
+Elizaveta Levina and Peter Bickel.
+\newblock Maximum likelihood estimation of intrinsic dimension.
+\newblock In L.~Saul, Y.~Weiss, and L.~Bottou, editors, \emph{Advances in
+  Neural Information Processing Systems}, volume~17. MIT Press, 2004.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2004/file/74934548253bcab8490ebd74afed7031-Paper.pdf}.
+
+\bibitem[McQueen et~al.(2016{\natexlab{a}})McQueen, Meila, and
+  Joncas]{MeilaRRelax}
+James McQueen, Marina Meila, and Dominique Joncas.
+\newblock Nearly isometric embedding by relaxation.
+\newblock In D.~Lee, M.~Sugiyama, U.~Luxburg, I.~Guyon, and R.~Garnett,
+  editors, \emph{Advances in Neural Information Processing Systems}, volume~29.
+  Curran Associates, Inc., 2016{\natexlab{a}}.
+\newblock URL
+  \url{https://proceedings.neurips.cc/paper_files/paper/2016/file/cf1f78fe923afe05f7597da2be7a3da8-Paper.pdf}.
+
+\bibitem[McQueen et~al.(2016{\natexlab{b}})McQueen, Meil{\u{a}}, VanderPlas,
+  and Zhang]{McQueenMegaman}
 James McQueen, Marina Meil{\u{a}}, Jacob VanderPlas, and Zhongyue Zhang.
 \newblock Megaman: Scalable manifold learning in python.
 \newblock \emph{Journal of Machine Learning Research}, 17\penalty0
-  (148):\penalty0 1--5, 2016.
+  (148):\penalty0 1--5, 2016{\natexlab{b}}.
 \newblock URL \url{http://jmlr.org/papers/v17/16-109.html}.
+
+\bibitem[Perraul-Joncas and Meila(2013)]{MeilaRMetric}
+Dominique Perraul-Joncas and Marina Meila.
+\newblock Non-linear dimensionality reduction: Riemannian metric estimation and
+  the problem of geometric discovery.
+\newblock \emph{arXiv preprint arXiv:1305.7255}, 2013.
 
 \bibitem[Tenenbaum et~al.(2000)Tenenbaum, de~Silva, and
   Langford]{TenenbaumISOMAP}

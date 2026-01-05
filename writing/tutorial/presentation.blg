@@ -4,45 +4,47 @@ The top-level auxiliary file: presentation.aux
 The style file: plainnat.bst
 Database file #1: ../references.bib
 Warning--I didn't find a database entry for "TODO"
-You've used 5 entries,
+Warning--empty year in MaggioniEigenGap
+Warning--empty year in MaggioniEigenGap
+You've used 13 entries,
             2773 wiz_defined-function locations,
-            647 strings with 6193 characters,
-and the built_in function-call counts, 2604 in all, are:
-= -- 238
-> -- 161
-< -- 3
-+ -- 53
-- -- 48
-* -- 235
-:= -- 418
-add.period$ -- 25
-call.type$ -- 5
-change.case$ -- 30
-chr.to.int$ -- 5
-cite$ -- 10
-duplicate$ -- 106
-empty$ -- 197
-format.name$ -- 57
-if$ -- 537
-int.to.chr$ -- 1
+            713 strings with 8215 characters,
+and the built_in function-call counts, 6657 in all, are:
+= -- 617
+> -- 382
+< -- 12
++ -- 127
+- -- 113
+* -- 557
+:= -- 1037
+add.period$ -- 62
+call.type$ -- 13
+change.case$ -- 72
+chr.to.int$ -- 12
+cite$ -- 28
+duplicate$ -- 297
+empty$ -- 525
+format.name$ -- 138
+if$ -- 1411
+int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 5
-newline$ -- 42
-num.names$ -- 22
-pop$ -- 45
+missing$ -- 14
+newline$ -- 92
+num.names$ -- 58
+pop$ -- 133
 preamble$ -- 1
-purify$ -- 25
+purify$ -- 60
 quote$ -- 0
-skip$ -- 80
+skip$ -- 220
 stack$ -- 0
-substring$ -- 78
-swap$ -- 7
-text.length$ -- 1
+substring$ -- 212
+swap$ -- 42
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 55
-warning$ -- 0
-while$ -- 22
+type$ -- 138
+warning$ -- 2
+while$ -- 57
 width$ -- 0
-write$ -- 91
-(There was 1 warning)
+write$ -- 217
+(There were 3 warnings)

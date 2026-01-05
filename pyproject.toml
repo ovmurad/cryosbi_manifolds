@@ -7,10 +7,10 @@ name = "cryosbi_manifolds"
 version = "1.0.0"
 description = ""
 requires-python = ">3.12"
-authors = [{name = "Octavian-Vlad Murad", email="muradoctavian@gmail.com"}]
+authors = [{name = "Octavian-Vlad Murad", email="ovmurad@cs.washington.edu"}]
 readme = "README.md"
 license = "MIT"
-repository = "https://github.com/ovmurad/cryo_experiments"
+repository = "https://github.com/ovmurad/cryosbi_manifolds"
 classifiers = [
     "Topic :: Scientific/Engineering",
     "Intended Audience :: Developers",
@@ -37,5 +37,17 @@ dependencies = [
 "einops",
 "ipykernel"
 ]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/geometry_analysis"]
+
+[tool.poetry]
+package-mode = false
+
+[dependency-groups]
+dev = [
+    "ruff (>=0.14.10,<0.15.0)",
+    "mypy (>=1.19.1,<2.0.0)",
+    "black (>=25.12.0,<26.0.0)",
+    "pytest (>=9.0.2,<10.0.0)"
+]

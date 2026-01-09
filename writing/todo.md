@@ -1,3 +1,30 @@
+Luke 01/09
+=========
+I tried to re-write one of the `analysis` scripts with minimal API, just to see how different the process would be using the Arrays directly instead of the `Database` dictionaries.
+The file is [here](https://github.com/ovmurad/cryosbi_manifolds/blob/main/scripts/analysis_ethanol_new.py).
+
+After looking through, there are some things I think that could be in a tutorial that aren't included in the previous scripts (maybe these are in other notebooks contributed here that I haven't looked at yet):
+- Choosing the range for `MIN_R, MAX_R` and step-size
+  - E.g, a few notebook cell with several sub-optimal choices, and picking the one based on properties of the histogram of nearest neighbors
+- Choosing `RADIUS` for the embedding.
+  - E.g, a few notebook cell with several sub-optimal choices, and picking the one based on some property (I'm not sure what it is here)
+
+Some other todos for this script above:
+    - TODO: check that slicing is correct in the sub-sampling.  
+      - In this new script above, I am slicing `CSR` arrays a few times, and I'm not sure if I'm respecting the index-slicing rules correctly. I think this is done implicitly in `Database` by the `name|str_str` but I'm not sure where this happens.
+    - TODO: include `IES`, `TSLASSO`
+    - TODO: verify that the above script is working approximately right for the ethanol dataset
+      - e.g: is it getting expected intrinsic dims and embeddings?
+
+Some future todos:
+  - TODO: I/O for passing data from `analysis` to `visualizing`
+    - currently, the plotting, or embedding or dim. estimation scripts, e.g [here](https://github.com/ovmurad/cryosbi_manifolds/blob/main/scripts/visualize_intrinsic_dim.py), have dataset names and expected for very specific datasets
+    - sub-TODO: make a `generic` script for a "simple" dataset
+      - "simple": no `sim`/`exp` to pass in, or `params`, i.e. just doing the manifold learning for a dataset, which initally is passed in as one `num_data_points x num_features` array, that isn't necessarily from SBI, since many parts of this library are useful general manifold learning
+
+  - TODO: transition to jupyter notebooks for tutorial
+    - Not fun, BUT it's ubiquitous for tutorials, and will be easiest to tell if stuff could be usable `live'.
+
 MMP 12/23
 =========
 * broke the presentation into modules, i.e. module-<something>.tex

@@ -11,8 +11,11 @@ After looking through, there are some things I think that could be in a tutorial
 
 Some other todos for this script above:
     - TODO: check that slicing is correct in the sub-sampling.  
+
       - In this new script above, I am slicing `CSR` arrays a few times, and I'm not sure if I'm respecting the index-slicing rules correctly. I think this is done implicitly in `Database` by the `name|str_str` but I'm not sure where this happens.
+
     - TODO: include `IES`, `TSLASSO`
+
     - TODO: verify that the above script is working approximately right for the ethanol dataset
       - e.g: is it getting expected intrinsic dims and embeddings?
 

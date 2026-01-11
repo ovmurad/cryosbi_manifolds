@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.1.3)  5 JAN 2026 01:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.1.3)  11 JAN 2026 01:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1139,13 +1139,13 @@ Overfull \vbox (9.94106pt too high) detected at line 138
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 218.
+(Font)              <12> on input line 215.
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <12> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 218.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 215.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <12> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 218.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 215.
 
-Overfull \vbox (10.92413pt too high) detected at line 218
+Overfull \vbox (10.92413pt too high) detected at line 215
  []
 
 [44
@@ -1154,13 +1154,13 @@ Overfull \vbox (10.92413pt too high) detected at line 218
 
 ]
 
-Package natbib Warning: Citation `TODO' on page 46 undefined on input line 280.
+Package natbib Warning: Citation `TODO' on page 46 undefined on input line 277.
 
 [46
 
 ]
 
-Package natbib Warning: Citation `TODO' on page 47 undefined on input line 306.
+Package natbib Warning: Citation `TODO' on page 47 undefined on input line 303.
 
 [47
 
@@ -1168,64 +1168,68 @@ Package natbib Warning: Citation `TODO' on page 47 undefined on input line 306.
 
 ]
 
-Package natbib Warning: Citation `TODO' on page 49 undefined on input line 376.
+Package natbib Warning: Citation `TODO' on page 49 undefined on input line 373.
 
 
-Overfull \vbox (12.88675pt too high) detected at line 376
+Overfull \vbox (12.88675pt too high) detected at line 373
  []
 
 [49
 
 ] [50
 
-] [51
+]
+Overfull \vbox (0.38419pt too high) detected at line 467
+ []
+
+[51
 
 ] [52
 
 ]
-
-Package natbib Warning: Citation `TODO' on page 53 undefined on input line 523.
-
-
-Overfull \vbox (11.10222pt too high) detected at line 523
+Overfull \vbox (27.4748pt too high) detected at line 518
  []
 
 [53
 
-] [54
-
 ]
-Overfull \vbox (2.21393pt too high) detected at line 562
+Overfull \vbox (16.11926pt too high) detected at line 548
  []
 
-[55
+[54
 
-] [56
+] [55
+
+]
+Overfull \vbox (16.37157pt too high) detected at line 605
+ []
+
+[56
 
 ] [57
 
 ] [58
 
 ]
-Overfull \vbox (20.4291pt too high) detected at line 654
+Overfull \vbox (72.86858pt too high) detected at line 717
  []
 
 [59
 
 ] [60
 
+] [61
+
 ]
-Overfull \vbox (72.86858pt too high) detected at line 752
+Overfull \vbox (24.56908pt too high) detected at line 786
  []
 
-[61
-
-] [62
+[62
 
 ] [63
 
 ]
-Overfull \vbox (24.56908pt too high) detected at line 824
+Overfull \vbox (2.48921pt too high) detected at line 830
  []
 
 [64
@@ -1233,25 +1237,17 @@ Overfull \vbox (24.56908pt too high) detected at line 824
 ] [65
 
 ]
-Overfull \vbox (2.48921pt too high) detected at line 870
+Overfull \vbox (2.32391pt too high) detected at line 896
  []
 
 [66
-
-] [67
-
-]
-Overfull \vbox (2.32391pt too high) detected at line 936
- []
-
-[68
 
 ]) (./presentation.bbl
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\translate ' on input line 1.
 
-[69
+[67
 
 ]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 14.
@@ -1260,12 +1256,12 @@ File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 Underfull \vbox (badness 2573) has occurred while \output is active []
 
- [70
+ [68
 
-] [71]
+] [69]
 Underfull \vbox (badness 2573) has occurred while \output is active []
 
- [72]) [73]
+ [70]) [71]
 \tf@nav=\write6
 \openout6 = `presentation.nav'.
 
@@ -1287,18 +1283,18 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 73131B17EDAE2282A640EFB3F3EF52FC;858.
  ) 
 Here is how much of TeX's memory you used:
- 26794 strings out of 480171
- 537334 string characters out of 5894490
- 770524 words of memory out of 5000000
- 43958 multiletter control sequences out of 15000+600000
+ 26791 strings out of 480171
+ 537289 string characters out of 5894490
+ 770143 words of memory out of 5000000
+ 43959 multiletter control sequences out of 15000+600000
  626827 words of font info for 120 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  128i,14n,122p,1875b,862s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}</usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/type1/public/lm/lmss17.pfb></usr/share/texmf/fonts/type1/public/lm/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmss9.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso9.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on presentation.pdf (73 pages, 4726312 bytes).
+Output written on presentation.pdf (71 pages, 4727680 bytes).
 PDF statistics:
- 689 PDF objects out of 1000 (max. 8388607)
- 531 compressed objects within 6 object streams
- 166 named destinations out of 1000 (max. 500000)
+ 677 PDF objects out of 1000 (max. 8388607)
+ 521 compressed objects within 6 object streams
+ 162 named destinations out of 1000 (max. 500000)
  149 words of extra memory for PDF output out of 10000 (max. 10000000)
 

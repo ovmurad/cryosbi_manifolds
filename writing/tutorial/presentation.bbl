@@ -23,11 +23,11 @@ Mikhail Belkin and Partha Niyogi.
 \newblock URL
   \url{https://proceedings.neurips.cc/paper_files/paper/2001/file/f106b7f99d2cb30c3db1c3cc0fde9ccb-Paper.pdf}.
 
-\bibitem[Chen et~al.()Chen, Little, and Maggioni]{MaggioniEigenGap}
+\bibitem[Chen et~al.(2013)Chen, Little, and Maggioni]{MaggioniEigenGap}
 Guangliang Chen, Anna~V. Little, and Mauro Maggioni.
 \newblock \emph{Multi-Resolution Geometric Analysis for Data in High
   Dimensions}, pages 259--285.
-\newblock Birkh{\"a}user Boston, Boston.
+\newblock Birkh{\"a}user Boston, Boston, 2013.
 \newblock ISBN 978-0-8176-8376-4.
 \newblock \doi{10.1007/978-0-8176-8376-4_13}.
 \newblock URL \url{https://doi.org/10.1007/978-0-8176-8376-4_13}.

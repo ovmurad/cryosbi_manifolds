@@ -13,6 +13,7 @@
 % Sets
 % ======================================================================
 \NewDocumentCommand{\X}{o o}{\IfValueTF{#1}{\IfValueTF{#2}{\mathcal{X}_{#1}^{#2}}{\mathcal{X}^{#1}}}{\mathcal{X}}}
+\NewDocumentCommand{\M}{o}{\mathcal{M}\IfValueT{#1}{_{#1}}}
 \NewDocumentCommand{\neigh}{}{\mathcal{N}}
 
 % ======================================================================
@@ -32,6 +33,8 @@
 \NewDocumentCommand{\norm}{o O{2}}{\left\lVert #1 \right\rVert_{#2}}
 \NewDocumentCommand{\diag}{o}{\IfValueTF{#1}{\oDiag\left(#1\right)}{\oDiag}}
 \RenewDocumentCommand{\exp}{o}{\IfValueTF{#1}{\oExp\left(#1\right)}{\oExp}}
+
+\NewDocumentCommand{\lapop}{}{\mathcal{L}}
 
 % ======================================================================
 % Matrices

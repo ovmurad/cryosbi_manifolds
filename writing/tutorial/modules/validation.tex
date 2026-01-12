@@ -21,7 +21,7 @@
 			\item[]
 			\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 			\item[]
-			\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+			\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 		\end{itemize}
 	\end{column}
 
@@ -59,11 +59,11 @@
 			\item[]
 			\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 			\item[]
-			\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+			\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 			\item[]
 			\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 			\item[]
-			\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+			\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 			\item[]
 			\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 			\item[]
@@ -107,11 +107,11 @@
 			\item[]
 			\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 			\item[]
-			\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+			\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 			\item[]
 			\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 			\item[]
-			\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+			\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 			\item[]
 			\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 			\item[]
@@ -126,11 +126,13 @@
 		\begin{itemize}
 			\setlength\itemsep{2pt}
 			\item[]
-			\stepbox{cOrange!15}{\textbf{Step 8a.} Manifold Interpretation \& Visualization I: \ies\ and plotting.}
+			\stepbox{cOrange!15}{\textbf{Step 8.} Selecting Independent Coordinates: \ies*.}
 			\item[]
-			\stepbox{cOrange!15}{\textbf{Step 8b.} Manifold Interpretation \& Visualization II: \tslasso.}
+			\stepbox{cOrange!15}{\textbf{Step 9.} Identifying Manifold Parametrization I: Visualization.}
 			\item[]
-			\stepbox{cOrange!15}{\textbf{Step 8c.} Manifold Interpretation \& Visualization III: \rrelex.}
+			\stepbox{cOrange!15}{\textbf{Step 10.} Identifying Manifold Parametrization II: \tslasso.}
+			\item[]
+			\stepbox{cOrange!15}{\textbf{Step 11.} Improving Visualization: \rrelax.}
 		\end{itemize}
 	\end{column}
 \end{columns}
@@ -158,7 +160,7 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cPurple!15}{\textbf{Step 4.} Assess Coverage and Fidelity.}
 			\end{itemize}
@@ -253,7 +255,7 @@
 % TODO: Could show before/after outlier removal visualization.
 % TODO: Could do an ablation study of embedding methods with and without outlier removal.
 % TODO: Could show a plot of mvs volumes for different alphas.
-\begin{frame}{Step 3: Preprocessing I: Outlier Removal}
+\begin{frame}{Step 3: Outlier Removal}
 
 	\textbf{Motivation}: Highly noisy or pathological points:
     \begin{itemize}
@@ -388,7 +390,7 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cPurple!15}{\textbf{Step 4.} Assess Coverage and Fidelity.}
 			\end{itemize}
@@ -430,11 +432,11 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 				\item[]
-				\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+				\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 				\item[]
@@ -480,7 +482,7 @@
 		\item[]
 		\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 		\item[]
-		\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+		\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 	\end{itemize}
 
 	\textbf{This ensures that the local statistics reflect the geometry of the clean data and are not biased/distorted by the outliers.}
@@ -488,10 +490,10 @@
 \end{frame}
 
 % ----------------------------------------------------------------------
-% Step 5: Preprocessing II: Uniform Resampling
+% Step 5: Uniform Resampling
 % ----------------------------------------------------------------------
 % TODO: Could show density distribution before/after resampling or picture from the paper
-\begin{frame}{Step 5: Preprocessing II: Uniform Resampling}
+\begin{frame}{Step 5: Uniform Resampling}
 
 	\small
 
@@ -574,6 +576,7 @@
 % ----------------------------------------------------------------------
 % Step 8: Estimate Intrinsic Dimension $d$
 % ----------------------------------------------------------------------
+% ----------------------------------------------------------------------
 \begin{frame}{Step 8: Estimate Intrinsic Dimension $d$}
 
 	\small
@@ -605,8 +608,6 @@
 \end{frame}
 
 % ----------------------------------------------------------------------
-% Intrinsic Dimensionality Estimation Considerations
-% ----------------------------------------------------------------------
 % TODO: Add figures from paper showing stability of estimates across parameter ranges
 \begin{frame}{Intrinsic Dimensionality Estimation Considerations}
 	
@@ -636,11 +637,11 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 				\item[]
-				\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+				\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 				\item[]
@@ -679,176 +680,174 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 				\item[]
-				\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+				\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 7.} Manifold Learning: \diffmap.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8a.} IES and plotting.}
+				\stepbox{cOrange!15}{\textbf{Step 8.} Selecting Independent Coordinates: \ies*.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8b.} \tslasso.}
+				\stepbox{cOrange!15}{\textbf{Step 9.} Identifying Manifold Parametrization I: Visualization.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8c.} \rrelex.}
+				\stepbox{cOrange!15}{\textbf{Step 10.} Identifying Manifold Parametrization II: \tslasso.}
+				\item[]
+				\stepbox{cOrange!15}{\textbf{Step 11.} Improving Visualization: \rrelax.}
 			\end{itemize}
 		\end{column}
+
 		\begin{column}[t]{0.7\textwidth}
-			\textbf{Goal:} Understand what factors parametrize the learned manifold representation.
-			\vspace{0.5em}
+
+			\small
+			
+			\textbf{Goals:} 
 			\begin{itemize}
-				\item Identify which generative parameters or factors drive the geometry.
-				\item Visualize the manifold structure in interpretable coordinates.
-				\item Validate that the manifold captures relevant scientific parameters 
-					rather than nuisance variation or noise.
+				\item Reduce the dimensionality of spectral embeddings to a few interpretable and visualizable coordinates.
+				\item Identify which generative parameters or factors drive the geometry of the data manifold.
 			\end{itemize}
-			\vspace{0.7em}
-			\textbf{Three complementary approaches:}
+
+			\textbf{Why this matters for SBI:}
 			\begin{itemize}
-				\item \ies: Select independent embedding coordinates for visualization.
-				\item \tslasso: Identify which factors parametrize the tangent spaces.
-				\item \rrelex: Refine embeddings to better preserve local geometry.
+				\item Validate that the real data manifold is parametrized by simulation parameters.
+				\item If a neural representation is used, validate that it is:
+				\begin{itemize}
+					\item Sensitive to the simulation parameters important for posterior inference.
+					\item Not sensitive to nuisance variation or noise.
+				\end{itemize}
 			\end{itemize}
 		\end{column}
+
 	\end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------------
-% Subsection: Independent Coordinate Selection
+% Step 8: Selecting Independent Coordinates: \ies*
 % ----------------------------------------------------------------------
-\begin{frame}{Step 8a: Manifold Interpretation \& Visualization I: \ies\ and Plotting}
-	\textbf{Problem:} spectral embeddings can produce dependent coordinates.
+\begin{frame}{Step 8: Selecting Independent Coordinates with \ies*}
+
+	\small
+	
+	\textbf{Problem:}
 	\begin{itemize}
-		\item Example: $(x, \sin x)$ varies in two directions but has only one DoF.
-		\item Plotting all coordinates may be redundant or misleading.
+		\item Spectral embeddings often contain \emph{dependent} coordinates.
+		\item Plotting all coordinates can be misleading and redundant.
+		\item Example: $(x, \sin x)$ varies in two directions but has only one degree of freedom.
 	\end{itemize}
-	\vspace{0.7em}
-	\textbf{Independent Eigencoordinate Selection (\ies) \citep{MeilaIES}}
+
+	\textbf{\ies(\ies*) \citep{MeilaIES}:}
 	\begin{itemize}
-		\item Input: initial embedding matrix $\Phi$ from \diffmap.
-		\item Output: subset $S$ of coordinates:
+		\item Input: initial embedding $\Phi$ from \diffmap.
+		\item Output: subset $S$ of coordinates such that $\Phi_S$:
 			\begin{itemize}
-				\item As independent as possible,
-				\item Low frequency (smooth) and locally full rank.
+				\item Is locally full-rank (avoids degeneracies).
+				\item Uses as few low-frequency (smooth) coordinates as possible.
 			\end{itemize}
-		\item Typically choose $|S|$ around the estimated $\hat{d}$.
+	\item Provides a principled way to choose which coordinates to visualize and analyze without losing information and avoiding redundancy.
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Visualization of Selected Coordinates}
-	\textbf{Visualization of selected coordinates}
+
+% ----------------------------------------------------------------------
+% Step 9: Visualization for Interpretation
+% ----------------------------------------------------------------------
+\begin{frame}{Step 9: Identifying Manifold Parametrization I: Visualization}
+
+	\small
+
+	\textbf{Goal:} Use the selected coordinates $\Phi_S$ to visually probe the geometry of the data manifold.
+		
+	\textbf{Typical workflow:}
 	\begin{itemize}
-		\item Scatter plots of $\Phi_S$:
-			\begin{itemize}
-				\item 2D / 3D plots of the most informative coordinates,
-				\item Color by generative parameters, SNR, or other labels.
-			\end{itemize}
-		\item Check for:
-			\begin{itemize}
-				\item Smooth variation with respect to relevant parameters,
-				\item Separation of distinct regimes or modes,
-				\item Potential artifacts (holes, disconnected components, etc.).
-			\end{itemize}
+		\item Scatter plots in 2-3D using combinations of the coordinates selected with \ies*.
+		\item Color points by simulation parameters.
 	\end{itemize}
+	
+	\textbf{What to look for:}
+	\begin{itemize}
+		\item Smooth variation with respect to generative parameters relevant for inference.
+		\item Clear structure (curves, surfaces, trajectories) rather than noise.
+		\item Artifacts: holes, disconnected components, folding, or distortions.
+	\end{itemize}
+
+	\textbf{Important:} The experimental data manifold does not have ground truth generative parameters! 
+	We `interpolate` them from those of the simulation data points using methods like kernel regression or the Nystrom Extension.
 \end{frame}
 
 % ----------------------------------------------------------------------
-% Subsection: Tangent Space Lasso
+% Step 10: TSLasso
 % ----------------------------------------------------------------------
-\begin{frame}{Step 8b: Manifold Interpretation \& Visualization II: \tslasso \citep{MeilaTSLasso}}
-	\textbf{Setup}
+\begin{frame}{Step 10: Identifying Manifold Parametrization II: \tslasso}
+	\small
+	
+	\textbf{Problem:} When $m$ or $d$ exceed 3 or when many candidate coordinates are available, visual inspection becomes ambiguous, unreliable, and time-consuming.
+
+	\textbf{Goal:} Provide a systematic, quantitative alternative to visualization for identifying manifold parametrizations.
+
+	\textbf{Formally stated:}
 	\begin{itemize}
-		\item Assume a dictionary of candidate functions $\{f_k\}$ on the manifold:
-			\begin{itemize}
-				\item Generative parameters, nuisance factors, or other variables of interest.
-			\end{itemize}
-		\item For each $f_k$:
-			\begin{itemize}
-				\item Estimate gradients $\nabla f_k$ in latent space
-					via local regression / finite differences,
-				\item Project gradients onto estimated local tangent spaces.
-			\end{itemize}
+		\item Given a \textbf{dictionary} of candidate coordinate functions $\mathcal{F} = \{f_k\}_{1:p}$ on the data.
+		\item Find a subset of size $d$ of functions from $\mathcal{F}$ that \emph{parametrizes the manifold geometry}.
 	\end{itemize}
-	\vspace{0.7em}
-	\textbf{TSLasso idea}
+
+	\textbf{Practical notes:}
 	\begin{itemize}
-		\item Reconstruct tangent spaces as sparse linear combinations of gradient fields.
-		\item Apply a group-lasso penalty to encourage selection of a small subset of $\{f_k\}$.
-		\item Sweep the regularization parameter to identify:
-			\begin{itemize}
-				\item Which factors consistently span the geometry,
-				\item How strongly each factor contributes.
-			\end{itemize}
+		\item For SBI, $\mathcal{F}$ is the set of simulation parameters.
+		\item The simulation parameters are obtained via interpolation from the experimental data.
+	\end{itemize}
+
+	\textbf{Solution: \tslasso* \citep{MeilaTSLasso}}
+
+\end{frame}
+  
+% ----------------------------------------------------------------------
+% TODO: Add figure from paper showing the output
+\begin{frame}{Step 10: \tslasso: How it Works}
+
+	\small
+
+	\textbf{Main insight:} $d$ functions parametrize the manifold if their gradients $\nabla f_k$ span the tangent space at each point.
+
+	\textbf{Method overview:}
+	\begin{itemize}
+		\item Estimate local tangent spaces from the data via local PCA.
+		\item Estimate gradients $\nabla f_k$ of candidate functions from local neighborhoods.
+		\item Project gradients onto the estimated tangent spaces.
+		\item Reconstruct each tangent space as a sparse linear combination of projected gradients.
+		\item Use a group-lasso penalty to select a small subset of influential functions.
+	\end{itemize}
+
+	\textbf{How to read the output:}
+	\begin{itemize}
+		\item Functions consistently selected across regularization levels are likely true parametrizing factors of the learned representation.
+		\item Functions rarely or never selected are likely nuisance parameters or noise.
 	\end{itemize}
 \end{frame}
-
-\begin{frame}{Reading TSLasso Results}
-	\textbf{Interpreting selected functions}
-	\begin{itemize}
-		\item Functions with large, persistent coefficients across regularization levels:
-			\begin{itemize}
-				\item Are the main directions of variation,
-				\item Effectively parametrize the manifold.
-			\end{itemize}
-		\item Functions rarely or never selected:
-			\begin{itemize}
-				\item May correspond to nuisance variation,
-				\item Or parameters not actually expressed in the learned representation.
-			\end{itemize}
-	\end{itemize}
-	\vspace{0.7em}
-	\textbf{Use in SBI validation}
-	\begin{itemize}
-		\item Check whether the manifold is primarily parametrized by the \emph{relevant}
-			scientific parameters rather than nuisance or noise.
-	\end{itemize}
-\end{frame}
-
+  
 % ----------------------------------------------------------------------
-% Subsection: Riemannian Relaxation
+% Step 11: Riemannian Relaxation
 % ----------------------------------------------------------------------
-\begin{frame}{Step 8c: Manifold Interpretation \& Visualization III: \rrelex \citep{MeilaRRelax}}
-	\textbf{Motivation}
-	\begin{itemize}
-		\item Initial embeddings from \diffmap\ approximate isometries only up to sampling and noise.
-		\item Local distortions can complicate interpretation and downstream analysis.
-	\end{itemize}
-	\vspace{0.7em}
-	\textbf{Riemannian Relaxation}
-	\begin{itemize}
-		\item Start from an initial embedding $\Phi^{indep}$ (e.g.\ after \ies).
-		\item Define a distortion loss based on local metric mismatch.
-		\item Iteratively adjust $\Phi^{indep}$ via gradient-based optimization to:
-			\begin{itemize}
-				\item Reduce local distortion,
-				\item Move closer to an isometric parametrization of the manifold.
-			\end{itemize}
-	\end{itemize}
-\end{frame}
+% TODO: Add figures.
+\begin{frame}{Step 11: Improving Visualization with \rrelax}
 
-\begin{frame}{Riemannian Relaxation: Properties}
-	\textbf{Properties}
+	\small
+
+	\textbf{Motivation:} Embeddings from most manifold learning methods are not isometric. 
+	That is, they do not preserve distances and angles and can obscure interpretation and visualization.
+	
+	\textbf{\rrelax(\rrelax*) \citep{MeilaRRelax}:} 
 	\begin{itemize}
-		\item Typically the most computationally expensive step in the pipeline.
-		\item Optional but useful when:
-			\begin{itemize}
-				\item Fine geometric accuracy is needed,
-				\item Visual interpretability of coordinates is a priority.
-			\end{itemize}
-		\item Can be run on reduced subsets or with early stopping.
+		\item Start from an embedding such as $\Phi_S$ after \diffmap*.
+		\item Define a loss penalizing local metric distortions.
+		\item Iteratively optimize the embedding to better preserve local distances and angles,
+		\item Move closer to an isometric parametrization.
 	\end{itemize}
-	\vspace{0.7em}
-	\textbf{End result}
-	\begin{itemize}
-		\item A refined embedding that:
-			\begin{itemize}
-				\item Better preserves distances and angles locally,
-				\item Is more faithful to the geometry implied by the encoder.
-			\end{itemize}
-	\end{itemize}
+
+	\textbf{End result:} A refined embedding that more faithfully reflects the geometry implied by the learned representation.
+
 \end{frame}
 
 % ----------------------------------------------------------------------
@@ -865,31 +864,36 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 				\item[]
-				\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+				\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 7.} Manifold Learning: \diffmap.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8a.} IES and plotting.}
+				\stepbox{cOrange!15}{\textbf{Step 8.} Selecting Independent Coordinates: \ies*.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8b.} \tslasso.}
+				\stepbox{cOrange!15}{\textbf{Step 9.} Identifying Manifold Parametrization I: Visualization.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8c.} \rrelex.}
+				\stepbox{cOrange!15}{\textbf{Step 10.} Identifying Manifold Parametrization II: \tslasso.}
+				\item[]
+				\stepbox{cOrange!15}{\textbf{Step 11.} Improving Visualization: \rrelax.}
 			\end{itemize}
 		\end{column}
+
 		\begin{column}[t]{0.7\textwidth}
+			\small
 			\textbf{Key takeaways:}
 			\begin{itemize}
-				\item Three complementary methods help interpret and visualize 
-					the manifold, ensuring it captures relevant scientific parameters.
-				\item \ies provides independent coordinates for visualization.
-				\item \tslasso validates which factors actually parametrize the geometry.
-				\item \rrelex (optional) refines embeddings for better interpretability.
+				\item Provide tools for visual interpretation of high-dimensional data living on low-dimensional manifolds.
+				\item Validate that the simulation parameters are the true generative factors of the experimental data.
+				\item \ies: choose non-redundant, informative coordinates.
+				\item Visualization: reveals correlations between simulation parameters and the data geometry.
+				\item \tslasso: quantitatively tests which factors parametrize the manifold.
+				\item \rrelax: optional refinement for clearer, more faithful embeddings.
 			\end{itemize}
 		\end{column}
 	\end{columns}

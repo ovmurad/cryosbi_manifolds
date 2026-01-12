@@ -120,15 +120,13 @@
 \headcommand {\beamer@framepages {64}{64}}
 \headcommand {\slideentry {4}{0}{27}{65/65}{}{0}}
 \headcommand {\beamer@framepages {65}{65}}
-\headcommand {\slideentry {4}{0}{28}{66/66}{}{0}}
+\headcommand {\beamer@sectionpages {39}{65}}
+\headcommand {\beamer@subsectionpages {39}{65}}
+\headcommand {\sectionentry {5}{\translate {References}}{66}{\translate {References}}{0}}
+\headcommand {\slideentry {5}{0}{1}{66/66}{}{0}}
 \headcommand {\beamer@framepages {66}{66}}
-\headcommand {\beamer@sectionpages {39}{66}}
-\headcommand {\beamer@subsectionpages {39}{66}}
-\headcommand {\sectionentry {5}{\translate {References}}{67}{\translate {References}}{0}}
-\headcommand {\slideentry {5}{0}{1}{67/67}{}{0}}
-\headcommand {\beamer@framepages {67}{67}}
-\headcommand {\beamer@partpages {1}{71}}
-\headcommand {\beamer@subsectionpages {39}{71}}
-\headcommand {\beamer@sectionpages {39}{71}}
-\headcommand {\beamer@documentpages {71}}
-\headcommand {\gdef \inserttotalframenumber {51}}
+\headcommand {\beamer@partpages {1}{70}}
+\headcommand {\beamer@subsectionpages {39}{70}}
+\headcommand {\beamer@sectionpages {39}{70}}
+\headcommand {\beamer@documentpages {70}}
+\headcommand {\gdef \inserttotalframenumber {50}}

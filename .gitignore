@@ -1,11 +1,34 @@
 # .gitignore
-.idea
-__pycache__
-.pytest_cache
+
+# IDE and editor settings
+.idea/
+.vscode/
+.venv/
+
+# Testing and linting
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Python artifacts
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+
+# Data
+data/**/*
+!data/**/.gitkeep
+!data/*/
+
+# Latex files
 *.pdf
-.data/hemagglutinin_data
+
+# Dependency files
 poetry.lock
-.DS_STORE

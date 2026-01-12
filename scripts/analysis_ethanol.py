@@ -98,152 +98,152 @@ GRAD_ESTIM_SUBSAMPLE_SIZE = 5000
 EIGENGAP_ESTIM_SUBSAMPLE_SIZE = 5000
 
 ## ------------------ DATA SPLIT ------------------
-#compute_split_masks(all_dataset, DATA_NAME, SPLIT_NPTS)
+compute_split_masks(all_dataset, DATA_NAME, SPLIT_NPTS)
 #
-## ------------------ OUTLIER REMOVAL ------------------
-## Plot histograms of the number of neighbors for various radii and the knn distance for various k.
-## Use these to find a cutoff percentage in [0, 1] for outlier detection.
-## Intuitively, the outliers will be either points with few neighbors(in the bottom alpha/beta percentile)
-## or points with large knn distance(in the top alpha/beta percentile).
-## For the number of neighbors, the histogram will have large bins close to 0. We need to remove those.
-## For the knn distance of neighbors, the histogram will have a long tail of points with large k-nn distances.
-## Pick percentiles alpha(sim)/beta(exp) that reliably eliminate the anomalous bins.
-## Compute local statistics(closest distance to nearest k neighbors or neighbor counts for different radii)
+# ------------------ OUTLIER REMOVAL ------------------
+# Plot histograms of the number of neighbors for various radii and the knn distance for various k.
+# Use these to find a cutoff percentage in [0, 1] for outlier detection.
+# Intuitively, the outliers will be either points with few neighbors(in the bottom alpha/beta percentile)
+# or points with large knn distance(in the top alpha/beta percentile).
+# For the number of neighbors, the histogram will have large bins close to 0. We need to remove those.
+# For the knn distance of neighbors, the histogram will have a long tail of points with large k-nn distances.
+# Pick percentiles alpha(sim)/beta(exp) that reliably eliminate the anomalous bins.
+# Compute local statistics(closest distance to nearest k neighbors or neighbor counts for different radii)
+
+if OUTLIER_ALGO == "knn_dists":
+    local_stats_dict = dict(ks=KS)
+elif OUTLIER_ALGO == "n_counts":
+    local_stats_dict = dict(rs=RS)
+else:
+    raise ValueError
+
+print(f"Running outlier removal for igg {DATA_NAME} data.")
+compute_distance_statistics(all_dataset, DATA_NAME, TRAIN_NAME, **local_stats_dict)
+# plot_n_count_or_knn_dist(knn_dist=all_dataset["knn_dists"][f"{DATA_NAME}_train-{DATA_NAME}_train"])
+all_dataset["masks"][f"{DATA_NAME}_clean"] = detect_outliers(
+    all_dataset, DATA_NAME, TRAIN_NAME, ALPHA, OUTLIER_ALGO
+)
+
+## ------------------ UNIFORM RESAMPLING ------------------
+# Resample the data to obtain uniform samples.
+print(f"Uniformly subsampling igg {DATA_NAME} data.")
+compute_distance_statistics(all_dataset, DATA_NAME, CLEAN_NAME, rs=RS)
+compute_uniform_sample(all_dataset, DATA_NAME, CLEAN_NAME, EMB_NPTS)
+
+# Saves subsample of "all_dataset" into "final_dataset"
+subsample_dataset(all_dataset, final_dataset, UNIFORM_NAME, SUBSAMPLE_KEY_PAIRS)
+
+# ------------------ INTRINSIC DIMENSIONALITY ESTIMATION ------------------
+# Compute distances to closest KS neighbors and for a given set of radii RS compute the number of neighbors.
+print(f"Computing distance statistics for igg {DATA_NAME} data.")
+compute_distance_statistics(final_dataset, DATA_NAME, "all", RS, KS)
+
+# Run all dimensionality estimation algorithms. Look at the outputs and pick a reasonable span of dimensions.
+# We'll use the average for kernel regression/density estimation and all values for estimating the Laplacian bandwidth.
+# We cannot perform eigen-gap at this point because we haven't estimated the bandwidth.
+# That algorithm will be computed later.
+print(f"Running intrinsic dimensionality estimation for igg {DATA_NAME} data.")
+run_dimensionality_estimation(
+    n_count=final_dataset["n_counts"][f"{DATA_NAME}-{DATA_NAME}"],
+    knn_dist=final_dataset["knn_dists"][f"{DATA_NAME}-{DATA_NAME}"],
+    algos=("dd", "lb", "cd"),
+)
+dim_estimates_dict = doubling_dimension(final_dataset["n_counts"][f"{DATA_NAME}-{DATA_NAME}"])
+dim_estimates = np.stack(list(dim_estimates_dict.values()))
+dim_estimates[np.isnan(dim_estimates)] = np.mean(
+    dim_estimates[~np.isnan(dim_estimates)], axis=0
+)
+final_dataset["estimated_d"][f"{DATASET_NAME}"] = np.mean(dim_estimates, axis=0)
+
+#------------------ MANIFOLD LEARNING ------------------
+
+# Select the bandwidth for the affinity matrix which will then be used for diffusion maps.
+# We pick the radii slightly above the radii for which the distortion reaches its minimum.
+# There is generally no harm in picking a slightly larger radius
+# than the one that achieves the minimum distortion. 
+# Particularly for this type of data that seems to have varying topology and probably varying intrinsic
+# dimensionality, I find it useful to go above the minimum computed here which seems to give
+# a lower bound under which DM fails.
+
+print(f"Running bandwidth distortion estimation for igg {DATA_NAME} data.")
+final_dataset["eval_radii"][DATA_NAME] = radii_distortions(
+    x_pts=final_dataset["points"][DATA_NAME],
+    ds=DS,
+    radii=RS,
+    sample=64,
+    rad_eps_ratio=RADIUS_EPS_RATIO,
+    bsize=None,
+)
+
+# Compute the geometry matrices: distance, gaussian affinity and geometric laplacian using the
+# radius and bandwidth suggested by the previous analysis
+print(f"Computing geometry matrices for igg {DATA_NAME} data.")
+final_dataset["dists"][f"{DATA_NAME}-{DATA_NAME}"] = dist(
+    x_pts=final_dataset["points"][DATA_NAME],
+    threshold=RADIUS,
+)
+final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"] = affinity(
+    dists=final_dataset["dists"][f"{DATA_NAME}-{DATA_NAME}"], eps=EPS
+)
+final_dataset["laps"][f"{DATA_NAME}-{DATA_NAME}"] = laplacian(
+    affs=final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"], eps=EPS
+)
+
+# Embed the data
+# Important!!!: The warning that the affinity matrix is not connected is a good indication that the
+# radius needs to be larger and that the embedding will probably fail miserably.
+affs = final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"]
+degrees = reduce_arr_to_degrees(affs, axis=1)
+final_dataset["masks"][f"{DATA_NAME}_wc"] = degrees >= np.percentile(degrees, 5)
+
+# Subsamples final dataset to only have well-connected ("wc") points
+print(f"Subsampling igg {DATA_NAME} data to only well-connected points.")
+subsample_dataset(final_dataset, final_dataset, "wc", SUBSAMPLE_KEY_PAIRS)
+
+print(f"Running spectral embedding for igg {DATA_NAME} data.")
+eigvals, embedding = spectral_embedding(
+    affs=final_dataset[f"affs|{DATA_NAME}-{DATA_NAME}|wc-wc"],
+    ncomp=20,
+    eps=EPS,
+    eigen_solver="amg",
+)
+final_dataset["lap_eigvals"][DATA_NAME] = eigvals
+final_dataset["lap_eigvecs"][DATA_NAME] = embedding
+
+# ------------------ FEATURE SELECTION ------------------
 #
-#if OUTLIER_ALGO == "knn_dists":
-#    local_stats_dict = dict(ks=KS)
-#elif OUTLIER_ALGO == "n_counts":
-#    local_stats_dict = dict(rs=RS)
-#else:
-#    raise ValueError
-#
-#print(f"Running outlier removal for igg {DATA_NAME} data.")
-#compute_distance_statistics(all_dataset, DATA_NAME, TRAIN_NAME, **local_stats_dict)
-## plot_n_count_or_knn_dist(knn_dist=all_dataset["knn_dists"][f"{DATA_NAME}_train-{DATA_NAME}_train"])
-#all_dataset["masks"][f"{DATA_NAME}_clean"] = detect_outliers(
-#    all_dataset, DATA_NAME, TRAIN_NAME, ALPHA, OUTLIER_ALGO
-#)
-#
-### ------------------ UNIFORM RESAMPLING ------------------
-## Resample the data to obtain uniform samples.
-#print(f"Uniformly subsampling igg {DATA_NAME} data.")
-#compute_distance_statistics(all_dataset, DATA_NAME, CLEAN_NAME, rs=RS)
-#compute_uniform_sample(all_dataset, DATA_NAME, CLEAN_NAME, EMB_NPTS)
-#
-## Saves subsample of "all_dataset" into "final_dataset"
-#subsample_dataset(all_dataset, final_dataset, UNIFORM_NAME, SUBSAMPLE_KEY_PAIRS)
-#
-## ------------------ INTRINSIC DIMENSIONALITY ESTIMATION ------------------
-## Compute distances to closest KS neighbors and for a given set of radii RS compute the number of neighbors.
-#print(f"Computing distance statistics for igg {DATA_NAME} data.")
-#compute_distance_statistics(final_dataset, DATA_NAME, "all", RS, KS)
-#
-## Run all dimensionality estimation algorithms. Look at the outputs and pick a reasonable span of dimensions.
-## We'll use the average for kernel regression/density estimation and all values for estimating the Laplacian bandwidth.
-## We cannot perform eigen-gap at this point because we haven't estimated the bandwidth.
-## That algorithm will be computed later.
-#print(f"Running intrinsic dimensionality estimation for igg {DATA_NAME} data.")
-#run_dimensionality_estimation(
-#    n_count=final_dataset["n_counts"][f"{DATA_NAME}-{DATA_NAME}"],
-#    knn_dist=final_dataset["knn_dists"][f"{DATA_NAME}-{DATA_NAME}"],
-#    algos=("dd", "lb", "cd"),
-#)
-#dim_estimates_dict = doubling_dimension(final_dataset["n_counts"][f"{DATA_NAME}-{DATA_NAME}"])
-#dim_estimates = np.stack(list(dim_estimates_dict.values()))
-#dim_estimates[np.isnan(dim_estimates)] = np.mean(
-#    dim_estimates[~np.isnan(dim_estimates)], axis=0
-#)
-#final_dataset["estimated_d"][f"{DATASET_NAME}"] = np.mean(dim_estimates, axis=0)
-#
-##------------------ MANIFOLD LEARNING ------------------
-#
-## Select the bandwidth for the affinity matrix which will then be used for diffusion maps.
-## We pick the radii slightly above the radii for which the distortion reaches its minimum.
-## There is generally no harm in picking a slightly larger radius
-## than the one that achieves the minimum distortion. 
-## Particularly for this type of data that seems to have varying topology and probably varying intrinsic
-## dimensionality, I find it useful to go above the minimum computed here which seems to give
-## a lower bound under which DM fails.
-#
-#print(f"Running bandwidth distortion estimation for igg {DATA_NAME} data.")
-#final_dataset["eval_radii"][DATA_NAME] = radii_distortions(
-#    x_pts=final_dataset["points"][DATA_NAME],
-#    ds=DS,
-#    radii=RS,
-#    sample=64,
-#    rad_eps_ratio=RADIUS_EPS_RATIO,
-#    bsize=None,
-#)
-#
-## Compute the geometry matrices: distance, gaussian affinity and geometric laplacian using the
-## radius and bandwidth suggested by the previous analysis
-#print(f"Computing geometry matrices for igg {DATA_NAME} data.")
-#final_dataset["dists"][f"{DATA_NAME}-{DATA_NAME}"] = dist(
-#    x_pts=final_dataset["points"][DATA_NAME],
-#    threshold=RADIUS,
-#)
-#final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"] = affinity(
-#    dists=final_dataset["dists"][f"{DATA_NAME}-{DATA_NAME}"], eps=EPS
-#)
-#final_dataset["laps"][f"{DATA_NAME}-{DATA_NAME}"] = laplacian(
-#    affs=final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"], eps=EPS
-#)
-#
-## Embed the data
-## Important!!!: The warning that the affinity matrix is not connected is a good indication that the
-## radius needs to be larger and that the embedding will probably fail miserably.
-#affs = final_dataset["affs"][f"{DATA_NAME}-{DATA_NAME}"]
-#degrees = reduce_arr_to_degrees(affs, axis=1)
-#final_dataset["masks"][f"{DATA_NAME}_wc"] = degrees >= np.percentile(degrees, 5)
-#
-## Subsamples final dataset to only have well-connected ("wc") points
-#print(f"Subsampling igg {DATA_NAME} data to only well-connected points.")
-#subsample_dataset(final_dataset, final_dataset, "wc", SUBSAMPLE_KEY_PAIRS)
-#
-#print(f"Running spectral embedding for igg {DATA_NAME} data.")
-#eigvals, embedding = spectral_embedding(
-#    affs=final_dataset[f"affs|{DATA_NAME}-{DATA_NAME}|wc-wc"],
-#    ncomp=20,
-#    eps=EPS,
-#    eigen_solver="amg",
-#)
-#final_dataset["lap_eigvals"][DATA_NAME] = eigvals
-#final_dataset["lap_eigvecs"][DATA_NAME] = embedding
-#
-## ------------------ FEATURE SELECTION ------------------
-##
-## ------------------ IES ------------------
-## I'm taking only one d for IES because the algorithm is very slow. Definitely need to improve it.
-## Look at the json file and display the top 3 axes selected by IES as they will be the embedding coordinates
-## have the smallest frequency and are as independent as possible w.r.t. to the objective defined in the paper.
-#
-#print(f"Running IES for igg {DATA_NAME} data.")
-#final_dataset["ies"][DATA_NAME] = ies(
-#    emb_pts=final_dataset["lap_eigvecs"][DATA_NAME],
-#    emb_eigvals=final_dataset[f"lap_eigvals"][DATA_NAME],
-#    lap=final_dataset[f"laps|{DATA_NAME}-{DATA_NAME}|wc-wc"],
-#    ds=3,
-#    s=DS[1],
-#    sample=500,
-#)
-#
-##------------------ Gradient Estimation and TSLasso ------------------
-#
-#print(f"Estimating gradients for igg {DATA_NAME} data.")
-#
-#func_vals = [final_dataset[f"params|{DATA_NAME}_{sp}"] for sp in ALL_PARAMS]
-#funcs = np.concatenate(
-#    [np.expand_dims(fv, axis=1) if fv.ndim == 1 else fv for fv in func_vals], axis=1
-#)
-#
-#final_dataset["grads"][f"{DATA_NAME}"] = local_grad_estimation(
-#    x_pts=final_dataset[f"points|{DATA_NAME}"],
-#    f0_vals=funcs,
-#    f_vals=funcs,
-#    weights=final_dataset[f"affs|{DATA_NAME}-{DATA_NAME}|wc-wc"][:GRAD_ESTIM_SUBSAMPLE_SIZE],
-#    bsize=50,
-#    ncomp=10,
-#)
+# ------------------ IES ------------------
+# I'm taking only one d for IES because the algorithm is very slow. Definitely need to improve it.
+# Look at the json file and display the top 3 axes selected by IES as they will be the embedding coordinates
+# have the smallest frequency and are as independent as possible w.r.t. to the objective defined in the paper.
+
+print(f"Running IES for igg {DATA_NAME} data.")
+final_dataset["ies"][DATA_NAME] = ies(
+    emb_pts=final_dataset["lap_eigvecs"][DATA_NAME],
+    emb_eigvals=final_dataset[f"lap_eigvals"][DATA_NAME],
+    lap=final_dataset[f"laps|{DATA_NAME}-{DATA_NAME}|wc-wc"],
+    ds=3,
+    s=DS[1],
+    sample=500,
+)
+
+#------------------ Gradient Estimation and TSLasso ------------------
+
+print(f"Estimating gradients for igg {DATA_NAME} data.")
+
+func_vals = [final_dataset[f"params|{DATA_NAME}_{sp}"] for sp in ALL_PARAMS]
+funcs = np.concatenate(
+    [np.expand_dims(fv, axis=1) if fv.ndim == 1 else fv for fv in func_vals], axis=1
+)
+
+final_dataset["grads"][f"{DATA_NAME}"] = local_grad_estimation(
+    x_pts=final_dataset[f"points|{DATA_NAME}"],
+    f0_vals=funcs,
+    f_vals=funcs,
+    weights=final_dataset[f"affs|{DATA_NAME}-{DATA_NAME}|wc-wc"][:GRAD_ESTIM_SUBSAMPLE_SIZE],
+    bsize=50,
+    ncomp=10,
+)
 
 x_pts = final_dataset[f"points|{DATA_NAME}"][:GRAD_ESTIM_SUBSAMPLE_SIZE]
 grads = final_dataset["grads"][f"{DATA_NAME}"][:GRAD_ESTIM_SUBSAMPLE_SIZE]

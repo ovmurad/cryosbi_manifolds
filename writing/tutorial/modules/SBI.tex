@@ -1,0 +1,71 @@
+% ======================================================================
+\section{Simulation-Based Inference}
+% ======================================================================
+% ----------------------------------------------------------------------
+% Defining a simulator
+% ----------------------------------------------------------------------
+\begin{frame}{Simulation-Based Inference Basics}
+
+	Dataset generation:
+	\begin{itemize}
+		\item Sample interesting parameters $ \theta_i \sim p(\theta)$
+		\item Sample nuisance parameters $\phi_i \sim p(\phi)$
+		\item Sample data $I_i \sim p(I | \theta_i, \phi_i)$ (\textbf{simulating} from parameters)
+	\end{itemize}
+	After $N$ steps, dataset and params $\mathcal{D} = \{\theta_i, \varphi_i, I_i\}_{i=1}^N.$
+
+	The goal of \textbf{neural posterior estimation}(ref) is to estimate the posterior $p(\theta | I) \approx q_{\varphi}(\theta| I),$ where $q_{\varphi}(\cdot)$ is a normalizing flow. 
+
+        \end{frame}
+
+\begin{frame}{Simulation-Based Inference Basics}
+	Instead of the direct data $I,$ a featurization $x = S(I)$ of $I$ is typically used in practice, where $S(\cdot)$ is some feature map so that our dataset is instead.
+
+	Then,the \textbf{neural posterior} $q_{\varphi}$ takes only featurization data as input: $p(\theta | I) \approx q_{\varphi}(\theta| S(I)).$ 
+	
+In practice, the feature map is trained jointly with the posterior, and this is done  by maximizing the average log-likelihood 
+$\mathcal{L}(\varphi, \psi) = \frac{1}{N}\sum\limits_{i=1}^N \log q_{\varphi}(\theta_i | S_{\Psi}(I_i))$
+
+
+This procedure is an \textbf{amortized} simulation-based inference: the posterior \emph{and} featurization are trained only on simulated data.
+\end{frame}
+
+\begin{frame}{Simulation-Based Inference Basics}
+	Suppose we've trained a neural posterior estimate $q_{\varphi}$ and featurization $S_{\psi}.$
+	
+	Suppose we have \textbf{simulated} data $\mathcal{D}_s = \{\theta_i, \phi_i, x_i\}_{i=1}^{N_s},$ where $N_s$ is the number of simulated data points, and $\theta_i, \phi_i,$ are the parameters of interest/nuisance params from earlier, and $x_i = S_{\Psi}(I_i)$ is the featurized data point for $x_i.$ The featurizations by themselves are denoted $\X_s = \{x_i\}_{i=1}^{N_s}.$
+
+Suppose we are given \textbf{experimental} data $\mathcal{D}_e = \{\tilde{\theta}_i, \tilde{x}_i\}_{i=1}^{N_e},$ where $N_e$ is the number of experimental data points.
+
+
+\end{frame}
+
+\begin{frame}{Simulation-Based Inference Basics}
+
+	\begin{itemize}
+		\item What is non-amortized SBI? Allow for some experimental data in the training dataset (ref), which affects the Neural posterior $q_{\varphi}$ and the feature mapping $S_{\Psi}.$  This results in typically much more accurate inference (ref).
+		\item Then, why use non-amortized? Allows investigation of \textbf{simulator}: $q_{\varphi}$ and $S_{\Psi},$ at best, will reflect properties of the likelihood (re:simulator) $p(I | \theta, \psi)$ and the priors, with no ``leakage''.
+	\end{itemize}
+\end{frame}
+\begin{frame}
+How can Manifold learning help?
+	\begin{itemize}
+		\item Analyze Support of $\X_s$ and $\X_e.$ 
+			\begin{itemize}
+				\item Coverage: Do the (featurized) simulated data cover the experimental?
+				\item Fidelity: Is the (featurized) simulated data mostly supported just where experimental is?
+			\end{itemize}
+		\item Intrinsic Dimensionality of $\X_s$ and $\X_e.$
+			\begin{itemize}
+				\item Dimensionality can indicate properties of feature mapping $S_{\psi}.$
+				\item Local Dimensionality can indicate which data poitns differ in simulated and experimental.
+				\item \luke{Continue....}
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+
+
+
+

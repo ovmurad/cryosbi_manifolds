@@ -21,7 +21,7 @@
 			\item[]
 			\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 			\item[]
-			\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+			\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 		\end{itemize}
 	\end{column}
 
@@ -59,11 +59,11 @@
 			\item[]
 			\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 			\item[]
-			\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+			\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 			\item[]
 			\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 			\item[]
-			\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+			\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 			\item[]
 			\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 			\item[]
@@ -107,11 +107,11 @@
 			\item[]
 			\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 			\item[]
-			\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+			\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 			\item[]
 			\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 			\item[]
-			\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+			\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 			\item[]
 			\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 			\item[]
@@ -126,11 +126,13 @@
 		\begin{itemize}
 			\setlength\itemsep{2pt}
 			\item[]
-			\stepbox{cOrange!15}{\textbf{Step 8a.} Manifold Interpretation \& Visualization I: \ies\ and plotting.}
+			\stepbox{cOrange!15}{\textbf{Step 8.} Selecting Independent Coordinates: \ies*.}
 			\item[]
-			\stepbox{cOrange!15}{\textbf{Step 8b.} Manifold Interpretation \& Visualization II: \tslasso.}
+			\stepbox{cOrange!15}{\textbf{Step 9.} Identifying Manifold Parametrization I: Visualization.}
 			\item[]
-			\stepbox{cOrange!15}{\textbf{Step 8c.} Manifold Interpretation \& Visualization III: \rrelex.}
+			\stepbox{cOrange!15}{\textbf{Step 10.} Identifying Manifold Parametrization II: \tslasso.}
+			\item[]
+			\stepbox{cOrange!15}{\textbf{Step 11.} Improving Visualization: \rrelax.}
 		\end{itemize}
 	\end{column}
 \end{columns}
@@ -158,7 +160,7 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cPurple!15}{\textbf{Step 4.} Assess Coverage and Fidelity.}
 			\end{itemize}
@@ -166,19 +168,16 @@
 
 		\begin{column}[t]{0.7\textwidth}
 			\small
-			\textbf{Goal:}
+			\textbf{Goal:} Compare distributions $p_s$(simulation) vs. $p_e$(experimental) by assessing:
 			\begin{itemize}
-				\item Compare distributions $p_s$(simulation) vs. $p_e$(experimental) by assessing:
-				\item[] \begin{itemize}
-					\item \textbf{Coverage}: Whether $p_s$ "covers" $p_e$(i.e. simulation generalizes to experimental data).
-					\item \textbf{Fidelity}: Whether $p_e$ "covers" $p_s$(i.e. simulation produces realistic data).
-				\end{itemize}
+				\item \textbf{Coverage}: Whether $p_s$ "covers" $p_e$(i.e. simulation generalizes to experimental data).
+				\item \textbf{Fidelity}: Whether $p_e$ "covers" $p_s$(i.e. simulation produces realistic data).
 			\end{itemize}
 
 			\textbf{Why this matters for SBI:} If $p_s$ and $p_e$ are not similar, then:
 			\begin{itemize}
-				\item Downstream SBI posteriors may be mis-calibrated,
-				\item Model or simulator needs refinement before trusting inferences.
+				\item SBI posteriors trained on data from $p_s$ may be mis-calibrated.
+				\item Simulator might need refinement.
 			\end{itemize}
 		\end{column}
 
@@ -227,7 +226,7 @@
         \small
 		\item $\dk[x]$: Distance to the $k$-th nearest neighbor for a range $k \in \{k_{\min}, \dots, k_{\max}\}$.
 		\item[]\begin{center} {\LARGE or} \end{center}
-		\item $\nr[x][r]$: The number of neighbors within radius $r$ for a range $r \in \{r_{\min}, \dots, r_{\max}\}$.
+		\item $\nr[x]$: The number of neighbors within radius $r$ for a range $r \in \{r_{\min}, \dots, r_{\max}\}$.
 	\end{itemize}
 
 	% \textbf{Why the distance matrix is central:}
@@ -256,7 +255,7 @@
 % TODO: Could show before/after outlier removal visualization.
 % TODO: Could do an ablation study of embedding methods with and without outlier removal.
 % TODO: Could show a plot of mvs volumes for different alphas.
-\begin{frame}{Step 3: Preprocessing I: Outlier Removal}
+\begin{frame}{Step 3: Outlier Removal}
 
 	\textbf{Motivation}: Highly noisy or pathological points:
     \begin{itemize}
@@ -295,7 +294,7 @@
 		\small
 		\item For each point $x$:
 			\begin{itemize}
-				\item Compute a relative density score (e.g.\ $1/\dk[x]$ or $\nr[x][r]$),
+				\item Compute a relative density score (e.g.\ $1/\dk[x]$ or $\nr[x]$),
 				\item Rank all points by this score.
 			\end{itemize}
 		\item Keep roughly the top $\alpha \N$ highest-density points as in-distribution,
@@ -391,7 +390,7 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cPurple!15}{\textbf{Step 4.} Assess Coverage and Fidelity.}
 			\end{itemize}
@@ -418,11 +417,9 @@
 % ======================================================================
 % Intrinsic Dimensionality Estimation
 % ======================================================================
-
 % ----------------------------------------------------------------------
 % Overview
 % ----------------------------------------------------------------------
-% TODO: Could add a figure showing different intrinsic dimension estimators and their results
 \begin{frame}{Intrinsic Dimensionality Estimation: Overview}
 
 	\begin{columns}[t]
@@ -435,221 +432,194 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 				\item[]
-				\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+				\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 7.} Manifold Learning: \diffmap.}
 				\item[]
-				\stepbox{cGreen!15}{\textbf{Step 8.} Recompute Local Statistics.}
-				\item[]
-				\stepbox{cGreen!15}{\textbf{Step 9.} Estimate intrinsic dimension $d$.}
+				\stepbox{cGreen!15}{\textbf{Step 8.} Estimate intrinsic dimension $d$.}
 			\end{itemize}
 		\end{column}
+
 		\begin{column}[t]{0.7\textwidth}
-			\textbf{Goal:} Estimate the intrinsic dimension $d$ of the data manifold.
+			
+			\small
+
+			\textbf{Goal:} Estimate the intrinsic dimension $d$ of the simulation and experimental manifolds $\M_s$ and $\M_e$. 
+			Use multiple estimators with different parameters to provide a robust estimate of $d$.
 
 			\vspace{0.5em}
 
+			\textbf{Why this matters for SBI:}
 			\begin{itemize}
-				\item The intrinsic dimension is the number of independent parameters needed to describe the data.
-				\item Critical for:
-					\begin{itemize}
-						\item Choosing how many embedding coordinates to keep,
-						\item Understanding the complexity of the data distribution,
-						\item Guiding downstream analysis.
-					\end{itemize}
+				\item Check if the simulation and experimental data manifolds have similar intrinsic dimensions.
+				\item If working with neural network embeddings, check that the network has learned a low-dimensional representation of the data.
+				\item Understanding the complexity of the data distribution.
+				\item Guiding downstream analysis and visualization.
 			\end{itemize}
 
-			\vspace{0.7em}
-
-			\textbf{Approach:} Use multiple complementary estimators and check for robustness 
-			across different choices of neighborhoods and subsamples.
 		\end{column}
 	\end{columns}
 
 \end{frame}
 
-
 % ----------------------------------------------------------------------
-% Subsection: Preprocessing for Dimension Estimation
+% Step 4: Recompute Local Statistics
 % ----------------------------------------------------------------------
 \begin{frame}{Step 4: Recompute Local Statistics}
 
-	\textbf{After outlier removal:}
-
+	\small
+	We use the same steps as in the previous section to remove outliers from the data and obtain the clean subset $\X[clean]$:
 	\begin{itemize}
-		\item Recompute local statistics on the clean subset $\X[clean]$.
-		\item Update $\dk[x]$ and $\nr[x][r]$ using only points in $\X[clean]$.
-		\item This ensures statistics reflect the geometry of the clean data.
+		\setlength\itemsep{1pt}
+		\item[]
+		\stepbox{cBlue!15}{\textbf{Step 1.} Construct Distance Matrix $\distmat$.}
+		\item[]
+		\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
+		\item[]
+		\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 	\end{itemize}
+
+	\textbf{This ensures that the local statistics reflect the geometry of the clean data and are not biased/distorted by the outliers.}
 
 \end{frame}
 
+% ----------------------------------------------------------------------
+% Step 5: Uniform Resampling
+% ----------------------------------------------------------------------
+% TODO: Could show density distribution before/after resampling or picture from the paper
+\begin{frame}{Step 5: Uniform Resampling}
 
-% TODO: Could show density distribution before/after resampling
-\begin{frame}{Step 5: Preprocessing II: Uniform Resampling}
+	\small
 
-	\textbf{Issue:} strong density variation on the manifold
+	\textbf{Goal:} Resample the data to imitate a sample from a uniform distribution over $\M$.
 
+	\textbf{Reasoning:}
 	\begin{itemize}
-		\item Many geometric methods implicitly assume uniform sampling.
-		\item Non-uniform densities:
-			\begin{itemize}
-				\item Bias Laplacian-based estimators,
-				\item Complicate neighborhood and bandwidth selection,
-				\item Can hide structure in low-density regions.
-			\end{itemize}
+		\item A non-uniform data distribution over $\M$ entangles geometric structure with distribution artifacts. Specifically, non-uniform densities:
+		\begin{itemize}
+			\item Bias estimators of the Laplacian-Beltrami Operator $\lapop$.
+			\item Bias the estimation of the intrinsic dimension $d$.
+			\item Complicate neighborhood and bandwidth selection.
+		\end{itemize}
+		\item Most geometric methods assume or perform better with a uniform data distribution.
 	\end{itemize}
 
-	\vspace{0.7em}
-
-	\textbf{Solution: inverse-density weighted resampling}
-
+	\textbf{Solution: Inverse-density weighted resampling}
 	\begin{itemize}
-		\item Estimate local density $\hat{p}(x)$ for $x \in \X[clean]$ using:
-			\begin{itemize}
-				\item $k$-NN based estimators (e.g., \citep{TODO}),
-				\item Or radius-based counts with dimension-aware volume correction.
-			\end{itemize}
+		\item Estimate local density $\hat{p}(x)$ for $x \in \X[clean]$ using local statistics.
 		\item Define sampling weights $\propto 1 / \hat{p}(x)$.
 		\item Sample (without replacement) a subset $\X[unif]$ using these weights.
 	\end{itemize}
-
+	
 \end{frame}
 
 
-\begin{frame}{Benefits of Uniform Resampling}
-
-	\begin{itemize}
-		\item The resampled set $\X[unif]$ approximates a uniform sample on the manifold.
-		\item Geometry vs.\ probability:
-			\begin{itemize}
-				\item Disentangles the geometric structure from the sampling distribution,
-				\item Enables clearer interpretation of intrinsic dimension and coordinates.
-			\end{itemize}
-		\item Practical advantages:
-			\begin{itemize}
-				\item More stable intrinsic dimension estimates,
-				\item More reliable Laplacian approximations,
-				\item Easier use of a single global kernel width for neighborhoods.
-			\end{itemize}
-	\end{itemize}
-\end{frame}
-
-% TODO: Could visualize the affinity graph structure
+% ----------------------------------------------------------------------
+% Step 6: Construct the Laplacian Matrix $\lapmat$
+% ----------------------------------------------------------------------
 \begin{frame}{Step 6: Construct the Laplacian Matrix $\lapmat$}
-	\textbf{Graph construction}
+
+	\small
+	
+	\textbf{Construction of the affinity matrix $\affmat$}:
 	\begin{itemize}
-		\item On $\X[unif]$, build an affinity graph:
+		\item On $\X[unif]$, build $\affmat$ by:
 			\begin{itemize}
-				\item Choose a neighborhood scheme (kNN or radius-based),
-				\item Define edge weights using a kernel (e.g.\ Gaussian with bandwidth $\eps$).
+				\item Choosing a neighborhood scheme ($k$-NN or cutoff radius $r$),
+				\item Defining edge weights using a kernel (e.g. Gaussian with bandwidth $\eps$).
 			\end{itemize}
-		\item Select bandwidth and cutoff scales by a geometry-preservation criterion
-			(e.g.\ distortion minimization \citep{MeilaRMetric}, heuristic based on local scales).
+		\item \textbf{Strongly recommended}: Select bandwidth and cutoff scales by a geometry-preservation criterion(e.g.\ distortion minimization \citep{MeilaRMetric}).
 	\end{itemize}
+
 	\vspace{0.7em}
-	\textbf{Laplacian formation}
+
+	\textbf{Construction of the Laplacian matrix $\lapmat$}:
 	\begin{itemize}
-		\item Form a graph Laplacian (e.g.\ normalized or geometric Laplacian).
-		\item Optionally discard points with extremely low degree to stabilize eigendecompositions.
+		\item \textbf{Recommended}: Discard points with low degree to stabilize eigen-decompositions of $\lapmat$ further in the pipeline.
+		\item Compute the renormalized Laplacian of \cite{CoifmanDM}.
 	\end{itemize}
+
+	\textbf{Important:} Both $\affmat$ and $\lapmat$ should be sparse matrices to save resources.
+
 \end{frame}
 
+% ----------------------------------------------------------------------
+% Step 7: Manifold Learning: \diffmap
+% ----------------------------------------------------------------------
 % TODO: Could show eigenvalue spectrum to verify smooth, connected manifold
 \begin{frame}{Step 7: Manifold Learning: \diffmap \citep{CoifmanDM}}
-	\textbf{Input:} affinity graph and Laplacian on $\X[unif]$.
-	\vspace{0.4em}
+
+	\small
+	\textbf{Goal:} Compute low-dimensional embedding coordinates $\Phi$ of the data points.
+
 	\begin{itemize}
-		\item Compute the eigen-decomposition of a geometric Laplacian:
-			\begin{itemize}
-				\item Ignore the trivial constant eigenvector,
-				\item Retain a set of non-trivial eigenvectors as embedding coordinates.
-			\end{itemize}
-		\item Choose the number of coordinates:
-			\begin{itemize}
-				\item Larger than the estimated $\hat{d}$,
-				\item Small enough to visualize and interpret.
-			\end{itemize}
+		\item Compute the eigen-decomposition of $\lapmat$.
+		\item Choose the embedding dimension $m$ to comfortably larger than the intrinsic dimension $d$.
+		\item Keep theRecompute $m$ smallest non-trivial eigenvalues and corresponding eigenvectors: $\lambda_{1:m}, \Phi_{1:m}$. 
 		\item Interpreting the spectrum:
-			\begin{itemize}
-				\item Single zero eigenvalue $\Rightarrow$ connected manifold,
-				\item Slow growth of eigenvalues $\Rightarrow$ smooth geometry.
-			\end{itemize}
 	\end{itemize}
+
+	\textbf{Interpreting the spectrum, $\lambda_{1:m}$:}
+	\begin{itemize}
+		\item Single zero eigenvalue $\Rightarrow$ connected manifold,
+		\item Slow growth of eigenvalues $\Rightarrow$ smooth geometry.
+	\end{itemize}
+
 \end{frame}
 
 % ----------------------------------------------------------------------
-% Subsection: Intrinsic Dimension Estimation
+% Step 8: Estimate Intrinsic Dimension $d$
 % ----------------------------------------------------------------------
-\begin{frame}{Step 8: Recompute Local Statistics}
-	\textbf{After uniform resampling and graph construction:}
-	\begin{itemize}
-		\item Recompute local statistics on $\X[unif]$:
-			\begin{itemize}
-				\item Local degrees (graph-based density proxy),
-				\item Neighbor counts and kNN distances restricted to the new graph.
-			\end{itemize}
-		\item These updated statistics are used for dimension estimation.
-	\end{itemize}
-\end{frame}
+% ----------------------------------------------------------------------
+\begin{frame}{Step 8: Estimate Intrinsic Dimension $d$}
 
-% TODO: Could add figures showing log-log plots for correlation dimension, stability plots
-\begin{frame}{Step 9: Estimate Intrinsic Dimension $d$}
-	\textbf{Use multiple complementary estimators:}
+	\small
+
+	\textbf{Use multiple estimators to estimate the intrinsic dimension $d$:}
 	\begin{itemize}
+	
 		\item \textbf{Correlation dimension} \citep{ProcacciaSlope}
 			\begin{itemize}
-				\item Scaling of average neighbor counts with radius $r$,
-				\item Slope of $\log \overline{\nr[x][r]}$ vs.\ $\log r$.
+				\item Scaling of average neighbor counts with radius $r$: $\log \nr[x] \propto d \cdot \log r$.
+				\item Global estimate: $\hat{d} = \text{slope of } \log \overline{\nr[x]} \text{ vs. } \log r$.
 			\end{itemize}
 		\item \textbf{Doubling dimension} \citep{AssouadDoubling}
 			\begin{itemize}
-				\item Compare $\nr[x][r]$ and $\nr[x][2r]$ for various $r$,
-				\item Local estimate $\hat{d}_r(x) = \log_2 \bigl(\nr[x][2r]/\nr[x][r]\bigr)$.
+				\item By the same principle we have the local estimate $\hat{d}_r(x) = \log_2 \bigl(\nr[x][2r]/\nr[x][r]\bigr)$.
 			\end{itemize}
-		\item \textbf{Local PCA / eigengap} \citep{MaggioniEigenGap}
+		\item \textbf{Eigengap method} \citep{MaggioniEigenGap}
 			\begin{itemize}
-				\item Eigenvalues of local covariance matrices,
-				\item Detect sharp gaps between $\lambda_d$ and $\lambda_{d+1}$.
+				\item Compute local covariance matrices and their eigen-decompositions.
+				\item Local estimates: $\hat{d}(x) = \arg\max_{d} \lambda_{d} - \lambda_{d+1}$.
 			\end{itemize}
 		\item \textbf{MLE-based estimators} \citep{BickelLB}
 			\begin{itemize}
-				\item Use scaling of kNN distances (via $\dk[x]$) to estimate $d$.
+				\item Use scaling of $\dk[x]$ for the top $k$-NN to locally estimate $d$ as:
+				$\hat{d}_k(x) = \left[ \frac{1}{k-1} \sum_{j=1}^{k-1} \log \left(\frac{\dk[x][k]}{\dk[x][j]}\right) \right]^{-1}$.
 			\end{itemize}
 	\end{itemize}
+
 \end{frame}
 
-% TODO: Add figure showing stability of estimates across parameter ranges
-\begin{frame}{Intrinsic Dimension: Diagnostics}
-	\textbf{Robustness checks}
+% ----------------------------------------------------------------------
+% TODO: Add figures from paper showing stability of estimates across parameter ranges
+\begin{frame}{Intrinsic Dimensionality Estimation Considerations}
+	
+	\small
+
+	\textbf{Important:} Because many estimators of the intrinsic dimension $d$ require $\nr[x]$ or $\dk[x]$, we need to recompute(again!) them on $\X[unif]$.
+
+	\textbf{Robustness:}
 	\begin{itemize}
-		\item Vary:
-			\begin{itemize}
-				\item Radii $r$ in radius-based estimators,
-				\item Neighbor counts $k$ in kNN-based methods,
-				\item Subsamples of points.
-			\end{itemize}
-		\item Look for:
-			\begin{itemize}
-				\item Stability of $\hat{d}$ across those choices,
-				\item Agreement (within a range) between different estimators.
-			\end{itemize}
-	\end{itemize}
-	\vspace{0.7em}
-	\textbf{Outcome}
-	\begin{itemize}
-		\item A plausible range for the intrinsic dimension $\hat{d}$.
-		\item This guides:
-			\begin{itemize}
-				\item How many embedding coordinates to keep,
-				\item How many generative factors to look for geometrically.
-			\end{itemize}
+		\item For local estimators, we can average estimates $\hat{d}(x)$ to obtain a global estimate $\hat{d}$.
+		\item For local estimators also depending on $k$ or $r$, we can further average over a range of values for $k$ or $r$.
+		\item For estimators depending on $k$ or $r$, we need to select ranges $k_{\min}, k_{\max}$ and $r_{\min}, r_{\max}$ that have stable estimates.
 	\end{itemize}
 \end{frame}
 
@@ -667,42 +637,38 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 				\item[]
-				\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+				\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 7.} Manifold Learning: \diffmap.}
 				\item[]
-				\stepbox{cGreen!15}{\textbf{Step 8.} Recompute Local Statistics.}
-				\item[]
-				\stepbox{cGreen!15}{\textbf{Step 9.} Estimate intrinsic dimension $d$.}
+				\stepbox{cGreen!15}{\textbf{Step 8.} Estimate intrinsic dimension $d$.}
 			\end{itemize}
 		\end{column}
 		\begin{column}[t]{0.7\textwidth}
-			\textbf{Key takeaways:}
+			\small
+			\textbf{Key points:}
 			\begin{itemize}
-				\item Multiple complementary estimators with robustness checks 
-					provide a reliable estimate of intrinsic dimension.
-				\item Uniform resampling is critical for unbiased dimension estimates.
-				\item The estimated dimension guides downstream analysis, particularly 
-					how many embedding coordinates to retain for visualization.
+				\item \textbf{Uniform resampling} is crucial for unbiased and reliable dimension and Laplacian estimation.
+				\item Recompute neighbor statistics (\(\nr[x]\), \(\dk[x]\)) whenever the data is modified.
+				\item Apply \textbf{multiple estimators} to robustly estimate intrinsic dimension $d$.
 			\end{itemize}
 		\end{column}
 	\end{columns}
 \end{frame}
 
+
 % ======================================================================
 % Manifold Interpretation and Visualization
 % ======================================================================
-
 % ----------------------------------------------------------------------
 % Overview
 % ----------------------------------------------------------------------
-% TODO: Could add a schematic showing the three interpretation approaches
 \begin{frame}{Manifold Interpretation \& Visualization: Overview}
 	\begin{columns}[t]
 		\begin{column}[t]{0.3\textwidth}
@@ -714,181 +680,174 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 				\item[]
-				\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+				\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 7.} Manifold Learning: \diffmap.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8a.} IES and plotting.}
+				\stepbox{cOrange!15}{\textbf{Step 8.} Selecting Independent Coordinates: \ies*.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8b.} \tslasso.}
+				\stepbox{cOrange!15}{\textbf{Step 9.} Identifying Manifold Parametrization I: Visualization.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8c.} \rrelex.}
+				\stepbox{cOrange!15}{\textbf{Step 10.} Identifying Manifold Parametrization II: \tslasso.}
+				\item[]
+				\stepbox{cOrange!15}{\textbf{Step 11.} Improving Visualization: \rrelax.}
 			\end{itemize}
 		\end{column}
+
 		\begin{column}[t]{0.7\textwidth}
-			\textbf{Goal:} Understand what factors parametrize the learned manifold representation.
-			\vspace{0.5em}
+
+			\small
+			
+			\textbf{Goals:} 
 			\begin{itemize}
-				\item Identify which generative parameters or factors drive the geometry.
-				\item Visualize the manifold structure in interpretable coordinates.
-				\item Validate that the manifold captures relevant scientific parameters 
-					rather than nuisance variation or noise.
+				\item Reduce the dimensionality of spectral embeddings to a few interpretable and visualizable coordinates.
+				\item Identify which generative parameters or factors drive the geometry of the data manifold.
 			\end{itemize}
-			\vspace{0.7em}
-			\textbf{Three complementary approaches:}
+
+			\textbf{Why this matters for SBI:}
 			\begin{itemize}
-				\item \ies: Select independent embedding coordinates for visualization.
-				\item \tslasso: Identify which factors parametrize the tangent spaces.
-				\item \rrelex: Refine embeddings to better preserve local geometry.
+				\item Validate that the real data manifold is parametrized by simulation parameters.
+				\item If a neural representation is used, validate that it is:
+				\begin{itemize}
+					\item Sensitive to the simulation parameters important for posterior inference.
+					\item Not sensitive to nuisance variation or noise.
+				\end{itemize}
 			\end{itemize}
 		\end{column}
+
 	\end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------------
-% Subsection: Independent Coordinate Selection
+% Step 8: Selecting Independent Coordinates: \ies*
 % ----------------------------------------------------------------------
-% TODO: Could show example of dependent vs independent coordinates
-\begin{frame}{Step 8a: Manifold Interpretation \& Visualization I: \ies\ and Plotting}
-	\textbf{Problem:} spectral embeddings can produce dependent coordinates.
+\begin{frame}{Step 8: Selecting Independent Coordinates with \ies*}
+
+	\small
+	
+	\textbf{Problem:}
 	\begin{itemize}
-		\item Example: $(x, \sin x)$ varies in two directions but has only one DoF.
-		\item Plotting all coordinates may be redundant or misleading.
+		\item Spectral embeddings often contain \emph{dependent} coordinates.
+		\item Plotting all coordinates can be misleading and redundant.
+		\item Example: $(x, \sin x)$ varies in two directions but has only one degree of freedom.
 	\end{itemize}
-	\vspace{0.7em}
-	\textbf{Independent Eigencoordinate Selection (\ies) \citep{MeilaIES}}
+
+	\textbf{\ies(\ies*) \citep{MeilaIES}:}
 	\begin{itemize}
-		\item Input: initial embedding matrix $\Phi$ from \diffmap.
-		\item Output: subset $S$ of coordinates:
+		\item Input: initial embedding $\Phi$ from \diffmap.
+		\item Output: subset $S$ of coordinates such that $\Phi_S$:
 			\begin{itemize}
-				\item As independent as possible,
-				\item Low frequency (smooth) and locally full rank.
+				\item Is locally full-rank (avoids degeneracies).
+				\item Uses as few low-frequency (smooth) coordinates as possible.
 			\end{itemize}
-		\item Typically choose $|S|$ around the estimated $\hat{d}$.
+	\item Provides a principled way to choose which coordinates to visualize and analyze without losing information and avoiding redundancy.
 	\end{itemize}
 \end{frame}
 
-% TODO: Add example visualizations showing coordinates colored by parameters
-\begin{frame}{Visualization of Selected Coordinates}
-	\textbf{Visualization of selected coordinates}
+
+% ----------------------------------------------------------------------
+% Step 9: Visualization for Interpretation
+% ----------------------------------------------------------------------
+\begin{frame}{Step 9: Identifying Manifold Parametrization I: Visualization}
+
+	\small
+
+	\textbf{Goal:} Use the selected coordinates $\Phi_S$ to visually probe the geometry of the data manifold.
+		
+	\textbf{Typical workflow:}
 	\begin{itemize}
-		\item Scatter plots of $\Phi_S$:
-			\begin{itemize}
-				\item 2D / 3D plots of the most informative coordinates,
-				\item Color by generative parameters, SNR, or other labels.
-			\end{itemize}
-		\item Check for:
-			\begin{itemize}
-				\item Smooth variation with respect to relevant parameters,
-				\item Separation of distinct regimes or modes,
-				\item Potential artifacts (holes, disconnected components, etc.).
-			\end{itemize}
+		\item Scatter plots in 2-3D using combinations of the coordinates selected with \ies*.
+		\item Color points by simulation parameters.
 	\end{itemize}
+	
+	\textbf{What to look for:}
+	\begin{itemize}
+		\item Smooth variation with respect to generative parameters relevant for inference.
+		\item Clear structure (curves, surfaces, trajectories) rather than noise.
+		\item Artifacts: holes, disconnected components, folding, or distortions.
+	\end{itemize}
+
+	\textbf{Important:} The experimental data manifold does not have ground truth generative parameters! 
+	We `interpolate` them from those of the simulation data points using methods like kernel regression or the Nystrom Extension.
 \end{frame}
 
 % ----------------------------------------------------------------------
-% Subsection: Tangent Space Lasso
+% Step 10: TSLasso
 % ----------------------------------------------------------------------
-% TODO: Could show gradient estimation procedure or regularization path	
-\begin{frame}{Step 8b: Manifold Interpretation \& Visualization II: \tslasso \citep{MeilaTSLasso}}
-	\textbf{Setup}
+\begin{frame}{Step 10: Identifying Manifold Parametrization II: \tslasso}
+	\small
+	
+	\textbf{Problem:} When $m$ or $d$ exceed 3 or when many candidate coordinates are available, visual inspection becomes ambiguous, unreliable, and time-consuming.
+
+	\textbf{Goal:} Provide a systematic, quantitative alternative to visualization for identifying manifold parametrizations.
+
+	\textbf{Formally stated:}
 	\begin{itemize}
-		\item Assume a dictionary of candidate functions $\{f_k\}$ on the manifold:
-			\begin{itemize}
-				\item Generative parameters, nuisance factors, or other variables of interest.
-			\end{itemize}
-		\item For each $f_k$:
-			\begin{itemize}
-				\item Estimate gradients $\nabla f_k$ in latent space
-					via local regression / finite differences,
-				\item Project gradients onto estimated local tangent spaces.
-			\end{itemize}
+		\item Given a \textbf{dictionary} of candidate coordinate functions $\mathcal{F} = \{f_k\}_{1:p}$ on the data.
+		\item Find a subset of size $d$ of functions from $\mathcal{F}$ that \emph{parametrizes the manifold geometry}.
 	\end{itemize}
-	\vspace{0.7em}
-	\textbf{TSLasso idea}
+
+	\textbf{Practical notes:}
 	\begin{itemize}
-		\item Reconstruct tangent spaces as sparse linear combinations of gradient fields.
-		\item Apply a group-lasso penalty to encourage selection of a small subset of $\{f_k\}$.
-		\item Sweep the regularization parameter to identify:
-			\begin{itemize}
-				\item Which factors consistently span the geometry,
-				\item How strongly each factor contributes.
-			\end{itemize}
+		\item For SBI, $\mathcal{F}$ is the set of simulation parameters.
+		\item The simulation parameters are obtained via interpolation from the experimental data.
+	\end{itemize}
+
+	\textbf{Solution: \tslasso* \citep{MeilaTSLasso}}
+
+\end{frame}
+  
+% ----------------------------------------------------------------------
+% TODO: Add figure from paper showing the output
+\begin{frame}{Step 10: \tslasso: How it Works}
+
+	\small
+
+	\textbf{Main insight:} $d$ functions parametrize the manifold if their gradients $\nabla f_k$ span the tangent space at each point.
+
+	\textbf{Method overview:}
+	\begin{itemize}
+		\item Estimate local tangent spaces from the data via local PCA.
+		\item Estimate gradients $\nabla f_k$ of candidate functions from local neighborhoods.
+		\item Project gradients onto the estimated tangent spaces.
+		\item Reconstruct each tangent space as a sparse linear combination of projected gradients.
+		\item Use a group-lasso penalty to select a small subset of influential functions.
+	\end{itemize}
+
+	\textbf{How to read the output:}
+	\begin{itemize}
+		\item Functions consistently selected across regularization levels are likely true parametrizing factors of the learned representation.
+		\item Functions rarely or never selected are likely nuisance parameters or noise.
 	\end{itemize}
 \end{frame}
-
-% TODO: Could show regularization path or bar plot of selected factors
-\begin{frame}{Reading TSLasso Results}
-	\textbf{Interpreting selected functions}
-	\begin{itemize}
-		\item Functions with large, persistent coefficients across regularization levels:
-			\begin{itemize}
-				\item Are the main directions of variation,
-				\item Effectively parametrize the manifold.
-			\end{itemize}
-		\item Functions rarely or never selected:
-			\begin{itemize}
-				\item May correspond to nuisance variation,
-				\item Or parameters not actually expressed in the learned representation.
-			\end{itemize}
-	\end{itemize}
-	\vspace{0.7em}
-	\textbf{Use in SBI validation}
-	\begin{itemize}
-		\item Check whether the manifold is primarily parametrized by the \emph{relevant}
-			scientific parameters rather than nuisance or noise.
-	\end{itemize}
-\end{frame}
-
+  
 % ----------------------------------------------------------------------
-% Subsection: Riemannian Relaxation
+% Step 11: Riemannian Relaxation
 % ----------------------------------------------------------------------
-% TODO: Could show before/after comparison of relaxed embedding
-\begin{frame}{Step 8c: Manifold Interpretation \& Visualization III: \rrelex \citep{MeilaRRelax}}
-	\textbf{Motivation}
-	\begin{itemize}
-		\item Initial embeddings from \diffmap\ approximate isometries only up to sampling and noise.
-		\item Local distortions can complicate interpretation and downstream analysis.
-	\end{itemize}
-	\vspace{0.7em}
-	\textbf{Riemannian Relaxation}
-	\begin{itemize}
-		\item Start from an initial embedding $\Phi^{indep}$ (e.g.\ after \ies).
-		\item Define a distortion loss based on local metric mismatch.
-		\item Iteratively adjust $\Phi^{indep}$ via gradient-based optimization to:
-			\begin{itemize}
-				\item Reduce local distortion,
-				\item Move closer to an isometric parametrization of the manifold.
-			\end{itemize}
-	\end{itemize}
-\end{frame}
+% TODO: Add figures.
+\begin{frame}{Step 11: Improving Visualization with \rrelax}
 
-\begin{frame}{Riemannian Relaxation: Properties}
-	\textbf{Properties}
+	\small
+
+	\textbf{Motivation:} Embeddings from most manifold learning methods are not isometric. 
+	That is, they do not preserve distances and angles and can obscure interpretation and visualization.
+	
+	\textbf{\rrelax(\rrelax*) \citep{MeilaRRelax}:} 
 	\begin{itemize}
-		\item Typically the most computationally expensive step in the pipeline.
-		\item Optional but useful when:
-			\begin{itemize}
-				\item Fine geometric accuracy is needed,
-				\item Visual interpretability of coordinates is a priority.
-			\end{itemize}
-		\item Can be run on reduced subsets or with early stopping.
+		\item Start from an embedding such as $\Phi_S$ after \diffmap*.
+		\item Define a loss penalizing local metric distortions.
+		\item Iteratively optimize the embedding to better preserve local distances and angles,
+		\item Move closer to an isometric parametrization.
 	\end{itemize}
-	\vspace{0.7em}
-	\textbf{End result}
-	\begin{itemize}
-		\item A refined embedding that:
-			\begin{itemize}
-				\item Better preserves distances and angles locally,
-				\item Is more faithful to the geometry implied by the encoder.
-			\end{itemize}
-	\end{itemize}
+
+	\textbf{End result:} A refined embedding that more faithfully reflects the geometry implied by the learned representation.
+
 \end{frame}
 
 % ----------------------------------------------------------------------
@@ -905,31 +864,36 @@
 				\item[]
 				\stepbox{cBlue!15}{\textbf{Step 2.} Compute Local Statistics.}
 				\item[]
-				\stepbox{cBlue!15}{\textbf{Step 3.} Preprocessing I: Outlier Removal.}
+				\stepbox{cBlue!15}{\textbf{Step 3.} Outlier Removal.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 4.} Recompute Local Statistics.}
 				\item[]
-				\stepbox{cRed!15}{\textbf{Step 5.} Preprocessing II: Uniform Resampling.}
+				\stepbox{cRed!15}{\textbf{Step 5.} Uniform Resampling.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 6.} Construct the Laplacian Matrix $\lapmat$.}
 				\item[]
 				\stepbox{cRed!15}{\textbf{Step 7.} Manifold Learning: \diffmap.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8a.} IES and plotting.}
+				\stepbox{cOrange!15}{\textbf{Step 8.} Selecting Independent Coordinates: \ies*.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8b.} \tslasso.}
+				\stepbox{cOrange!15}{\textbf{Step 9.} Identifying Manifold Parametrization I: Visualization.}
 				\item[]
-				\stepbox{cOrange!15}{\textbf{Step 8c.} \rrelex.}
+				\stepbox{cOrange!15}{\textbf{Step 10.} Identifying Manifold Parametrization II: \tslasso.}
+				\item[]
+				\stepbox{cOrange!15}{\textbf{Step 11.} Improving Visualization: \rrelax.}
 			\end{itemize}
 		\end{column}
+
 		\begin{column}[t]{0.7\textwidth}
+			\small
 			\textbf{Key takeaways:}
 			\begin{itemize}
-				\item Three complementary methods help interpret and visualize 
-					the manifold, ensuring it captures relevant scientific parameters.
-				\item \ies provides independent coordinates for visualization.
-				\item \tslasso validates which factors actually parametrize the geometry.
-				\item \rrelex (optional) refines embeddings for better interpretability.
+				\item Provide tools for visual interpretation of high-dimensional data living on low-dimensional manifolds.
+				\item Validate that the simulation parameters are the true generative factors of the experimental data.
+				\item \ies: choose non-redundant, informative coordinates.
+				\item Visualization: reveals correlations between simulation parameters and the data geometry.
+				\item \tslasso: quantitatively tests which factors parametrize the manifold.
+				\item \rrelax: optional refinement for clearer, more faithful embeddings.
 			\end{itemize}
 		\end{column}
 	\end{columns}

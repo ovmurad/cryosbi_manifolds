@@ -1,53 +1,70 @@
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 [project]
 name = "cryosbi_manifolds"
 version = "1.0.0"
-description = ""
-requires-python = ">3.12"
-authors = [{name = "Octavian-Vlad Murad", email="ovmurad@cs.washington.edu"}]
+description = "Manifold Learning suite for SBI"
+authors = [{name = "Octavian-Vlad Murad", email = "ovmurad@cs.washington.edu"}]
 readme = "README.md"
 license = "MIT"
-repository = "https://github.com/ovmurad/cryosbi_manifolds"
-classifiers = [
-    "Topic :: Scientific/Engineering",
-    "Intended Audience :: Developers",
-    "Programming Language :: Python :: 3.12"
-]
+requires-python = ">=3.12"
 dependencies = [
-"jupyter",
-"numpy",
-"scipy",
-"pandas",
-"matplotlib",
-"seaborn",
-"pyamg",
-"pytest",
-"scikit-learn",
-"cython",
-"h5py",
-"plotly",
-"wheel",
-"sortedcontainers",
-"tqdm",
-"mpld3",
-"sortednp",
-"einops",
-"ipykernel"
+    "jupyter",
+    "numpy",
+    "scipy",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "pyamg",
+    "scikit-learn",
+    "sortedcontainers",
+    "einops",
+    "ipykernel",
+    "attrs",
 ]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/geometry_analysis"]
+[project.urls]
+repository = "https://github.com/ovmurad/cryosbi_manifolds"
 
 [tool.poetry]
-package-mode = false
+packages = [{ include = "geometry_analysis", from = "src" }]
 
-[dependency-groups]
-dev = [
-    "ruff (>=0.14.10,<0.15.0)",
-    "mypy (>=1.19.1,<2.0.0)",
-    "black (>=25.12.0,<26.0.0)",
-    "pytest (>=9.0.2,<10.0.0)"
+[tool.poetry.group.dev.dependencies]
+ruff = "*"
+mypy = "*"
+pytest = "*"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+src = ["src"]
+line-length = 88
+target-version = "py312"
+respect-gitignore = true
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = [
+    "E501",  # line length handled by formatter
 ]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src"]
+
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+disallow_untyped_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+strict_equality = true
+

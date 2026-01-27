@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex presentation"] 1767605986 "presentation.aux" "presentation.bbl" "presentation" 1767606997
-  "../references.bib" 1767421188 10840 cc771480cef478fbab1cda4ae32e1102 ""
+["bibtex presentation"] 1768195329 "presentation.aux" "presentation.bbl" "presentation" 1768195332
+  "../references.bib" 1768120477 10840 0c62ea72a7fd0a93922ffa1d9479215d ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/natbib/plainnat.bst" 1233624470 26816 ffe5423d2019860bad9f54bc402fac15 ""
-  "presentation.aux" 1767606997 11823 67cdee1a8134d9a674bba48fb3a939ad "pdflatex"
+  "presentation.aux" 1768195332 11445 0fd365f8c9b900a3eb76598b2639ce22 "pdflatex"
   (generated)
   "presentation.bbl"
   "presentation.blg"
-["pdflatex"] 1767606995 "/home/ovmurad/Documents/Code/cryosbi_manifolds/writing/tutorial/presentation.tex" "presentation.pdf" "presentation" 1767606997
+["pdflatex"] 1768195329 "/home/ovmurad/Documents/Code/cryosbi_manifolds/writing/tutorial/presentation.tex" "presentation.pdf" "presentation" 1768195332
   "../figures/galaxies/pcEmbed_SFR-trim.png" 1767421188 113949 3b317254b397fb8183f8a801006d08a1 ""
   "../figures/galaxies/pie_boss_z0-710.jpg" 1767421188 1279796 1e7cf5eeacc79610d3749aa2ad7fd0c1 ""
   "../figures/galaxies/specById_asp.png" 1767421188 42760 93c7530f9640e911daf027ba1fba5db7 ""
@@ -15,8 +15,8 @@
   "../figures/hourglass/pretty-hourglass-sample-n2000.png" 1767421188 40267 50588f13c0e7ba5202779703663dc5fe ""
   "../figures/mds/aspirin/aspirin-cc.png" 1767421188 2538177 5f7d570e9e408bf3b7b9c28cd713fdb5 ""
   "../figures/mds/aspirin/aspirin.png" 1767421188 152548 4c5e63732638838c9ba2762dd24ff396 ""
-  "../macros/commands.tex" 1767602629 4016 95e6090fd41e9a3ef4739bcf1571ea89 ""
-  "../macros/notation.tex" 1767602041 2159 55660a0c1a882fedf43916dd1b8286b5 ""
+  "../macros/commands.tex" 1768194888 4050 14212f6e867e32bab84dee17a59bc860 ""
+  "../macros/notation.tex" 1768117388 2263 ba216869a425daee44b178f4fc71d9fc ""
   "/etc/texmf/web2c/texmf.cnf" 1767512978 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/ovmurad/Documents/Code/cryosbi_manifolds/writing/tutorial/presentation.tex" 1767585811 2202 2965a3ab07af709aab0b4023fdd0e509 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -300,13 +300,13 @@
   "modules/basics.tex" 1767421188 5990 cdd2c9bbf0b6e6384e78acfc6a10f28b ""
   "modules/motivation.tex" 1767585811 13964 b089503aee38d1b9193bb55b098b0097 ""
   "modules/superman.tex" 1767421188 814 bab8359af0aed90bdc0a9dd54c506f51 ""
-  "modules/validation.tex" 1767606994 34653 ab28bb42a36d74129586971e46143d63 ""
-  "presentation.aux" 1767606997 11823 67cdee1a8134d9a674bba48fb3a939ad "pdflatex"
-  "presentation.bbl" 1767605986 5267 ae359ff05d9c90d07758dbba09ae0938 "bibtex presentation"
-  "presentation.nav" 1767606997 6738 2fc6ed795c61e7273e7aeab63c10de78 "pdflatex"
-  "presentation.out" 1767606997 858 73131b17edae2282a640efb3f3ef52fc "pdflatex"
+  "modules/validation.tex" 1768195326 34461 9adac655dfde1ec4484ea9fed1da9657 ""
+  "presentation.aux" 1768195332 11445 0fd365f8c9b900a3eb76598b2639ce22 "pdflatex"
+  "presentation.bbl" 1768195329 5277 93eb06a256622c7309e411cea87d29e8 "bibtex presentation"
+  "presentation.nav" 1768195332 6459 55afabee97d2f0677aa319dae04caf64 "pdflatex"
+  "presentation.out" 1768195332 858 73131b17edae2282a640efb3f3ef52fc "pdflatex"
   "presentation.tex" 1767585811 2202 2965a3ab07af709aab0b4023fdd0e509 ""
-  "presentation.toc" 1767606997 311 f32ea71fc05ef30cb4fed22b89b928d9 "pdflatex"
+  "presentation.toc" 1768195332 311 f32ea71fc05ef30cb4fed22b89b928d9 "pdflatex"
   (generated)
   "presentation.aux"
   "presentation.log"

@@ -43,12 +43,11 @@ Suppose we are given \textbf{experimental} data $\mathcal{D}_e = \{\tilde{\theta
 \begin{frame}{Simulation-Based Inference Basics}
 
 	\begin{itemize}
-		\item What is non-amortized SBI? Allow for some experimental data in the training dataset (ref), which affects the Neural posterior $q_{\varphi}$ and the feature mapping $S_{\Psi}.$  This results in typically much more accurate inference (ref).
-		\item Then, why use non-amortized? Allows investigation of \textbf{simulator}: $q_{\varphi}$ and $S_{\Psi},$ at best, will reflect properties of the likelihood (re:simulator) $p(I | \theta, \psi)$ and the priors, with no ``leakage''.
+		\item What is \emph{non-amortized} SBI? Allow for some experimental data in the training dataset (ref), which affects the Neural posterior $q_{\varphi}$ and the feature mapping $S_{\Psi}.$  This results in typically much more accurate inference (ref).
+		\item Then, why use amortized? Allows investigation of \textbf{simulator}: $q_{\varphi}$ and $S_{\Psi},$ at best, will reflect properties of the likelihood (re:simulator) $p(I | \theta, \psi)$ and the priors, with no ``leakage''. In principle, the trained posterior will apply to any experimental dataset reasonably covered by the simulated data.
 	\end{itemize}
 \end{frame}
-\begin{frame}
-How can Manifold learning help?
+\begin{frame}{SBI and Manifold Learning}
 	\begin{itemize}
 		\item Analyze Support of $\X_s$ and $\X_e.$ 
 			\begin{itemize}
@@ -58,12 +57,28 @@ How can Manifold learning help?
 		\item Intrinsic Dimensionality of $\X_s$ and $\X_e.$
 			\begin{itemize}
 				\item Dimensionality can indicate properties of feature mapping $S_{\psi}.$
-				\item Local Dimensionality can indicate which data poitns differ in simulated and experimental.
-				\item \luke{Continue....}
+				\item Local Dimensionality can indicate which data points differ in simulated and experimental.
 			\end{itemize}
 	\end{itemize}
 \end{frame}
+\begin{frame}
+	\frametitle{SBI and Manifold Learning: Framework}
+	For SBI, we focus on properties of the feature mapping $S_{\psi},$ via the geometry of its outputs on it's training data (the simulated data and labels), and the experimental data (the test data and it's predicted labels).
+	We would like $S_{\psi}$ to have the following properties:
+	\begin{itemize}
+		\item Low Intrinsic Dimensionality
 
+		\item Sufficiency for posterior prediction 
+
+		\item Invariance to nuisance variation
+
+		\item Disentanglement of relevant factors
+
+		\item Coverage of and fidelity to experimental data
+			\luke{Continue...}
+	\end{itemize}
+
+\end{frame}
 
 
 

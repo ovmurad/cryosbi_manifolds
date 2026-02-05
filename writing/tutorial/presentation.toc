@@ -2,4 +2,5 @@
 \beamer@sectionintoc {2}{Overview of \superman }{28}{0}{2}
 \beamer@sectionintoc {3}{Basics of ML with \superman }{30}{0}{3}
 \beamer@subsectionintoc {3}{1}{Eigenvector-based embedding algorithms}{35}{0}{3}
-\beamer@sectionintoc {4}{SBI Validation Pipeline}{39}{0}{4}
+\beamer@sectionintoc {4}{Simulation-Based Inference}{39}{0}{4}
+\beamer@sectionintoc {5}{SBI Validation Pipeline}{46}{0}{5}

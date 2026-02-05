@@ -286,6 +286,70 @@
 	
 \end{frame}
 
+\subsection{Repulsion-based algorithms}
+%------------------------------------------------------------------------
+\begin{frame}\frametitle{Repulsion-based (heuristic) algorithms}
+%\begin{frame}<beamer:0|handout:0>\frametitle{Repulsion-based (heuristic) algorithms}
+  
+\begin{block}{t-Stochastic Neighbor Embedding (t-SNE)}
+  \begin{enumerate}
+\item[Input] similarity matrix  $S$, embedding dimension $s$
+\item[Init] choose embedding points $y_{1:n}\in\rrr^s$ at random
+\item\label{step:q} $S_{ii}\gets 0$, normalize rows $d_i=\sum_j S_{ij}$, $P_{ij}=S_{ij}/d_i$
+\item symmetrize $P=\frac{1}{2n}(P+P^T)$ \myemph{$P$ is distribution over pairs of neighbors $(i,j)$}
+\item  $\tilde{S}_{ij}=\tilde{\kappa}(\|y_i-y_j\|)$\myemph{compute similarity in output space}
+\item[]where $\tilde{\kappa}(z)=\frac{1}{1+z^2}$ the \myemph{Cauchy (Student t with 1 degree of freedom)}
+\item Define distribution $Q$ with $Q_{ij}\propto S_{ij}$
+\item Change $y_{i:n}$ to decrease the \mydef{Kullbach-Leibler divergence} $KL(P||Q)=\sum_{i,j}P_{ij}\ln \frac{P_{ij}}{Q_{ij}}$ (by gradient descent) and repeat from step \ref{step:q}
+  \end{enumerate}
+\end{block}
+
+\pause
+\bit
+\item empirically useful for visualizing clusters (repulsion encourages cluster formation)
+\item non-deterministic, more parameters
+\end{itemize}
+ 
+\end{frame}
+%------------------------------------------------------------------------
+%\begin{frame}<beamer:0|handout:0>\frametitle{UMAP: Uniform Manifold Approximation and Projection}
+\begin{frame}\frametitle{UMAP: Uniform Manifold Approximation and Projection \likecite{McInnes, Healy, Melville,2018}}
+  \setlength{\picwi}{0.25\textwidth}
+\begin{columns}
+\begin{column}{0.75\tttwi}
+\begin{block}{UMAP Algorithm}
+\begin{enumerate}
+\item[]{\bf Input} $k$ number nearest neighbors, $d$, 
+\item Find $k$-nearest neighbors
+\item Construct (asymmetric) similarities $w_{ij}$, so that $\sum_jw_{ij}=\log_2 k$. $W=[w_{ij}]$.
+\item Similarity matrix $S=W+W^T-W.*W^T$  
+\item \myemph{Initialize embedding $\phi$ by {\sc LaplacianEigenmaps}}.
+\item Optimize embedding.
+ \item[] Iteratively for $n_{iter}$ steps
+ \begin{enumerate}
+ \item Sample an edge $ij$ with probability $\propto \exp{-d_{ij}}$
+ \item Move $\phi_i$ towards $\phi_j$
+ \item Sample a random $j'$ uniformly
+ \item Move $\phi_i$ away from $\phi_{j'}$
+% \item[]\myemph{\small Stochastic approximate \mydef{logistic regression} of $||\phi_i-\phi_j||$ on $d_{ij}$.}
+\end{enumerate}
+\item[]{\bf Output} $\phi$
+  \end{enumerate}
+  \end{block}
+\end{column}
+\begin{column}{0.2\tttwi}
+\hfill\includegraphics[width=\picwi]{Figures-aspirin/ethanol_umap3D.png}\end{column}
+\end{columns}
+
+\vfill
+\pause
+\begin{itemize}
+\item t-SNE with appropriate choice of parameters can emulate UMAP \likecite{B\"ohm et al., 2022}
+\end{itemize}
+
+\end{frame}
+
+
 %------------------------------------------------------------------------
 % Toy Example
 %------------------------------------------------------------------------

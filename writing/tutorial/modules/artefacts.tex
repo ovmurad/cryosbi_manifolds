@@ -1,0 +1,59 @@
+%------------------------------------------------------------------------
+\begin{frame}\allowdisplaybreaks\frametitle{Artefacts}
+
+\begin{itemize}
+\item \mydef{Artefacts}=features of the embedding that do not exist in the data (clusters, holes, ``arms'', ``horseshoes'')
+  
+%\pause
+\item[]
+\item What to beware of when you compute an embedding
+  \benum
+\item algorithms that \myemph{claim to} choose $\epsilon$ automatically
+  \pause
+\item confirming the embedding is ``correct'' by visualization
+  \item[\mybullet] tends to over-smooth, i.e. $\epsilon$ over-estimated
+  \pause
+\item \myblue{K-nn} (default in {\tt sk-learn}!) instead of \myblue{radius-neighbors}: tends to create clusters
+  \pause
+\item large variations in density: stretching the low densities, contracting the high
+\item[\mybullet] subsample data to make it more uniform
+  \pause
+  \item \myemph{``horseshoes''} ($\Rightarrow\phi$ almost singular):
+  \item[\mybullet] select the e-vectors (coming next)
+  \eenum
+\item[]
+\item Popular heuristics: LLE, t-SNE, UMAP, neural networks more prone to artefacts
+  \end{itemize}
+\end{frame}
+%------------------------------------------------------------------------
+\begin{frame}\frametitle{Horseshoes and the Repeated Eigenvector Problem. ``Beware of the cosine''}
+
+  \centering
+%  \myred{\large ``Beware of the cosine''}
+  \setlength{\picwi}{0.2\tttwi}
+  \begin{tabular}{ccc}
+    \includegraphics[width=\picwi]{../../Research/samk-gradients/mygit/eigencoords18/figs/D1_original_data.png}\\
+\pause
+    DiffMaps $\phi_1,\,\phi_2$ & 
+    UMAP $\phi_1,\,\phi_2$ &
+   \likecite{Chen, M 2019} + UMAP\\
+       \includegraphics[width=\picwi]{/Users/mmp2/Talks/Lectures-Clustering-unsupervised/stat-review-manif-learning22/annurev-manifolds/figs/D3_frist_two_emb.png}
+       &
+       \includegraphics[width=\picwi]{/Users/mmp2/Talks/Lectures-Clustering-unsupervised/stat-review-manif-learning22/annurev-manifolds/figs/strip_umap_first2.png}
+       &
+       \includegraphics[width=\picwi]{/Users/mmp2/Talks/Lectures-Clustering-unsupervised/stat-review-manif-learning22/annurev-manifolds/figs/strip_umap_ies.png}
+       \\
+       \pause
+       \\
+       \multicolumn{3}{l}{SDSS Galaxy Spectra}\\
+           DiffMaps $\phi_1,\,\phi_2$ & 
+   &
+    DiffMaps $\phi_1,\,\phi_3$\\
+       \includegraphics[width=\picwi]{/Users/mmp2/Talks/Lectures-Clustering-unsupervised/stat-review-manif-learning22/annurev-manifolds/figs/galaxy_1_2.png}
+     &  
+    &
+      \includegraphics[width=\picwi]{../Lectures-Clustering-unsupervised/stat-review-manif-learning22/annurev-manifolds/figs/galaxy_1_3.png}
+      \\
+\end{tabular}
+\end{frame}
+%------------------------------------------------------------------------

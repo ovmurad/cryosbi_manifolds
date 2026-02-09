@@ -4,8 +4,21 @@
 % ----------------------------------------------------------------------
 % Defining a simulator
 % ----------------------------------------------------------------------
-\begin{frame}{Simulation-Based Inference Basics}
+\begin{frame}{Simulation-Based Inference}
+	\begin{figure}	
+	\includegraphics[width=1.0\textwidth]{../figures/sbi/sbi_a_practical_guide_fig.png}
 
+	\vspace{-1em}
+
+	\caption{\footnotesize Adapted from Deistler et al 2025, \emph{Simulation-Based Inference: A Practical Guide}}
+\end{figure}	
+	\begin{itemize}	
+		\item Simulation-Based Inference (SBI): Bayesian inference on simulators on which we cannot evaluate a likelihood function $\theta \to p(x|\theta).$  	
+		\item This is not a new field, but ``SBI'' usually implies use modern density estimation techniques like normalizing flows or diffusion models
+	\end{itemize} 
+	\end{frame}
+
+	\begin{frame}{Simulation-Based Inference Basics}
 	Dataset generation:
 	\begin{itemize}
 		\item Sample interesting parameters $ \theta_i \sim p(\theta)$
@@ -79,8 +92,3 @@ Suppose we are given \textbf{experimental} data $\mathcal{D}_e = \{\tilde{\theta
 	\end{itemize}
 
 \end{frame}
-
-
-
-
-

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.9)  30 JAN 2026 09:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.5.9)  11 FEB 2026 09:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1078,12 +1078,7 @@ Overfull \vbox (47.30624pt too high) detected at line 50
 [1
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
-al/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] (./presentation.toc
-
-LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <10.95> not available
-(Font)              Font shape `T1/lmr/m/sc' tried instead on input line 2.
-
-)
+al/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}] (./presentation.toc)
 
 LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <12> not available
 (Font)              Font shape `T1/lmr/m/sc' tried instead on input line 54.
@@ -1150,26 +1145,38 @@ File: ts1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 {/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [5
 
 ]
-<../figures/galaxies/pie_boss_z0-710.jpg, id=85, 1271.75125pt x 1271.75125pt>
+<../figures/galaxies/pie_boss_z0-710.jpg, id=60, 1271.75125pt x 1271.75125pt>
 File: ../figures/galaxies/pie_boss_z0-710.jpg Graphic file (type jpg)
 <use ../figures/galaxies/pie_boss_z0-710.jpg>
 Package pdftex.def Info: ../figures/galaxies/pie_boss_z0-710.jpg  used on input
  line 60.
 (pdftex.def)             Requested size: 107.55177pt x 107.54437pt.
-<../figures/galaxies/specById_asp.png, id=87, 1138.2525pt x 813.0375pt>
+<../figures/galaxies/specById_asp.png, id=62, 1138.2525pt x 813.0375pt>
 File: ../figures/galaxies/specById_asp.png Graphic file (type png)
 <use ../figures/galaxies/specById_asp.png>
 Package pdftex.def Info: ../figures/galaxies/specById_asp.png  used on input li
 ne 60.
 (pdftex.def)             Requested size: 107.55177pt x 76.81755pt.
-<../figures/galaxies/pcEmbed_SFR-trim.png, id=88, 271.0125pt x 203.0787pt>
+<../figures/galaxies/pcEmbed_SFR-trim.png, id=63, 271.0125pt x 203.0787pt>
 File: ../figures/galaxies/pcEmbed_SFR-trim.png Graphic file (type png)
 <use ../figures/galaxies/pcEmbed_SFR-trim.png>
 Package pdftex.def Info: ../figures/galaxies/pcEmbed_SFR-trim.png  used on inpu
 t line 60.
 (pdftex.def)             Requested size: 215.10356pt x 161.18959pt.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 60.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <12> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 60.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 60.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 60.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 60.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 60.
 
-Overfull \vbox (24.40582pt too high) detected at line 60
+Overfull \vbox (30.73651pt too high) detected at line 60
  []
 
 [6
@@ -1179,13 +1186,13 @@ xlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2024
 /texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc} <../figures/galaxies/pie_boss_z0-
 710.jpg> <../figures/galaxies/specById_asp.png> <../figures/galaxies/pcEmbed_SF
 R-trim.png>]
-<../figures/mds/aspirin/aspirin.png, id=101, 1027.84pt x 1027.84pt>
+<../figures/mds/aspirin/aspirin.png, id=77, 1027.84pt x 1027.84pt>
 File: ../figures/mds/aspirin/aspirin.png Graphic file (type png)
 <use ../figures/mds/aspirin/aspirin.png>
 Package pdftex.def Info: ../figures/mds/aspirin/aspirin.png  used on input line
  84.
 (pdftex.def)             Requested size: 125.47798pt x 125.46843pt.
-<../figures/mds/aspirin/aspirin-cc.png, id=103, 544.5946pt x 454.3374pt>
+<../figures/mds/aspirin/aspirin-cc.png, id=79, 544.5946pt x 454.3374pt>
 File: ../figures/mds/aspirin/aspirin-cc.png Graphic file (type png)
 <use ../figures/mds/aspirin/aspirin-cc.png>
 Package pdftex.def Info: ../figures/mds/aspirin/aspirin-cc.png  used on input l
@@ -1228,17 +1235,18 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 136.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 136.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 136.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 136.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 136.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 136.
  [10
 
-] [11
+]
+
+LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <10.95> not available
+(Font)              Font shape `T1/lmr/m/sc' tried instead on input line 160.
+
+[11
 
 ] [12
 
@@ -1249,13 +1257,13 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 ] [15
 
 ]
-<../figures/hourglass/pretty-hourglass-sample-n2000.png, id=162, 578.16pt x 433
+<../figures/hourglass/pretty-hourglass-sample-n2000.png, id=139, 578.16pt x 433
 .62pt>
 File: ../figures/hourglass/pretty-hourglass-sample-n2000.png Graphic file (type
  png)
 <use ../figures/hourglass/pretty-hourglass-sample-n2000.png>
 Package pdftex.def Info: ../figures/hourglass/pretty-hourglass-sample-n2000.png
-  used on input line 240.
+  used on input line 244.
 (pdftex.def)             Requested size: 75.2827pt x 53.77512pt.
  [16
 
@@ -1264,16 +1272,16 @@ File: ../figures/hourglass/pretty-hourglass-sample-n2000.png Graphic file (type
  png)
 <use ../figures/hourglass/pretty-hourglass-sample-n2000.png>
 Package pdftex.def Info: ../figures/hourglass/pretty-hourglass-sample-n2000.png
-  used on input line 240.
+  used on input line 244.
 (pdftex.def)             Requested size: 75.2827pt x 53.77512pt.
 <../figures/hourglass/hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.png, id
-=171, 578.16pt x 433.62pt>
+=148, 578.16pt x 433.62pt>
 File: ../figures/hourglass/hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.pn
 g Graphic file (type png)
 <use ../figures/hourglass/hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.png
 >
 Package pdftex.def Info: ../figures/hourglass/hourglass2D-n500-snoise0_001-grap
-h-eps0_3-tol0_25.png  used on input line 240.
+h-eps0_3-tol0_25.png  used on input line 244.
 (pdftex.def)             Requested size: 86.04173pt x 64.53072pt.
  [17
 
@@ -1283,70 +1291,121 @@ File: ../figures/hourglass/pretty-hourglass-sample-n2000.png Graphic file (type
  png)
 <use ../figures/hourglass/pretty-hourglass-sample-n2000.png>
 Package pdftex.def Info: ../figures/hourglass/pretty-hourglass-sample-n2000.png
-  used on input line 240.
+  used on input line 244.
 (pdftex.def)             Requested size: 75.2827pt x 53.77512pt.
 File: ../figures/hourglass/hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.pn
 g Graphic file (type png)
 <use ../figures/hourglass/hourglass2D-n500-snoise0_001-graph-eps0_3-tol0_25.png
 >
 Package pdftex.def Info: ../figures/hourglass/hourglass2D-n500-snoise0_001-grap
-h-eps0_3-tol0_25.png  used on input line 240.
+h-eps0_3-tol0_25.png  used on input line 244.
 (pdftex.def)             Requested size: 86.04173pt x 64.53072pt.
-<../figures/hourglass/pretty-hourglass-laplacian.png, id=182, 578.16pt x 433.62
+<../figures/hourglass/pretty-hourglass-laplacian.png, id=158, 578.16pt x 433.62
 pt>
 File: ../figures/hourglass/pretty-hourglass-laplacian.png Graphic file (type pn
 g)
 <use ../figures/hourglass/pretty-hourglass-laplacian.png>
 Package pdftex.def Info: ../figures/hourglass/pretty-hourglass-laplacian.png  u
-sed on input line 240.
+sed on input line 244.
 (pdftex.def)             Requested size: 75.2859pt x 56.45859pt.
  [18
 
- <../figures/hourglass/pretty-hourglass-laplacian.png (PNG copy)>]
+ <../figures/hourglass/pretty-hourglass-laplacian.png (PNG copy)>] [19
+
+]
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10.95> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 240.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 244.
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <8> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 240.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 244.
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <6> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 240.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 244.
 
-Overfull \vbox (11.97227pt too high) detected at line 240
+Overfull \vbox (11.97227pt too high) detected at line 244
  []
-
-[19
-
-{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
-LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 240.
-LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <7> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 240.
-LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <5> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 240.
 
 [20
 
-]
-
-Package natbib Warning: Citation `TODO' on page 21 undefined on input line 287.
-
+{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 244.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <7> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 244.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <5> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 244.
 
 [21
 
-] [22
+]
+Overfull \vbox (35.3006pt too high) detected at line 270
+ []
 
-] [23
+[22
+
+]
+Overfull \vbox (35.3006pt too high) detected at line 270
+ []
+
+[23
 
 ]
 
-LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <10> not available
-(Font)              Font shape `T1/lmr/m/sc' tried instead on input line 356.
+LaTeX Warning: File `Figures-aspirin/ethanol_umap3D.png' not found on input lin
+e 310.
+
+
+./modules/motivation.tex:310: Package pdftex.def Error: File `Figures-aspirin/e
+thanol_umap3D.png' not found: using draft setting.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.310 \end{frame}
+                 
+? 
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
+10.
+(/usr/local/texlive/2024/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+Package natbib Warning: Citation `McInnes' on page 24 undefined on input line 3
+10.
+
+
+Package natbib Warning: Citation `Healy' on page 24 undefined on input line 310
+.
+
+
+Package natbib Warning: Citation `Melville' on page 24 undefined on input line 
+310.
+
+
+Package natbib Warning: Citation `2018' on page 24 undefined on input line 310.
+
+
+
+Overfull \vbox (19.81683pt too high) detected at line 310
+ []
 
 [24
 
 ]
 
-LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <6> not available
-(Font)              Font shape `T1/lmr/m/sc' tried instead on input line 407.
+Package natbib Warning: Citation `TODO' on page 25 undefined on input line 364.
+
+
+
+Package natbib Warning: Citation `Böhm et al.' on page 25 undefined on input li
+ne 364.
+
+
+Package natbib Warning: Citation `2022' on page 25 undefined on input line 364.
+
+
+
+Overfull \vbox (6.23117pt too high) detected at line 364
+ []
 
 [25
 
@@ -1354,154 +1413,343 @@ LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <6> not available
 
 ] [27
 
+]
+
+LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <10> not available
+(Font)              Font shape `T1/lmr/m/sc' tried instead on input line 441.
+
+[28
+
+]
+
+LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <6> not available
+(Font)              Font shape `T1/lmr/m/sc' tried instead on input line 492.
+
+[29
+
+] [30
+
+] [31
+
 ]) (./modules/superman.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\superman' on input line 2.
 
-[28
+[32
 
-] [29
+] [33
 
 ]) (./modules/basics.tex
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\superman' on input line 2.
 
-[30
-
-] [31
-
-] [32
-
-] [33
+[34
 
 ]
+Overfull \hbox (23.95837pt too wide) in paragraph at lines 23--23
+[][]  
+ []
+
+[35
+
+]
+Overfull \hbox (47.9237pt too wide) in paragraph at lines 52--52
+[][]  
+ []
+
+[36
+
+]
+Overfull \hbox (47.9237pt too wide) in paragraph at lines 52--52
+[][]  
+ []
+
+[37
+
+]
+Overfull \hbox (71.8821pt too wide) in paragraph at lines 90--90
+[][]  
+ []
+
+
 Overfull \vbox (1.68729pt too high) detected at line 90
  []
 
-[34
-
-] [35
-
-] [36
-
-] [37
-
-] [38
-
-]) (./modules/SBI.tex [39
-
-] [40
-
-] [41
-
-] [42
-
-] [43
-
-] [44
+[38
 
 ]
+Overfull \hbox (95.84048pt too wide) in paragraph at lines 120--120
+[][]  
+ []
+
+[39
+
+]
+Overfull \hbox (119.79887pt too wide) in paragraph at lines 137--137
+[][]  
+ []
+
+[40
+
+]
+Overfull \hbox (143.7642pt too wide) in paragraph at lines 156--156
+[][]  
+ []
+
+[41
+
+]
+Overfull \hbox (167.7226pt too wide) in paragraph at lines 187--187
+[][]  
+ []
+
+[42
+
+]) (./modules/SBI.tex
+Overfull \hbox (88.75317pt too wide) in paragraph at lines 2--2
+[][][]  
+ []
+
+[43
+
+]
+<../figures/sbi/sbi_a_practical_guide_fig.png, id=318, 1337.99875pt x 319.1925p
+t>
+File: ../figures/sbi/sbi_a_practical_guide_fig.png Graphic file (type png)
+<use ../figures/sbi/sbi_a_practical_guide_fig.png>
+Package pdftex.def Info: ../figures/sbi/sbi_a_practical_guide_fig.png  used on 
+input line 19.
+(pdftex.def)             Requested size: 398.3386pt x 95.02791pt.
+
+Overfull \hbox (191.68098pt too wide) in paragraph at lines 19--19
+[][]  
+ []
+
+
+Overfull \vbox (1.35732pt too high) detected at line 19
+ []
+
+[44
+
+ <../figures/sbi/sbi_a_practical_guide_fig.png>]
+Overfull \hbox (215.63936pt too wide) in paragraph at lines 34--34
+[][]  
+ []
+
 [45
 
-]) (./modules/validation.tex [46
+]
+Overfull \hbox (239.6047pt too wide) in paragraph at lines 45--45
+[][]  
+ []
+
+[46
 
 ]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 40.
+Overfull \hbox (263.56308pt too wide) in paragraph at lines 65--65
+[][]  
+ []
+
+[47
+
+]
+Overfull \hbox (287.52147pt too wide) in paragraph at lines 89--89
+[][]  
+ []
+
+[48
+
+]) (./modules/validation.tex
+Overfull \hbox (152.14674pt too wide) in paragraph at lines 2--2
+[][][]  
+ []
+
+[49
+
+]
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <9> not available
 (Font)              Font shape `T1/lmss/bx/n' tried instead on input line 40.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 40.
- [47
+
+Overfull \hbox (311.47986pt too wide) in paragraph at lines 40--40
+[][]  
+ []
+
+[50
 
 ]
 
 LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <9> not available
 (Font)              Font shape `T1/lmr/m/sc' tried instead on input line 88.
 
-[48
 
-] [49
-
-] [50
-
-]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 217.
-LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <12> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 217.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <12> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 217.
-
-Overfull \vbox (10.92413pt too high) detected at line 217
+Overfull \hbox (335.44519pt too wide) in paragraph at lines 88--88
+[][]  
  []
 
 [51
 
-] [52
+]
+Overfull \hbox (359.40358pt too wide) in paragraph at lines 140--140
+[][]  
+ []
+
+[52
 
 ]
-
-Package natbib Warning: Citation `TODO' on page 53 undefined on input line 279.
-
+Overfull \hbox (383.36197pt too wide) in paragraph at lines 186--186
+[][]  
+ []
 
 [53
 
 ]
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <12> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 217.
 
-Package natbib Warning: Citation `TODO' on page 54 undefined on input line 305.
+Overfull \hbox (407.32036pt too wide) in paragraph at lines 217--217
+[][]  
+ []
 
+
+Overfull \vbox (10.92413pt too high) detected at line 217
+ []
 
 [54
 
-] [55
+]
+Overfull \hbox (431.28569pt too wide) in paragraph at lines 248--248
+[][]  
+ []
+
+[55
 
 ]
 
-Package natbib Warning: Citation `TODO' on page 56 undefined on input line 375.
+Package natbib Warning: Citation `TODO' on page 56 undefined on input line 279.
 
+
+
+Overfull \hbox (455.24408pt too wide) in paragraph at lines 279--279
+[][]  
+ []
+
+[56
+
+]
+
+Package natbib Warning: Citation `TODO' on page 57 undefined on input line 305.
+
+
+
+Overfull \hbox (479.20245pt too wide) in paragraph at lines 305--305
+[][]  
+ []
+
+[57
+
+]
+Overfull \hbox (503.16779pt too wide) in paragraph at lines 334--334
+[][]  
+ []
+
+[58
+
+]
+
+Package natbib Warning: Citation `TODO' on page 59 undefined on input line 375.
+
+
+
+Overfull \hbox (527.12617pt too wide) in paragraph at lines 375--375
+[][]  
+ []
 
 
 Overfull \vbox (12.88675pt too high) detected at line 375
  []
 
-[56
-
-] [57
+[59
 
 ]
-Overfull \vbox (0.38419pt too high) detected at line 469
- []
-
-[58
-
-] [59
-
-]
-Overfull \vbox (27.4748pt too high) detected at line 520
+Overfull \hbox (551.08456pt too wide) in paragraph at lines 415--415
+[][]  
  []
 
 [60
 
 ]
-Overfull \vbox (16.11926pt too high) detected at line 550
+Overfull \hbox (575.04295pt too wide) in paragraph at lines 469--469
+[][]  
+ []
+
+
+Overfull \vbox (0.38419pt too high) detected at line 469
  []
 
 [61
 
-] [62
+]
+Overfull \hbox (599.00829pt too wide) in paragraph at lines 490--490
+[][]  
+ []
+
+[62
 
 ]
-Overfull \vbox (16.37157pt too high) detected at line 608
+Overfull \hbox (622.96667pt too wide) in paragraph at lines 520--520
+[][]  
+ []
+
+
+Overfull \vbox (27.4748pt too high) detected at line 520
  []
 
 [63
 
-] [64
+]
+Overfull \hbox (646.92506pt too wide) in paragraph at lines 550--550
+[][]  
+ []
 
-] [65
+
+Overfull \vbox (16.11926pt too high) detected at line 550
+ []
+
+[64
+
+]
+Overfull \hbox (670.88344pt too wide) in paragraph at lines 574--574
+[][]  
+ []
+
+[65
+
+]
+Overfull \hbox (694.84879pt too wide) in paragraph at lines 608--608
+[][]  
+ []
+
+
+Overfull \vbox (16.37157pt too high) detected at line 608
+ []
+
+[66
+
+]
+Overfull \hbox (718.80716pt too wide) in paragraph at lines 624--624
+[][]  
+ []
+
+[67
+
+]
+Overfull \hbox (742.76555pt too wide) in paragraph at lines 663--663
+[][]  
+ []
+
+[68
 
 ]
 Underfull \hbox (badness 2426) in paragraph at lines 725--725
@@ -1514,36 +1762,66 @@ Underfull \hbox (badness 1184) in paragraph at lines 725--725
  []
 
 
+Overfull \hbox (766.72394pt too wide) in paragraph at lines 725--725
+[][]  
+ []
+
+
 Overfull \vbox (21.37392pt too high) detected at line 725
- []
-
-[66
-
-]
-Overfull \vbox (11.64429pt too high) detected at line 751
- []
-
-[67
-
-]
-Overfull \vbox (16.5943pt too high) detected at line 778
- []
-
-[68
-
-]
-Overfull \vbox (18.62488pt too high) detected at line 804
  []
 
 [69
 
 ]
-Overfull \vbox (32.91922pt too high) detected at line 828
+Overfull \hbox (790.68927pt too wide) in paragraph at lines 751--751
+[][]  
+ []
+
+
+Overfull \vbox (11.64429pt too high) detected at line 751
  []
 
 [70
 
-] [71
+]
+Overfull \hbox (814.64766pt too wide) in paragraph at lines 778--778
+[][]  
+ []
+
+
+Overfull \vbox (16.5943pt too high) detected at line 778
+ []
+
+[71
+
+]
+Overfull \hbox (838.60605pt too wide) in paragraph at lines 804--804
+[][]  
+ []
+
+
+Overfull \vbox (18.62488pt too high) detected at line 804
+ []
+
+[72
+
+]
+Overfull \hbox (862.56444pt too wide) in paragraph at lines 828--828
+[][]  
+ []
+
+
+Overfull \vbox (32.91922pt too high) detected at line 828
+ []
+
+[73
+
+]
+Overfull \hbox (886.52977pt too wide) in paragraph at lines 851--851
+[][]  
+ []
+
+[74
 
 ]
 Underfull \hbox (badness 2426) in paragraph at lines 900--900
@@ -1556,34 +1834,39 @@ Underfull \hbox (badness 1184) in paragraph at lines 900--900
  []
 
 
+Overfull \hbox (910.48816pt too wide) in paragraph at lines 900--900
+[][]  
+ []
+
+
 Overfull \vbox (21.37392pt too high) detected at line 900
  []
 
-[72
+[75
 
 ]) (./presentation.bbl
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\translate ' on input line 1.
 
-[73
+
+Overfull \hbox (481.79987pt too wide) in paragraph at lines 1--1
+[][][]  
+ []
+
+[76
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-4.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
 Underfull \vbox (badness 2573) has occurred while \output is active []
 
- [74
+ [77
 
 ]
-[75]
+[78]
 Underfull \vbox (badness 2573) has occurred while \output is active []
 
- [76])
-[77]
+ [79])
+[80]
 \tf@nav=\write6
 \openout6 = `presentation.nav'.
 
@@ -1606,14 +1889,20 @@ L3 programming layer <2024-02-20>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: E09D0FF3AFCAF616E6A883450FFED0B0;1034.
+
+Package rerunfilecheck Warning: File `presentation.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `presentation.out':
+(rerunfilecheck)             Before: 2D03B08BE8728630B9F9CFDD881DC00F;435
+(rerunfilecheck)             After:  B10B3ED2D85E478C82753B81CBDA04ED;1283.
  ) 
 Here is how much of TeX's memory you used:
- 26638 strings out of 474116
- 529892 string characters out of 5743683
+ 26636 strings out of 474116
+ 532115 string characters out of 5743683
  1944187 words of memory out of 5000000
- 48220 multiletter control sequences out of 15000+600000
+ 48210 multiletter control sequences out of 15000+600000
  715637 words of font info for 128 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,14n,123p,1879b,869s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1635,16 +1924,17 @@ cal/texlive/2024/texmf-dist/fonts/type1/public/lm/lmsso12.pfb></usr/local/texli
 ve/2024/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2024/te
 xmf-dist/fonts/type1/public/lm/lmsso9.pfb></usr/local/texlive/2024/texmf-dist/f
 onts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1
-/public/lm/lmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/
-lmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmsy8.pfb><
-/usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/
-texlive/2024/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/20
-24/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texliv
-e/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on presentation.pdf (77 pages, 4742411 bytes).
+/public/lm/lmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/
+lmsy6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmsy7.pfb><
+/usr/local/texlive/2024/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/
+texlive/2024/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/202
+4/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2024/texmf-di
+st/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2024/texm
+f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on presentation.pdf (80 pages, 5089880 bytes).
 PDF statistics:
- 722 PDF objects out of 1000 (max. 8388607)
- 558 compressed objects within 6 object streams
- 175 named destinations out of 1000 (max. 500000)
- 157 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 735 PDF objects out of 1000 (max. 8388607)
+ 564 compressed objects within 6 object streams
+ 183 named destinations out of 1000 (max. 500000)
+ 130 words of extra memory for PDF output out of 10000 (max. 10000000)
 

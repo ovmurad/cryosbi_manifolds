@@ -1,6 +1,7 @@
 \beamer@sectionintoc {1}{Motivation}{3}{0}{1}
-\beamer@sectionintoc {2}{Overview of \superman }{28}{0}{2}
-\beamer@sectionintoc {3}{Basics of ML with \superman }{30}{0}{3}
-\beamer@subsectionintoc {3}{1}{Eigenvector-based embedding algorithms}{35}{0}{3}
-\beamer@sectionintoc {4}{Simulation-Based Inference}{39}{0}{4}
-\beamer@sectionintoc {5}{SBI Validation Pipeline}{46}{0}{5}
+\beamer@subsectionintoc {1}{1}{Attraction-Repulsion based algorithms}{22}{0}{1}
+\beamer@sectionintoc {2}{Overview of \superman }{32}{0}{2}
+\beamer@sectionintoc {3}{Basics of ML with \superman }{34}{0}{3}
+\beamer@subsectionintoc {3}{1}{Eigenvector-based embedding algorithms}{39}{0}{3}
+\beamer@sectionintoc {4}{Simulation-Based Inference}{43}{0}{4}
+\beamer@sectionintoc {5}{SBI Validation Pipeline}{49}{0}{5}
